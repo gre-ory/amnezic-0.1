@@ -1,0 +1,106 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+	
+		<!-- ************************************************** -->
+		<!-- title											    -->
+		<!-- ************************************************** -->
+		
+		<title>Amnezic</title>
+
+		<!-- ************************************************** -->
+		<!-- version      									    -->
+		<!-- ************************************************** -->
+
+        <base href="./amnezic/1.0.0/">
+
+		<!-- ************************************************** -->
+		<!-- icon											    -->
+		<!-- ************************************************** -->
+
+        <link href="img/musique.png" type="image/x-icon" rel="shortcut icon">
+
+		<!-- ************************************************** -->
+		<!-- meta											    -->
+		<!-- ************************************************** -->
+		
+		<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+		<meta content="" http-equiv="Content-Language">
+
+		<!-- ************************************************** -->
+		<!-- javascript										    -->
+		<!-- ************************************************** -->
+
+		<!-- aria.templates -->
+        <script type="text/javascript">Aria = { debug: true }</script>
+        <!-- <script type="text/javascript" src="../../aria.templates/1.3.2/aria/ariatemplates-1.3.2.js"></script> -->
+		<script type="text/javascript" src="../../aria.templates/1.3.2-dev/aria/ariatemplates-1.3.2.js"></script>
+		<script type="text/javascript">
+			aria.core.IO.defaultPostHeader = 'application/json; charset=utf-8';
+			aria.core.AppEnvironment.setEnvironment({
+				requestHandler : {
+					implementation : 'aria.modules.requestHandler.JSONRequestHandler'
+				}
+			});
+            aria.core.DownloadMgr.updateRootMap({
+                amnezic : {
+                    "*" : "./"
+                }
+            });
+        </script>
+		
+		<!-- jquery -->
+		<script type="text/javascript" src="../../jquery/1.8.3/jquery-1.8.3.js"></script>
+		<script type="text/javascript">
+			jQuery.noConflict();
+		</script>
+		
+		<!-- twitter.bootstrap -->
+		<script type="text/javascript" src="../../twitter.bootstrap/2.2.2/js/bootstrap.min.js"></script>
+		
+        <!-- sound.manager -->
+        <script src="../../sound.manager/2.97a/soundmanager2-jsmin.js"></script>
+        <script type="text/javascript">
+            soundManager.setup({
+                url: '../../sound.manager/2.97a/swf/',
+                onready: function() {
+                    console.log("soundmanager READY");
+                },
+                ontimeout: function() {
+                    console.log("soundmanager FAILED");
+                }
+            });
+        </script>
+        
+		<!-- ************************************************** -->
+		<!-- css											    -->
+		<!-- ************************************************** -->
+		
+		<!-- twitter.bootstrap -->
+		<link href="../../twitter.bootstrap/2.2.2/css/bootstrap.min.css" media="all" type="text/css" rel="stylesheet">
+		<link href="../../twitter.bootstrap/2.2.2/css/bootstrap-responsive.min.css" media="all" type="text/css" rel="stylesheet">
+
+		<!-- amnezic -->
+		<link href="css/amnezic.css" media="all" type="text/css" rel="stylesheet">
+	
+	</head>
+
+	<body>
+	
+		<!-- ************************************************** -->
+		<!-- main            								    -->
+		<!-- ************************************************** -->
+    
+        <div id="main"></div>
+        
+    	<!-- ************************************************** -->
+		<!-- init           								    -->
+		<!-- ************************************************** -->
+			
+		<script type="text/javascript">
+			Aria.loadTemplate({ classpath: 'amnezic.core.view.Main', div: 'main', moduleCtrl: { classpath : 'amnezic.core.controller.ControllerImpl' } });
+        </script>
+		
+	</body>
+	
+</html>
