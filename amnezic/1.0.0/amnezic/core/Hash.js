@@ -56,7 +56,7 @@ Aria.classDefinition({
             // this.$logDebug( 'normalize> ' + hash );
             var length = hash ? hash.length : 0;
             
-            return length > 1 && hash.charAt(0) == '#' ?  hash.slice(1) : length > 0 ? hash : null;
+            return length > 1 && hash.charAt(0) == '#' ?  hash.slice(1) : length > 0 ? hash : undefined;
         },
         
         // //////////////////////////////////////////////////
@@ -65,7 +65,7 @@ Aria.classDefinition({
         current : function() {
             // this.$logDebug( 'current>' );
             
-            return this.normalize( document.location.hash || this.default_hash );
+            return this.normalize( document.location.hash ) || this.default_hash;
         },
 
         // //////////////////////////////////////////////////
