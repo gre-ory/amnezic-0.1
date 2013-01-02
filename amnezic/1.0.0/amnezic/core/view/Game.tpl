@@ -5,8 +5,14 @@
 }}
 	
     {var data = { game: null, number: null } /}
-		
+	
 	{macro main()}
+		
+		(game)
+	    
+	{/macro}
+		
+	{macro main_2()}
 		
         {section {
 	       id: "game_section",

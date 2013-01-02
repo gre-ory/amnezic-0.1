@@ -8,7 +8,7 @@ Aria.tplScriptDefinition({
 		
 		$displayReady: function() {
 			this.$logDebug( "[$displayReady] Start..." );
-			this.load_game_template();
+			// this.load_game_template();
 		},
         		
 		// //////////////////////////////////////////////////
