@@ -5,6 +5,7 @@ Aria.interfaceDefinition({
         'game_loaded': { description: "Game has been loaded" }
     },
 	$interface : {
+        init_section : "Function",
 		load_game : { $type : "Function", $callbackParam: 1 }
 	}
 });

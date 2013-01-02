@@ -7,15 +7,16 @@ Aria.tplScriptDefinition({
 		// display ready
 		
 		$displayReady: function() {
-			this.$logDebug( "[$displayReady] Start..." );
-			this.load_game_template();
+			this.$logDebug( '$displayReady>' );
+			// this.load_game_template();
 		},
         		
 		// //////////////////////////////////////////////////
 		// view ready
 		
 		$viewReady: function() {
-			this.$logDebug( "[$viewReady] Start..." );
+			this.$logDebug( '$viewReady>' );
+            this.moduleCtrl.init_section();
 		},
         		
 		// //////////////////////////////////////////////////
