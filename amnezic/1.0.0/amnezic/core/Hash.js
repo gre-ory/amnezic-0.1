@@ -13,10 +13,7 @@ Aria.classDefinition({
     
     $constructor : function () {
         // this.$logDebug( 'constructor>' );
-        
         this.default_hash = undefined;
-        
-        // bind
         this.bind();
     },
     
@@ -43,16 +40,13 @@ Aria.classDefinition({
         bind : function() {
             // this.$logDebug( 'bind>' );
             
-            // bind load to window event
+            // bind trigger to window event
             window.onpopstate = function( event ) {
-                // console.log( event );
                 event.preventDefault();
-                
                 var hash = event.state ? event.state.hash : undefined;
-                
                 this.trigger( hash );
-                
-            }.bind( this );            
+            }.bind( this );
+                        
         },
         
         // //////////////////////////////////////////////////
@@ -60,7 +54,6 @@ Aria.classDefinition({
 
         normalize : function( hash ) {
             // this.$logDebug( 'normalize> ' + hash );
-            
             var length = hash ? hash.length : 0;
             
             return length > 1 && hash.charAt(0) == '#' ?  hash.slice(1) : length > 0 ? hash : null;
