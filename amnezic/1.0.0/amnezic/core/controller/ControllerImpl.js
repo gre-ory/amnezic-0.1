@@ -1,11 +1,11 @@
 Aria.classDefinition({
-	$classpath : 'amnezic.core.controller.ControllerImpl',
-	$extends : 'aria.templates.ModuleCtrl',
-	$implements : [ 'amnezic.core.controller.Controller' ],
-	$dependencies: [ 'amnezic.core.Hash', 'amnezic.mock.service.GameLoader' ],
-	
+    $classpath : 'amnezic.core.controller.ControllerImpl',
+    $extends : 'aria.templates.ModuleCtrl',
+    $implements : [ 'amnezic.core.controller.Controller' ],
+    $dependencies: [ 'amnezic.core.Hash', 'amnezic.mock.service.GameLoader' ],
+    
     // //////////////////////////////////////////////////
-	// static
+    // static
     
     $statics : {
         START_HASH : 'start',
@@ -18,51 +18,51 @@ Aria.classDefinition({
         END_HASH : 'end'
     },
     
-	// //////////////////////////////////////////////////
-	// constructor
-	
-	$constructor : function () {
-		this.$logDebug( 'constructor>' );
-		this._enableMethodEvents = true;
-		this.$ModuleCtrl.constructor.call(this);
-		
+    // //////////////////////////////////////////////////
+    // constructor
+    
+    $constructor : function () {
+        this.$logDebug( 'constructor>' );
+        this._enableMethodEvents = true;
+        this.$ModuleCtrl.constructor.call(this);
+        
         // hash
         amnezic.core.Hash.default_hash = this.START_HASH;
-		amnezic.core.Hash.$on( {
+        amnezic.core.Hash.$on( {
             'new_hash': this.on_new_hash,
             scope: this
         } );
         
-	},
-	
-	// //////////////////////////////////////////////////
-	// destructor
-	
-	$destructor : function () {
-		this.$logDebug( 'destructor>' );
-		this.$ModuleCtrl.$destructor.call(this);
-	},
+    },
+    
+    // //////////////////////////////////////////////////
+    // destructor
+    
+    $destructor : function () {
+        this.$logDebug( 'destructor>' );
+        this.$ModuleCtrl.$destructor.call(this);
+    },
 
-	$prototype : {
-		
-		$publicInterfaceName : 'amnezic.core.controller.Controller',
+    $prototype : {
+        
+        $publicInterfaceName : 'amnezic.core.controller.Controller',
 
-		// //////////////////////////////////////////////////
-		// on_new_hash
-		
-		on_new_hash : function( event ) {
-			// this.$logDebug( 'on_new_hash>' );
+        // //////////////////////////////////////////////////
+        // on_new_hash
+        
+        on_new_hash : function( event ) {
+            // this.$logDebug( 'on_new_hash>' );
             
             var hash = event ? event.hash : undefined;
                     
             this.load_section( hash );
-		},
+        },
         
         // //////////////////////////////////////////////////
-		// init_section
-		
-		init_section : function() {
-			this.$logDebug( 'init_section>' );
+        // init_section
+        
+        init_section : function() {
+            this.$logDebug( 'init_section>' );
             
             // init with current or default hash
             // var default_hash = undefined; // 'start2';
@@ -70,13 +70,13 @@ Aria.classDefinition({
             
             amnezic.core.Hash.trigger();
             
-		},
+        },
         
         // //////////////////////////////////////////////////
-		// load_section
-		
-		load_section : function( hash ) {
-			this.$logDebug( 'load_section> ' + hash );
+        // load_section
+        
+        load_section : function( hash ) {
+            this.$logDebug( 'load_section> ' + hash );
             hash = hash || this.START_HASH;
             
             var path = hash ? hash.split('-') : [],
@@ -90,22 +90,22 @@ Aria.classDefinition({
             console.log( template );
             console.log( args );
             // Aria.loadTemplate( template );
-		},
+        },
 
-		// //////////////////////////////////////////////////
-		// load
+        // //////////////////////////////////////////////////
+        // load
 
-		load_game : function() {
+        load_game : function() {
             this.$logDebug("[load_game] Start...");
             var service = new amnezic.mock.service.GameLoader();
             service.load_game( 'amnezic/mock/service/game.json', { fn: this.game_loaded, scope: this } );
-		},
+        },
         
         game_loaded : function( game ) {
             this.$logDebug("[game_loaded] Start...");
             this.$raiseEvent( { name: 'game_loaded', game: game } );
-		}
-		
-	}
-	
+        }
+        
+    }
+    
 });

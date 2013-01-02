@@ -2,24 +2,24 @@
     $classpath: 'amnezic.core.view.Main',
     $hasScript: true
 }}
-		
-	{macro main()}
+        
+    {macro main()}
     
         <div class="container">
-	
-			<!-- ************************************************** -->
-			<!-- header												-->
-			<!-- ************************************************** -->
-		    
-			<div class="row-fluid box">
-				<div id="header" class="header span12 box-inner">
-			    	loading header...
-				</div>
-		    </div>
+    
+            <!-- ************************************************** -->
+            <!-- header                                             -->
+            <!-- ************************************************** -->
+            
+            <div class="row-fluid box">
+                <div id="header" class="header span12 box-inner">
+                    loading header...
+                </div>
+            </div>
 
-			<!-- ************************************************** -->
-			<!-- messages										    -->
-			<!-- ************************************************** -->
+            <!-- ************************************************** -->
+            <!-- messages                                           -->
+            <!-- ************************************************** -->
 
             <div class="row-fluid">
                 <div id="messages" class="messages span12">
@@ -27,27 +27,26 @@
                 </div>
             </div>
 
-			<!-- ************************************************** -->
-			<!-- game   										    -->
-			<!-- ************************************************** -->
+            <!-- ************************************************** -->
+            <!-- game                                               -->
+            <!-- ************************************************** -->
             
             <div class="row-fluid">
                 <div id="game" class="game span12">
                     loading game...
                 </div>
-			</div>
+            </div>
 
-			<!-- ************************************************** -->
-			<!-- footer											    -->
-			<!-- ************************************************** -->
+            <!-- ************************************************** -->
+            <!-- footer                                             -->
+            <!-- ************************************************** -->
 
-			<div class="row-fluid box">
-				<div id="footer" class="footer span12 box-inner">
-					loading footer...
-				</div>
-			</div>
+            <div class="row-fluid box">
+                <div id="footer" class="footer span12 box-inner">
+                    loading footer...
+                </div>
+            </div>
         
-	{/macro}
+    {/macro}
 
 {/Template}
-

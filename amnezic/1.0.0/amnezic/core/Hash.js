@@ -7,42 +7,42 @@
 // TODO : integrate History.js or aria.utils.History
 
 Aria.classDefinition({
-	$classpath : "amnezic.core.Hash",
-	$singleton : true,
+    $classpath : "amnezic.core.Hash",
+    $singleton : true,
     
     // //////////////////////////////////////////////////
-	// constructor
+    // constructor
     
-	$constructor : function () {
+    $constructor : function () {
         // this.$logDebug( 'constructor>' );
         
         this.default_hash = undefined;
         
         // bind
         this.bind();
-	},
+    },
     
     // //////////////////////////////////////////////////
-	// event
+    // event
     
-	$events : {
-		'new_hash' : {
-			description : 'new hash event',
-			properties : {
-				hash : 'new hash'
-			}
-		}
-	},
+    $events : {
+        'new_hash' : {
+            description : 'new hash event',
+            properties : {
+                hash : 'new hash'
+            }
+        }
+    },
     
     // //////////////////////////////////////////////////
-	// prototype
+    // prototype
     
-	$prototype : {
+    $prototype : {
 
-		// //////////////////////////////////////////////////
-		// bind
+        // //////////////////////////////////////////////////
+        // bind
 
-		bind : function() {
+        bind : function() {
             // this.$logDebug( 'bind>' );
             
             // bind load to window event
@@ -56,11 +56,11 @@ Aria.classDefinition({
                 
             }.bind( this );            
         },
-		
+        
         // //////////////////////////////////////////////////
-		// normalize
+        // normalize
 
-		normalize : function( hash ) {
+        normalize : function( hash ) {
             // this.$logDebug( 'normalize> ' + hash );
             
             var length = hash ? hash.length : 0;
@@ -69,16 +69,16 @@ Aria.classDefinition({
         },
         
         // //////////////////////////////////////////////////
-		// current
+        // current
 
-		current : function() {
+        current : function() {
             // this.$logDebug( 'current>' );
             
             return this.normalize( document.location.hash || this.default_hash );
         },
 
         // //////////////////////////////////////////////////
-		// last
+        // last
         
         last : function() {
             // this.$logDebug( 'last>' );
@@ -86,10 +86,10 @@ Aria.classDefinition({
             return history.state ? history.state.hash : undefined;
         },
 
-		// //////////////////////////////////////////////////
-		// push
+        // //////////////////////////////////////////////////
+        // push
 
-		push : function( hash ) {
+        push : function( hash ) {
             this.$logDebug( 'push> ' + hash );
             
             var state = { hash: hash },
@@ -100,17 +100,17 @@ Aria.classDefinition({
             history.replaceState( state, title, url );
         },
 
-		// //////////////////////////////////////////////////
-		// raise
+        // //////////////////////////////////////////////////
+        // raise
                  
-		raise : function( hash ) {
+        raise : function( hash ) {
             // this.$logDebug( 'raise> ' + hash );
             
             this.$raiseEvent( { name : "new_hash", hash: hash } );
         },
 
-		// //////////////////////////////////////////////////
-		// trigger
+        // //////////////////////////////////////////////////
+        // trigger
         
         trigger : function( hash ) {
             // this.$logDebug( 'trigger> ' + hash );
@@ -127,5 +127,5 @@ Aria.classDefinition({
             this.raise( current_hash );
         }
         
-	}
+    }
 });
