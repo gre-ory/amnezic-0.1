@@ -2,7 +2,11 @@ Aria.classDefinition({
     $classpath : 'amnezic.core.controller.ControllerImpl',
     $extends : 'aria.templates.ModuleCtrl',
     $implements : [ 'amnezic.core.controller.Controller' ],
-    $dependencies: [ 'amnezic.core.Hash', 'amnezic.mock.service.GameLoader' ],
+    $dependencies: [ 
+        'aria.utils.Json',
+        'amnezic.core.Hash',
+        'amnezic.mock.service.GameLoader'
+    ],
     
     // //////////////////////////////////////////////////
     // static
@@ -24,6 +28,19 @@ Aria.classDefinition({
         this.$logDebug( 'constructor>' );
         this._enableMethodEvents = true;
         this.$ModuleCtrl.constructor.call(this);
+        this.$json = aria.utils.Json;
+        
+        // initialize data
+        this.setData( {} );
+
+        // set default hash            
+        amnezic.core.Hash.default_hash = this.START_HASH;
+        
+        // bind to new hash
+        amnezic.core.Hash.$on( {
+            'new_hash': this.on_new_hash,
+            scope: this
+        } );
         
     },
     
@@ -40,7 +57,7 @@ Aria.classDefinition({
         $publicInterfaceName : 'amnezic.core.controller.Controller',
 
         // //////////////////////////////////////////////////
-        // on_new_hash
+        // hash
         
         on_new_hash : function( event ) {
             // this.$logDebug( 'on_new_hash>' );
@@ -49,23 +66,14 @@ Aria.classDefinition({
         },
         
         // //////////////////////////////////////////////////
-        // init_section
+        // section
         
-        init_section : function() {
-            this.$logDebug( 'init_section>' );
-
-            // hash
-            amnezic.core.Hash.default_hash = this.START_HASH;
-            amnezic.core.Hash.$on( {
-                'new_hash': this.on_new_hash,
-                scope: this
-            } );
+        // TODO: check consistency between data and hash ( #setting when data non initialized )
+        
+        load_current_section : function() {
+            this.$logDebug( 'load_current_section>' );
             amnezic.core.Hash.trigger();
-            
         },
-        
-        // //////////////////////////////////////////////////
-        // load_section
         
         load_section : function( hash ) {
             this.$logDebug( 'load_section> ' + hash );
@@ -77,19 +85,66 @@ Aria.classDefinition({
                 view = 'amnezic.core.view.' + section.charAt(0).toUpperCase() + section.slice(1),
                 div = 'section',
                 controller = 'amnezic.core.controller.ControllerImpl',
+                data = this.getData(),
                 template = { 
 					classpath: view,
 					div: div,
-					moduleCtrl: { 
-						classpath : controller
-					},
-					data : {
-						args : args
-					}
+					moduleCtrl: this,
+					data : data
 				};
-                    
+            
+            // set section
+            // aria.utils.Json.setValue( data, 'section', { id: section, hash: hash, args: args } );
+            this.$json.setValue( data, 'section', { id: section, hash: hash, args: args } );
+              
             console.log( template );
             Aria.loadTemplate( template );
+        },
+
+        // //////////////////////////////////////////////////
+        // menu
+
+        build_menu : function() {
+            this.$logDebug( 'build_menu>' );
+            
+            var menu = { items: [] },
+                submenu = {},
+                current_hash = amnezic.core.Hash.current(),
+                data = this.getData(),
+                users = data.game ? data.game.users : [],
+                themes = [ 'rock', 'pop', 'jazz' ];
+            
+            // setting
+            menu.items.push( { title: 'Settings', hash: 'setting' } );
+            
+            // users
+            submenu = { title: 'Users', items: [] };
+            for ( var i = 0 ; i < users.length ; i++ ) {
+                var user = users[i],
+                    number = user ? user.number : i + 1,
+                    title = user ? user.name : undefined,
+                    hash = number ? 'user-' + number : undefined;
+                    
+                submenu.items.push( { title: title, hash: hash } );
+            }
+            menu.items.push( submenu );
+            
+            // themes
+            submenu = { title: 'Themes', items: [] };
+            for ( var i = 0 ; i < themes.length ; i++ ) {
+                var theme = themes[i],
+                    title = 'Theme ' + theme,
+                    hash = 'theme-' + theme;
+                    
+                submenu.items.push( { title: title, hash: hash } );
+            }
+            menu.items.push( submenu );
+                
+            menu.items.push( { title: 'Question', hash: 'question' } );
+            menu.items.push( { title: 'Score', hash: 'score' } );
+            menu.items.push( { title: 'End', hash: 'end' } );
+            
+            this.$json.setValue( data, 'menu', menu );
         },
 
         // //////////////////////////////////////////////////

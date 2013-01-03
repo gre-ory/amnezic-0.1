@@ -4,15 +4,19 @@
 }}
         
     {macro main()}
-    
+        
+        {var theme = data.section.args.length > 0 ? data.section.args[0] : undefined /}
+        
         {section {
-	       id: "theme",
-	       bindRefreshTo: [ { inside: data, to: "args", recursive: false } ]
+	       id: 'theme',
+	       bindRefreshTo: [ { to: 'section', inside: data, recursive: true } ]
 	    }}
         
             <div class="row-fluid">
 	
-                Loading theme ${data.args[0]}...
+                <div class="row-fluid pagination-centered">
+                    <span class="btn disabled">Loading theme ${theme}...</span>
+                </div>
             
             </div>
 	

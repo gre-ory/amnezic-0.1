@@ -12,6 +12,7 @@ body {
     max-height: 50px !important;
     opacity: 0.3 !important;
     width: auto !important;
+    /* display: none; */
 }
 
 /*

@@ -64,7 +64,6 @@ Aria.classDefinition({
 
         current : function() {
             // this.$logDebug( 'current>' );
-            
             return this.normalize( document.location.hash ) || this.default_hash;
         },
 
@@ -87,7 +86,19 @@ Aria.classDefinition({
                 title = hash ? 'Hash ' + hash : 'Home',
                 url = ( document.location.pathname || '/' ) + ( hash ? '#' +  hash : '' );
             
-            // history.pushState( state, title, url );
+            history.pushState( state, title, url );
+        },
+
+        // //////////////////////////////////////////////////
+        // replace
+
+        replace : function( hash ) {
+            this.$logDebug( 'replace> ' + hash );
+            
+            var state = { hash: hash },
+                title = hash ? 'Hash ' + hash : 'Home',
+                url = ( document.location.pathname || '/' ) + ( hash ? '#' +  hash : '' );
+            
             history.replaceState( state, title, url );
         },
 
@@ -109,9 +120,9 @@ Aria.classDefinition({
             var current_hash = hash || this.current(),
                 last_hash = this.last();
             
-            // push current state
+            // replace current state if needed
             if ( current_hash != last_hash ) {
-                this.push( current_hash );
+                this.replace( current_hash );
             }
             
             // raise event

@@ -8,7 +8,7 @@ Aria.tplScriptDefinition({
         
         $viewReady: function() {
             this.$logDebug( '$viewReady>' );
-            this.moduleCtrl.init_section();
+            this.moduleCtrl.load_current_section();
         },
                 
         // //////////////////////////////////////////////////

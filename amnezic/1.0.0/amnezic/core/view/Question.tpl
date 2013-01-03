@@ -5,8 +5,29 @@
 }}
 	
 	{var answer_css = [ 'one', 'two', 'three', 'four', 'five', 'six' ] /}
+
+    {macro main()}
+        
+        {var number = data.section.args.length > 0 ? data.section.args[0] : undefined /}
+        
+        {section {
+	       id: 'question-' + number,
+	       bindRefreshTo: [ { to: 'section', inside: data, recursive: true } ]
+	    }}
+        
+            <div class="row-fluid">
+	
+                <div class="row-fluid pagination-centered">
+                    <span class="btn disabled">Loading question ${number}...</span>
+                </div>
+            
+            </div>
+	
+	    {/section}
+    
+    {/macro}
 		
-	{macro main()}
+	{macro main_old()}
 		
         {section {
 	       id: "question_" + data.number + "_section",
