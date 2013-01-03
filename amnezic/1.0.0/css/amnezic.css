@@ -7,6 +7,15 @@ body {
 }
 
 .xLDI {
+    padding: 10px;
+    margin-bottom: 20px;
+    max-height: 50px !important;
+    opacity: 0.3 !important;
+    width: auto !important;
+}
+
+/*
+.xLDI {
 	border-radius: 4px 4px 4px 4px;
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
     padding: 10px;
@@ -20,6 +29,7 @@ body {
 #logs .xLDI {
 	display: none;
 }
+*/
 
 .btn-toolbar {
 	margin: 0px;

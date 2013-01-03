@@ -2,14 +2,6 @@ Aria.tplScriptDefinition({
     $classpath : "amnezic.core.view.MainScript",
 
     $prototype : {
-
-        // //////////////////////////////////////////////////
-        // display ready
-        
-        $displayReady: function() {
-            this.$logDebug( '$displayReady>' );
-            // this.load_game_template();
-        },
                 
         // //////////////////////////////////////////////////
         // view ready

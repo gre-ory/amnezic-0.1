@@ -64,9 +64,7 @@
         </script>
         
         <!-- twitter.bootstrap -->
-        <!--
         <script type="text/javascript" src="twitter.bootstrap/2.2.2/js/bootstrap.min.js"></script>
-          -->
         
         <!-- sound.manager -->
         <!-- 
@@ -88,39 +86,21 @@
         <link href="normalize/2.0.1/css/normalize.css" media="all" type="text/css" rel="stylesheet">
         
         <!-- twitter.bootstrap -->
-        <!-- 
         <link href="twitter.bootstrap/2.2.2/css/bootstrap.min.css" media="all" type="text/css" rel="stylesheet">
         <link href="twitter.bootstrap/2.2.2/css/bootstrap-responsive.min.css" media="all" type="text/css" rel="stylesheet">
-          -->
 
         <!-- amnezic -->
-        <!-- 
         <link href="amnezic/1.0.0/css/amnezic.css" media="all" type="text/css" rel="stylesheet">
-          -->
     
     </head>
 
     <body>
     
         <!-- ************************************************** -->
-        <!-- nav                                                -->
-        <!-- ************************************************** -->
-    
-        <div id="nav">
-            <a href="#new" class="hash">new</a>
-            <a href="#config" class="hash">config</a>
-            <a href="#question-1" class="hash">question-1</a>
-            <a href="#answer-1" class="hash">answer-1</a>
-            <a href="#score-1" class="hash">score-1</a>
-            <a href="#question-2" class="hash">question-2</a>
-            <a href="#question-next" class="hash">question-next</a>
-        </div>
-    
-        <!-- ************************************************** -->
         <!-- main                                               -->
         <!-- ************************************************** -->
     
-        <div id="main">
+        <div id="main" class="">
             loading main...
         </div>
         
@@ -129,7 +109,7 @@
         <!-- ************************************************** -->
         
         <script type="text/javascript">
-            Aria.loadTemplate( {
+			Aria.loadTemplate( {
                 classpath: 'amnezic.core.view.Main',
                 div: 'main',
                 moduleCtrl: { 

@@ -13,8 +13,7 @@ Aria.classDefinition({
         USER_HASH : 'user-{0}',
         THEME_HASH : 'theme-{0}',
         QUESTION_HASH : 'question-{0}',
-        ANSWER_HASH : 'answer-{0}',
-        SCORE_HASH : 'score-{0}',
+        SCORE_HASH : 'score',
         END_HASH : 'end'
     },
     
@@ -25,13 +24,6 @@ Aria.classDefinition({
         this.$logDebug( 'constructor>' );
         this._enableMethodEvents = true;
         this.$ModuleCtrl.constructor.call(this);
-        
-        // hash
-        amnezic.core.Hash.default_hash = this.START_HASH;
-        amnezic.core.Hash.$on( {
-            'new_hash': this.on_new_hash,
-            scope: this
-        } );
         
     },
     
@@ -52,9 +44,7 @@ Aria.classDefinition({
         
         on_new_hash : function( event ) {
             // this.$logDebug( 'on_new_hash>' );
-            
             var hash = event ? event.hash : undefined;
-                    
             this.load_section( hash );
         },
         
@@ -63,11 +53,13 @@ Aria.classDefinition({
         
         init_section : function() {
             this.$logDebug( 'init_section>' );
-            
-            // init with current or default hash
-            // var default_hash = undefined; // 'start2';
-            // amnezic.core.Hash.init( default_hash );
-            
+
+            // hash
+            amnezic.core.Hash.default_hash = this.START_HASH;
+            amnezic.core.Hash.$on( {
+                'new_hash': this.on_new_hash,
+                scope: this
+            } );
             amnezic.core.Hash.trigger();
             
         },
@@ -85,11 +77,19 @@ Aria.classDefinition({
                 view = 'amnezic.core.view.' + section.charAt(0).toUpperCase() + section.slice(1),
                 div = 'section',
                 controller = 'amnezic.core.controller.ControllerImpl',
-                template = { classpath: view, div: div, moduleCtrl: { classpath : controller } };
+                template = { 
+					classpath: view,
+					div: div,
+					moduleCtrl: { 
+						classpath : controller
+					},
+					data : {
+						args : args
+					}
+				};
                     
             console.log( template );
-            console.log( args );
-            // Aria.loadTemplate( template );
+            Aria.loadTemplate( template );
         },
 
         // //////////////////////////////////////////////////
