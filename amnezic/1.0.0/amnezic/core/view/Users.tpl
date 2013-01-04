@@ -11,38 +11,70 @@
                 { to: 'users', inside: data, recursive: true }
             ]
 	    }}
-        
-            {foreach user inArray data.users}
-                <div class="row-fluid">
-                    
-                    <span class="offset3 span2">
-                        <a class="btn" href="#user-${user.number}">${user.name}</a>
-                    </span>
-                    
-                    <span class="span1">
-                        {if user.active}
-                            <span class="btn btn-success" title="Active"><i class="icon-ok"></i></span>
-                        {else/}
-                            <span class="btn btn-danger" title="Inactive"><i class="icon-remove"></i></span>
-                        {/if}
-                    </span>
-                    
-                    <span class="span2">
-                        <span class="btn-group">
-                            <a class="btn" href="#user-${user.number}" title="Edit"><i class="icon-pencil"></i></a>
-                            {if user.active}
-                                <span class="btn" title="Deactivate"><i class="icon-off"></i></span>
-                            {else/}
-                                <span class="btn" title="Activate"><i class="icon-off"></i></span>
-                            {/if}
-                            <span class="btn" title="Delete"><i class="icon-remove"></i></span>
-                        </span>
-                    </span>
-                    
-                </div>
-            {/foreach}
             <div class="row-fluid">
-                <span class="btn offset3 span6" {on click { fn : add } /}><i class="icon-plus"></i> Add</span>
+                <table class="table offset2 span8 table-condensed">
+                    
+                    <thead>
+                        
+                        <th>Name</th>
+                        <th>Active</th>
+                        <th>Score</th>
+                        <th></th>
+                        
+                    </head>
+                    
+                    <tbody>
+                
+                        {foreach user inArray data.users}
+                            {if !user.deleted}
+                                <tr>
+                                    
+                                    <td>
+                                        ${user.name}
+                                    </td>
+                                    
+                                    <td class="pagination-centered">
+                                        {if user.active}
+                                            <span class="btn btn-success" title="Active" {on click { fn:deactivate, args: [ user ] }/}>
+                                                <i class="icon-ok"></i>
+                                            </span>
+                                        {else/}
+                                            <span class="btn btn-danger" title="Inactive" {on click { fn:activate, args: [ user ] }/}>
+                                                <i class="icon-remove"></i>
+                                            </span>
+                                        {/if}
+                                    </td>
+                                    
+                                    <td>
+                                        ${user.score}
+                                    </td>
+                                    
+                                    <td class="pagination-centered">
+                                        <span class="btn-group">
+                                            <a class="btn" href="#user-${user.number}" title="Edit">
+                                                <i class="icon-pencil"></i>
+                                            </a>
+                                            <span class="btn" title="Delete" {on click { fn:remove, args: [ user ] }/}>
+                                                <i class="icon-trash"></i>
+                                            </span>
+                                        </span>
+                                    </td>
+                                    
+                                </tr>
+                            {/if}
+                        {/foreach}
+                
+                    </tbody>
+                </table>
+            
+            </div>
+            
+            <div class="row-fluid">
+                
+                <a href="#user-${data.users.length+1}" class="btn offset2" title="Add" {on click { fn : add } /}>
+                    <i class="icon-plus"></i>
+                </a>
+                
             </div>
         
         {/section}

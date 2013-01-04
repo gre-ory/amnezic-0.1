@@ -33,6 +33,28 @@ Aria.tplScriptDefinition({
 		},     
         
 		// //////////////////////////////////////////////////
+		// activate
+		
+		activate : function ( event, args ) {
+			this.$logDebug( 'activate>' );
+            var user = args && args.length > 0 ? args[0] : undefined;
+            if ( user ) {
+                this.moduleCtrl.activate_user( user );
+            }
+		},     
+        
+		// //////////////////////////////////////////////////
+		// deactivate
+		
+		deactivate : function ( event, args ) {
+			this.$logDebug( 'deactivate>' );
+            var user = args && args.length > 0 ? args[0] : undefined;
+            if ( user ) {
+                this.moduleCtrl.deactivate_user( user );
+            }
+		},     
+        
+		// //////////////////////////////////////////////////
 		// update
 		
 		update : function () {

@@ -10,36 +10,52 @@
 
         {if user}
         
-            <div class="row-fluid">
-    	
-                <div class="form-horizontal offset3 span6">
-                    <div class="control-group">
-                        <label class="control-label" for="user_name">Name</label>
-                        <div class="controls">
-                            {@aria:TextField { sclass: 'simple', bind: { value: { to: 'name', inside: user } } }/}
+            {section {
+                id: 'user',
+                bindRefreshTo: [ 
+                    { to: 'active', inside: user, recursive: true }
+                ]
+    	    }}
+        
+                <div class="row-fluid">
+        	
+                    <div class="form-horizontal offset3 span6">
+                        <div class="control-group">
+                            <label class="control-label" for="user_name">Name</label>
+                            <div class="controls">
+                                {@aria:TextField { sclass: 'simple', bind: { value: { to: 'name', inside: user } } }/}
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="user_active">Active</label>
+                            <div class="controls">
+                                {if user.active}
+                                    <span class="btn btn-success" title="Yes" {on click { fn:deactivate, args: [ user ] }/}>
+                                        <i class="icon-ok"></i>
+                                    </span>
+                                {else/}
+                                    <span class="btn btn-danger" title="No" {on click { fn:activate, args: [ user ] }/}>
+                                        <i class="icon-remove"></i>
+                                    </span>
+                                {/if}
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="user_active">Score</label>
+                            <div class="controls">
+                                ${user.score}
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <div class="controls">
+                                <a href="#users" class="btn">Back</a>
+                            </div>
                         </div>
                     </div>
-                    <div class="control-group">
-                        <label class="control-label" for="user_active">Active</label>
-                        <div class="controls">
-                            {@aria:CheckBox { sclass: 'simple', bind: { value: { to: 'active', inside: user } } }/}
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label" for="user_active">Score</label>
-                        <div class="controls">
-                            ${user.score}
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <div class="controls">
-                            <a href="#users" class="btn">Update</a>
-                            <a href="#users" class="btn">Cancel</a>
-                        </div>
-                    </div>
+                    
                 </div>
-                
-            </div>
+            
+            {/section}
         
         {else/}
             

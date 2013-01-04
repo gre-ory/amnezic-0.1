@@ -160,6 +160,7 @@ Aria.classDefinition({
                 number: number,
                 name: 'User ' + number,
                 active: true,
+                deleted: false,
                 score: 0
             };
         },
@@ -181,6 +182,24 @@ Aria.classDefinition({
                 this.add_user();
                 count++;
             }
+        },
+        
+        activate_user : function( user ) {
+            this.$logDebug( 'activate_user>' );
+            
+            this.$json.setValue( user, 'active', true );
+        },
+        
+        deactivate_user : function( user ) {
+            this.$logDebug( 'deactivate_user>' );
+            
+            this.$json.setValue( user, 'active', false );
+        },
+        
+        remove_user : function( user ) {
+            this.$logDebug( 'remove_user>' );
+            
+            this.$json.setValue( user, 'deleted', true );
         },
 
         // //////////////////////////////////////////////////
