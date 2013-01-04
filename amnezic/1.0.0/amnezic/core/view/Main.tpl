@@ -6,11 +6,8 @@
     {macro main()}
     
         <div class="container">
-            
             {call header()/}
-            
             {call section()/}
-            
         </div>
         
     {/macro}

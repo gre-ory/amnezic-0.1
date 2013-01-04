@@ -6,7 +6,10 @@ Aria.interfaceDefinition({
     },
     $interface : {
         load_current_section : "Function",
-        build_menu : "Function",
-        load_game : { $type : "Function", $callbackParam: 1 }
+        initialize : "Function",
+        add_user : "Function"
+        
+        //load_game : { $type : "Function", $callbackParam: 1 }
+        
     }
 });

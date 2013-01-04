@@ -31,7 +31,10 @@ Aria.classDefinition({
         this.$json = aria.utils.Json;
         
         // initialize data
-        this.setData( {} );
+        this.setData( {
+            menu: undefined,
+            users: []
+        } );
 
         // set default hash            
         amnezic.core.Hash.default_hash = this.START_HASH;
@@ -102,49 +105,82 @@ Aria.classDefinition({
         },
 
         // //////////////////////////////////////////////////
+        // initialize
+
+        initialize : function() {
+            this.$logDebug( 'initialize>' );
+            this.build_menu();
+            this.init_users(); // TODO: init after
+        },
+
+        // //////////////////////////////////////////////////
         // menu
 
         build_menu : function() {
             this.$logDebug( 'build_menu>' );
             
             var menu = { items: [] },
-                submenu = {},
-                current_hash = amnezic.core.Hash.current(),
-                data = this.getData(),
-                users = data.game ? data.game.users : [],
-                themes = [ 'rock', 'pop', 'jazz' ];
+                data = this.getData();
             
-            // setting
             menu.items.push( { title: 'Settings', hash: 'setting' } );
-            
-            // users
-            submenu = { title: 'Users', items: [] };
-            for ( var i = 0 ; i < users.length ; i++ ) {
-                var user = users[i],
-                    number = user ? user.number : i + 1,
-                    title = user ? user.name : undefined,
-                    hash = number ? 'user-' + number : undefined;
-                    
-                submenu.items.push( { title: title, hash: hash } );
-            }
-            menu.items.push( submenu );
-            
-            // themes
-            submenu = { title: 'Themes', items: [] };
-            for ( var i = 0 ; i < themes.length ; i++ ) {
-                var theme = themes[i],
-                    title = 'Theme ' + theme,
-                    hash = 'theme-' + theme;
-                    
-                submenu.items.push( { title: title, hash: hash } );
-            }
-            menu.items.push( submenu );
-                
+            menu.items.push( { title: 'Users', hash: 'users' } );
+            menu.items.push( { title: 'Themes', hash: 'theme' } );
             menu.items.push( { title: 'Question', hash: 'question' } );
             menu.items.push( { title: 'Score', hash: 'score' } );
             menu.items.push( { title: 'End', hash: 'end' } );
             
             this.$json.setValue( data, 'menu', menu );
+        },
+
+        // //////////////////////////////////////////////////
+        // user
+        
+        get_users : function() {
+            this.$logDebug( 'get_users>' );
+            var data = this.getData();
+            return data.users || [];
+        },
+        
+        get_nb_users : function() {
+            this.$logDebug( 'get_nb_users>' );
+            var users = this.get_users();
+            return users.length;
+        },
+        
+        set_users : function( users ) {
+            this.$logDebug( 'set_users>' );
+            var data = this.getData(),
+                merge = true;
+            
+        },
+        
+        create_default_user : function( number ) {
+            this.$logDebug( 'create_default_user>' );
+            return {
+                number: number,
+                name: 'User ' + number,
+                active: true,
+                score: 0
+            };
+        },
+        
+        add_user : function() {
+            this.$logDebug( 'add_user>' );
+            var users = this.get_users(),
+                number = users.length + 1,
+                user = this.create_default_user( number );
+            
+            this.$json.add( users, user );
+        },
+        
+        init_users : function() {
+            this.$logDebug( 'init_users>' );
+            var count = 0;
+            
+            while ( this.get_nb_users() < 0 && count < 100 ) {
+                this.add_user();
+                count++;
+            }
         },
 
         // //////////////////////////////////////////////////

@@ -139,3 +139,12 @@ audio {
     display: block !important;
 }
 */
+
+.amnezic .form-horizontal  .control-group {
+    margin-bottom: 0px;
+}
+
+.amnezic .form-horizontal .controls {
+    padding-top: 5px;
+    margin-bottom: 5px;
+}
