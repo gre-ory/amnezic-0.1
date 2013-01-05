@@ -8,7 +8,7 @@
         {var number = data.section.args.length > 0 ? data.section.args[0] : undefined /}
         {var user = number && data.users && number <= data.users.length ? data.users[ number - 1 ] : undefined /}
 
-        {if user}
+        {if user && !user.deleted}
         
             {section {
                 id: 'user',

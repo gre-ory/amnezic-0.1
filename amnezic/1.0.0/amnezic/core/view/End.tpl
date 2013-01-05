@@ -1,24 +1,17 @@
 {Template {
     $classpath: 'amnezic.core.view.End',
-    $hasScript: false
+    $hasScript: true
 }}
         
     {macro main()}
     
-        {section {
-	       id: 'end',
-	       bindRefreshTo: [ { to: 'section', inside: data, recursive: false } ]
-	    }}
-        
-            <div class="row-fluid">
-	
-                <div class="row-fluid pagination-centered">
-                    <span class="btn disabled">Loading end...</span>
-                </div>
-            
+        <div class="row-fluid">
+
+            <div class="row-fluid pagination-centered">
+                <a href="#start" class="btn">New game</span>
             </div>
-	
-	    {/section}
+        
+        </div>
     
     {/macro}
 

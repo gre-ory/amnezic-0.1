@@ -5,14 +5,18 @@ Aria.interfaceDefinition({
         'game_loaded': { description: "Game has been loaded" }
     },
     $interface : {
+    
         load_current_section : "Function",
+        
         initialize : "Function",
+        
+        store_data : "Function",
+        clear_data : "Function",
+        
         add_user : "Function",
         remove_user : "Function",
         activate_user : "Function",
         deactivate_user : "Function"
-        
-        //load_game : { $type : "Function", $callbackParam: 1 }
         
     }
 });

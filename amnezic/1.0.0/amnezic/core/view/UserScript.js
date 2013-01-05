@@ -15,6 +15,7 @@ Aria.tplScriptDefinition({
 		
 		$displayReady : function () {
 			this.$logDebug( '$displayReady>' );
+            this.moduleCtrl.store_data();
 		},
         
         // //////////////////////////////////////////////////

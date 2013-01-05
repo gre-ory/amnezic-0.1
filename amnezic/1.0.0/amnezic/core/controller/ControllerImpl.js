@@ -4,22 +4,10 @@ Aria.classDefinition({
     $implements : [ 'amnezic.core.controller.Controller' ],
     $dependencies: [ 
         'aria.utils.Json',
+        'aria.storage.SessionStorage',
         'amnezic.core.Hash',
         'amnezic.mock.service.GameLoader'
     ],
-    
-    // //////////////////////////////////////////////////
-    // static
-    
-    $statics : {
-        START_HASH : 'start',
-        SETTING_HASH : 'setting',
-        USER_HASH : 'user-{0}',
-        THEME_HASH : 'theme-{0}',
-        QUESTION_HASH : 'question-{0}',
-        SCORE_HASH : 'score',
-        END_HASH : 'end'
-    },
     
     // //////////////////////////////////////////////////
     // constructor
@@ -29,15 +17,14 @@ Aria.classDefinition({
         this._enableMethodEvents = true;
         this.$ModuleCtrl.constructor.call(this);
         this.$json = aria.utils.Json;
+        this.storage = new aria.storage.SessionStorage( { namespace: 'amnezic' } );
         
-        // initialize data
-        this.setData( {
-            menu: undefined,
-            users: []
-        } );
+        // handle data
+        this.fetch_data();
+        this.$json.addListener( this.getData(), null, this.store_data.bind(this), false, true );
 
         // set default hash            
-        amnezic.core.Hash.default_hash = this.START_HASH;
+        amnezic.core.Hash.default_hash = 'start';
         
         // bind to new hash
         amnezic.core.Hash.$on( {
@@ -60,6 +47,35 @@ Aria.classDefinition({
         $publicInterfaceName : 'amnezic.core.controller.Controller',
 
         // //////////////////////////////////////////////////
+        // data
+
+        fetch_data : function() {
+            this.$logDebug( 'fetch_data>' );
+            var default_data = {
+                    menu: undefined,
+                    users: []
+                },
+                stored_data = this.storage.getItem( 'data' ),
+                data = stored_data || default_data;
+            
+            console.log( stored_data );
+            console.log( default_data );
+            
+            this.setData( data );
+        },
+        
+        store_data : function() {
+            this.$logDebug( 'store_data>' );
+            this.storage.setItem( 'data', this.getData() );
+        },
+        
+        clear_data : function() {
+            this.$logDebug( 'clear_data>' );
+            this.storage.removeItem( 'data' );
+            this.fetch_data(); // reset data as no data is stored
+        },
+
+        // //////////////////////////////////////////////////
         // hash
         
         on_new_hash : function( event ) {
@@ -80,7 +96,6 @@ Aria.classDefinition({
         
         load_section : function( hash ) {
             this.$logDebug( 'load_section> ' + hash );
-            hash = hash || this.START_HASH;
             
             var path = hash ? hash.split('-') : [],
                 section = path.length > 0 ? path[0] : undefined,

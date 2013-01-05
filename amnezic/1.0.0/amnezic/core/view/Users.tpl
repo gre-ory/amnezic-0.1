@@ -71,9 +71,10 @@
             
             <div class="row-fluid">
                 
-                <a href="#user-${data.users.length+1}" class="btn offset2" title="Add" {on click { fn : add } /}>
+                <!-- a href="#user-${data.users.length+1}" -->
+                <span class="btn offset2" title="Add" {on click { fn : add } /}>
                     <i class="icon-plus"></i>
-                </a>
+                </span>
                 
             </div>
         
