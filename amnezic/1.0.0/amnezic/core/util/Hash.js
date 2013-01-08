@@ -5,7 +5,7 @@
 // TODO : integrate History.js or aria.utils.History
 
 Aria.classDefinition({
-    $classpath : "amnezic.core.Hash",
+    $classpath : "amnezic.core.util.Hash",
     $singleton : true,
     
     // //////////////////////////////////////////////////

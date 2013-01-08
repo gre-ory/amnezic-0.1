@@ -6,20 +6,20 @@
     {macro main()}
 
         {section {
-            id: 'users',
+            id: 'users_section',
             bindRefreshTo: [ 
                 { to: 'users', inside: data, recursive: true }
             ]
 	    }}
             <div class="row-fluid">
-                <table class="table offset2 span8 table-condensed">
+                <table class="users table table-condensed offset2 span8">
                     
                     <thead>
                         
-                        <th>Name</th>
-                        <th>Active</th>
-                        <th>Score</th>
-                        <th></th>
+                        <th class="name">Name</th>
+                        <th class="active">Active</th>
+                        <th class="score">Score</th>
+                        <th class="actions"></th>
                         
                     </head>
                     
@@ -29,32 +29,32 @@
                             {if !user.deleted}
                                 <tr>
                                     
-                                    <td>
-                                        ${user.name}
+                                    <td class="name">
+                                        {@aria:TextField {
+                                            sclass: 'simple',
+                                            bind: { value: { to: 'name', inside: user } }
+                                        }/}
                                     </td>
-                                    
-                                    <td class="pagination-centered">
+                                        
+                                    <td class="active">
                                         {if user.active}
-                                            <span class="btn btn-success" title="Active" {on click { fn:deactivate, args: [ user ] }/}>
-                                                <i class="icon-ok"></i>
+                                            <span class="btn" title="Playing" {on click { fn:deactivate, args: user }/}>
+                                                <i class="icon-play"></i>
                                             </span>
                                         {else/}
-                                            <span class="btn btn-danger" title="Inactive" {on click { fn:activate, args: [ user ] }/}>
-                                                <i class="icon-remove"></i>
+                                            <span class="btn" title="Not playing" {on click { fn:activate, args: user }/}>
+                                                <i class="icon-pause"></i>
                                             </span>
                                         {/if}
                                     </td>
                                     
-                                    <td>
+                                    <td class="score">
                                         ${user.score}
                                     </td>
                                     
-                                    <td class="pagination-centered">
+                                    <td class="actions">
                                         <span class="btn-group">
-                                            <a class="btn" href="#user-${user.number}" title="Edit">
-                                                <i class="icon-pencil"></i>
-                                            </a>
-                                            <span class="btn" title="Delete" {on click { fn:remove, args: [ user ] }/}>
+                                            <span class="btn" title="Delete" {on click { fn:remove, args: user }/}>
                                                 <i class="icon-trash"></i>
                                             </span>
                                         </span>
@@ -71,7 +71,6 @@
             
             <div class="row-fluid">
                 
-                <!-- a href="#user-${data.users.length+1}" -->
                 <span class="btn offset2" title="Add" {on click { fn : add } /}>
                     <i class="icon-plus"></i>
                 </span>

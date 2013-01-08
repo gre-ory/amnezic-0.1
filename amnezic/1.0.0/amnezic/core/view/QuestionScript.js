@@ -23,7 +23,7 @@ Aria.tplScriptDefinition({
 		
 		$viewReady : function () {
 			this.$logDebug( "[$viewReady] Start..." );
-            this.$logInfo( "[$viewReady] Load mp3 : " + this.data.question.mp3 );
+            // this.$logInfo( "[$viewReady] Load mp3 : " + this.data.question.mp3 );
             /*
             this.data.audio.volume = 50;
             if ( this.data.audio.mp3 ) {

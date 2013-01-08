@@ -8,7 +8,7 @@
         <div class="row-fluid">
 
             <div class="row-fluid pagination-centered">
-                <a href="#start" class="btn">New game</span>
+                <a href="#start" class="btn">New game</a>
             </div>
         
         </div>

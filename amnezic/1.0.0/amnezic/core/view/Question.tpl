@@ -1,7 +1,6 @@
 {Template {
     $classpath: 'amnezic.core.view.Question',
-    $hasScript: true,
-    $css: [ 'amnezic.core.view.QuestionStyle' ]
+    $hasScript: true
 }}
 	
 	{var answer_css = [ 'one', 'two', 'three', 'four', 'five', 'six' ] /}

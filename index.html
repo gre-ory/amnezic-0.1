@@ -45,6 +45,7 @@
         <script type="text/javascript" src="aria.templates/1.3.2/aria/css/atskin-1.3.2.js"></script>
         <script type="text/javascript">
             aria.core.IO.defaultPostHeader = 'application/json; charset=utf-8';
+            
             aria.core.AppEnvironment.setEnvironment({
                 requestHandler : {
                     implementation : 'aria.modules.requestHandler.JSONRequestHandler'
@@ -111,9 +112,7 @@
 			Aria.loadTemplate( {
                 classpath: 'amnezic.core.view.Main',
                 div: 'main',
-                moduleCtrl: { 
-                    classpath : 'amnezic.core.controller.ControllerImpl'
-                }
+                moduleCtrl: { classpath : 'amnezic.core.controller.ControllerImpl' }
             } );
         </script>
         

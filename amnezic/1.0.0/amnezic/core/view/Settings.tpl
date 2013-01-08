@@ -1,5 +1,5 @@
 {Template {
-    $classpath: 'amnezic.core.view.Setting',
+    $classpath: 'amnezic.core.view.Settings',
     $hasScript: false
 }}
         

@@ -5,7 +5,7 @@ Aria.classDefinition({
     $dependencies: [ 
         'aria.utils.Json',
         'aria.storage.SessionStorage',
-        'amnezic.core.Hash',
+        'amnezic.core.util.Hash',
         'amnezic.mock.service.GameLoader'
     ],
     
@@ -22,12 +22,12 @@ Aria.classDefinition({
         // handle data
         this.fetch_data();
         this.$json.addListener( this.getData(), null, this.store_data.bind(this), false, true );
-
+        
         // set default hash            
-        amnezic.core.Hash.default_hash = 'start';
+        amnezic.core.util.Hash.default_hash = 'start';
         
         // bind to new hash
-        amnezic.core.Hash.$on( {
+        amnezic.core.util.Hash.$on( {
             'new_hash': this.on_new_hash,
             scope: this
         } );
@@ -52,8 +52,13 @@ Aria.classDefinition({
         fetch_data : function() {
             this.$logDebug( 'fetch_data>' );
             var default_data = {
-                    menu: undefined,
-                    users: []
+                    users: [],
+                    themes: [ 
+                        { name: 'Rock', active: true, questions: [ 0, 0, 0, 0, 0, 0, 0 ] },
+                        { name: 'Jazz', active: true, questions: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] },
+                        { name: 'Pop', active: true, questions: [ 0, 0, 0 ] }
+                    ],
+                    section: undefined
                 },
                 stored_data = this.storage.getItem( 'data' ),
                 data = stored_data || default_data;
@@ -91,7 +96,7 @@ Aria.classDefinition({
         
         load_current_section : function() {
             this.$logDebug( 'load_current_section>' );
-            amnezic.core.Hash.trigger();
+            amnezic.core.util.Hash.trigger();
         },
         
         load_section : function( hash ) {
@@ -120,35 +125,7 @@ Aria.classDefinition({
         },
 
         // //////////////////////////////////////////////////
-        // initialize
-
-        initialize : function() {
-            this.$logDebug( 'initialize>' );
-            this.build_menu();
-            this.init_users(); // TODO: init after
-        },
-
-        // //////////////////////////////////////////////////
-        // menu
-
-        build_menu : function() {
-            this.$logDebug( 'build_menu>' );
-            
-            var menu = { items: [] },
-                data = this.getData();
-            
-            menu.items.push( { title: 'Settings', hash: 'setting' } );
-            menu.items.push( { title: 'Users', hash: 'users' } );
-            menu.items.push( { title: 'Themes', hash: 'theme' } );
-            menu.items.push( { title: 'Question', hash: 'question' } );
-            menu.items.push( { title: 'Score', hash: 'score' } );
-            menu.items.push( { title: 'End', hash: 'end' } );
-            
-            this.$json.setValue( data, 'menu', menu );
-        },
-
-        // //////////////////////////////////////////////////
-        // user
+        // users
         
         get_users : function() {
             this.$logDebug( 'get_users>' );
@@ -162,15 +139,8 @@ Aria.classDefinition({
             return users.length;
         },
         
-        set_users : function( users ) {
-            this.$logDebug( 'set_users>' );
-            var data = this.getData(),
-                merge = true;
-            
-        },
-        
-        create_default_user : function( number ) {
-            this.$logDebug( 'create_default_user>' );
+        create_user : function( number ) {
+            this.$logDebug( 'create_user>' );
             return {
                 number: number,
                 name: 'User ' + number,
@@ -184,37 +154,67 @@ Aria.classDefinition({
             this.$logDebug( 'add_user>' );
             var users = this.get_users(),
                 number = users.length + 1,
-                user = this.create_default_user( number );
+                user = this.create_user( number );
             
             this.$json.add( users, user );
         },
         
-        init_users : function() {
-            this.$logDebug( 'init_users>' );
-            var count = 0;
-            
-            while ( this.get_nb_users() < 0 && count < 100 ) {
-                this.add_user();
-                count++;
-            }
-        },
-        
         activate_user : function( user ) {
             this.$logDebug( 'activate_user>' );
-            
-            this.$json.setValue( user, 'active', true );
+            user && this.$json.setValue( user, 'active', true );
         },
         
         deactivate_user : function( user ) {
             this.$logDebug( 'deactivate_user>' );
-            
-            this.$json.setValue( user, 'active', false );
+            user && this.$json.setValue( user, 'active', false );
         },
         
         remove_user : function( user ) {
             this.$logDebug( 'remove_user>' );
+            user && this.$json.setValue( user, 'deleted', true );
+        },
+
+        // //////////////////////////////////////////////////
+        // themes
+        
+        get_themes : function() {
+            this.$logDebug( 'get_themes>' );
+            var data = this.getData();
+            return data.themes || [];
+        },
+        
+        get_nb_themes : function() {
+            this.$logDebug( 'get_nb_themes>' );
+            var themes = this.get_themes();
+            return themes.length;
+        },
+        
+        create_theme : function( name, questions ) {
+            this.$logDebug( 'create_theme>' );
+            return {
+                name: name,
+                active: true,
+                deleted: false,
+                questions: questions
+            };
+        },
+        
+        add_theme : function( name, questions ) {
+            this.$logDebug( 'add_theme>' );
+            var themes = this.get_themes(),
+                theme = this.create_theme( name, questions );
             
-            this.$json.setValue( user, 'deleted', true );
+            this.$json.add( themes, theme );
+        },
+        
+        activate_theme : function( theme ) {
+            this.$logDebug( 'activate_theme>' );
+            theme && this.$json.setValue( theme, 'active', true );
+        },
+        
+        deactivate_theme : function( theme ) {
+            this.$logDebug( 'deactivate_theme>' );
+            theme && this.$json.setValue( theme, 'active', false );
         },
 
         // //////////////////////////////////////////////////

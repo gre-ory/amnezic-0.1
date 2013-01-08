@@ -8,15 +8,16 @@ Aria.interfaceDefinition({
     
         load_current_section : "Function",
         
-        initialize : "Function",
-        
         store_data : "Function",
         clear_data : "Function",
         
         add_user : "Function",
         remove_user : "Function",
         activate_user : "Function",
-        deactivate_user : "Function"
+        deactivate_user : "Function",
         
+        activate_theme : "Function",
+        deactivate_theme : "Function"
+
     }
 });
