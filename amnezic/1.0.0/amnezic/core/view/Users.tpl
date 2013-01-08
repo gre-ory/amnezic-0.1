@@ -76,6 +76,15 @@
                 </span>
                 
             </div>
+            
+            <div class="row-fluid">
+                <span class="btn disabled pull-left" title="Previous">
+                    <i class="icon-chevron-left"></i>
+                </span>
+                <a href="#themes" class="btn pull-right" title="Next">
+                    <i class="icon-chevron-right"></i>
+                </a>
+            </div>
         
         {/section}
     

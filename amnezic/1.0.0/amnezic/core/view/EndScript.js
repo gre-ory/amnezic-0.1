@@ -22,6 +22,13 @@ Aria.tplScriptDefinition({
 		
 		$viewReady : function () {
 			this.$logDebug( '$viewReady>' );
+		},
+        
+        // //////////////////////////////////////////////////
+		// clear_data
+		
+		clear_data : function () {
+			this.$logDebug( 'clear_data>' );
             this.moduleCtrl.clear_data();
 		}
 		

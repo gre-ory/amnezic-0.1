@@ -56,6 +56,15 @@
                 </table>
             
             </div>
+            
+            <div class="row-fluid">
+                <a href="#users" class="btn pull-left" title="Previous">
+                    <i class="icon-chevron-left"></i>
+                </a>
+                <a href="#settings" class="btn pull-right" title="Next">
+                    <i class="icon-chevron-right"></i>
+                </a>
+            </div>
         
         {/section}
     

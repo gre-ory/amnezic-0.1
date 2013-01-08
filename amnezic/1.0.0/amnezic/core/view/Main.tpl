@@ -26,10 +26,10 @@
                     <span class="brand">Amnezic</span>
                     <ul class="nav">
                     
-                        {call menu( 'Start', 'start' )/}
-                        {call menu( 'Settings', 'settings' )/}
                         {call menu( 'Users', 'users' )/}
                         {call menu( 'Themes', 'themes' )/}
+                        {call menu( 'Settings', 'settings' )/}
+                        {call menu( 'Start', 'start' )/}
                         {call menu( 'Question', 'question' )/}
                         {call menu( 'Score', 'score' )/}
                         {call menu( 'End', 'end' )/}                        
@@ -55,7 +55,7 @@
             {if hash}
                 <a href="#${hash}">${title}</a>
             {else/}
-                <span>${title}</span>
+                <a>${title}</a>
             {/if}
         
         </li>
