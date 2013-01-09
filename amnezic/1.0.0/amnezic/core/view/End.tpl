@@ -18,6 +18,8 @@
                 <i class="icon-chevron-right"></i>
             </span>
         </div>
+            
+        <div id="confetti">[confetti loading...]</div>
     
     {/macro}
 

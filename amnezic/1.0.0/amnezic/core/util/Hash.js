@@ -1,11 +1,11 @@
 // //////////////////////////////////////////////////
-// singleton amnezic.core.Hash
+// Hash
 
 // REMARK : use history browser implementation 
 // TODO : integrate History.js or aria.utils.History
 
 Aria.classDefinition({
-    $classpath : "amnezic.core.util.Hash",
+    $classpath : 'amnezic.core.util.Hash',
     $singleton : true,
     
     // //////////////////////////////////////////////////

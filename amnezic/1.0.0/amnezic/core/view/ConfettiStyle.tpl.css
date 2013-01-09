@@ -1,0 +1,75 @@
+{CSSTemplate {
+    $classpath : 'amnezic.core.view.ConfettiStyle'
+}}
+
+    {macro main()}
+    
+        .confetti {
+            /* position: absolute; */
+            /* height: 100%; */
+            /* width: 100%; */
+            overflow: hidden;
+        }
+        
+        .confetto_container {
+            width: 7px;
+            height: 5px;
+        }
+        
+        .confetto {
+            width: 100%;
+            height: 100%;
+            border-radius: 2px;
+            /* border: 1px solid #555; */
+            /* opacity: 0.3; */
+        }
+            
+        .confetto_container {
+                    
+            -webkit-animation-name: confetti_drop, confetti_fade;
+            -webkit-animation-timing-function: linear, linear;
+            -webkit-animation-iteration-count: infinite, infinite;
+            -webkit-animation-direction: normal, normal;
+
+            -moz-animation-name: confetti_drop, confetti_fade;
+            -moz-animation-timing-function: linear, linear;
+            -moz-animation-iteration-count: infinite, infinite;
+            -moz-animation-direction: normal, normal;
+
+        }
+        
+        .confetto.clockwise {
+        
+            -webkit-animation-name: confetti_clockwise;
+            -webkit-animation-timing-function: ease-in-out;
+            -webkit-animation-iteration-count: infinite;
+            -webkit-animation-direction: alternate;
+            -webkit-transform-origin: 50% -100%;
+
+            -moz-animation-name: confetti_clockwise;
+            -moz-animation-timing-function: ease-in-out;
+            -moz-animation-iteration-count: infinite;
+            -moz-animation-direction: alternate;
+            -moz-transform-origin: 50% -100%;
+            
+        }
+        
+        .confetto.counterclockwise {
+        
+            -webkit-animation-name: confetti_counterclockwise;
+            -webkit-transform-origin: 50% -100%;
+            -webkit-animation-timing-function: ease-in-out;
+            -webkit-animation-iteration-count: infinite;
+            -webkit-animation-direction: alternate;
+
+            -moz-animation-name: confetti_counterclockwise;
+            -moz-animation-timing-function: ease-in-out;
+            -moz-animation-iteration-count: infinite;
+            -moz-animation-direction: alternate;
+            -moz-transform-origin: 50% -100%;
+            
+        }
+    
+    {/macro}
+
+{/CSSTemplate}
