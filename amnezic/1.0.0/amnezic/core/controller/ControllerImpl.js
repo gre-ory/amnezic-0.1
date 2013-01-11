@@ -6,6 +6,7 @@ Aria.classDefinition({
         'aria.utils.Json',
         'aria.storage.SessionStorage',
         'amnezic.core.util.Hash',
+        'amnezic.core.controller.Flow',
         'amnezic.mock.service.GameLoader'
     ],
     
@@ -24,7 +25,7 @@ Aria.classDefinition({
         this.$json.addListener( this.getData(), null, this.store_data.bind(this), false, true );
         
         // set default hash            
-        amnezic.core.util.Hash.default_hash = 'start';
+        // amnezic.core.util.Hash.default_hash = 'users';
         
         // bind to new hash
         amnezic.core.util.Hash.$on( {
@@ -102,26 +103,21 @@ Aria.classDefinition({
         load_section : function( hash ) {
             this.$logDebug( 'load_section> ' + hash );
             
-            var path = hash ? hash.split('-') : [],
-                section = path.length > 0 ? path[0] : undefined,
-                args = path.slice(1),
-                view = 'amnezic.core.view.' + section.charAt(0).toUpperCase() + section.slice(1),
+            var section = amnezic.core.controller.Flow.get_section( hash ),
                 div = 'section',
-                controller = 'amnezic.core.controller.ControllerImpl',
-                data = this.getData(),
-                template = { 
-					classpath: view,
-					div: div,
-					moduleCtrl: this,
-					data : data
-				};
+                data = this.getData();
+            
+            console.log( section );
             
             // set section
-            // aria.utils.Json.setValue( data, 'section', { id: section, hash: hash, args: args } );
-            this.$json.setValue( data, 'section', { id: section, hash: hash, args: args } );
+            this.$json.setValue( data, 'section', section );
               
-            console.log( template );
-            Aria.loadTemplate( template );
+            Aria.loadTemplate( { 
+				classpath: section.view,
+				div: div,
+				moduleCtrl: this,
+				data : data
+			} );
         },
 
         // //////////////////////////////////////////////////
