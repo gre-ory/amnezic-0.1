@@ -35,7 +35,7 @@ Aria.classDefinition({
         // config
         
         get_config : function ( id ) {
-            this.$logDebug( 'get_config>' );
+            // this.$logDebug( 'get_config>' );
             var config = id in this.config ? this.config[ id ] : undefined;
             
             if ( config && config.view ) {
@@ -54,7 +54,7 @@ Aria.classDefinition({
         // section
         
         build_section : function ( hash, id, values ) {
-            this.$logDebug( 'build_section> ' + hash + ', ' + id + ', ' + values );
+            // this.$logDebug( 'build_section> ' + hash + ', ' + id + ', ' + values );
             
             var config = this.get_config( id ),
                 view = config ? config.view : undefined,
@@ -77,19 +77,17 @@ Aria.classDefinition({
         },
         
         build_default_section : function ( hash ) {
-            this.$logDebug( 'build_default_section> ' + hash );
-            
+            // this.$logDebug( 'build_default_section> ' + hash );
             return this.build_section( hash, this.DEFAULT, [] );
         },
         
         build_not_found_section : function ( hash ) {
-            this.$logDebug( 'build_not_found_section> ' + hash );
-            
+            // this.$logDebug( 'build_not_found_section> ' + hash );
             return this.build_section( hash, this.NOT_FOUND, [] );
         },
         
         get_section : function ( hash ) {
-            this.$logDebug( 'get_section> ' + hash );
+            // this.$logDebug( 'get_section> ' + hash );
             
             var path = hash ? hash.split('-') : [],
                 id = path.length > 0 ? path[0] : undefined,

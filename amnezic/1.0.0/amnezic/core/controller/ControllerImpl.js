@@ -4,8 +4,8 @@ Aria.classDefinition({
     $implements : [ 'amnezic.core.controller.Controller' ],
     $dependencies: [ 
         'aria.utils.Json',
+        'aria.utils.HashManager',
         'aria.storage.SessionStorage',
-        'amnezic.core.util.Hash',
         'amnezic.core.controller.Flow',
         'amnezic.mock.service.GameLoader'
     ],
@@ -24,13 +24,10 @@ Aria.classDefinition({
         this.fetch_data();
         this.$json.addListener( this.getData(), null, this.store_data.bind(this), false, true );
         
-        // set default hash            
-        // amnezic.core.util.Hash.default_hash = 'users';
-        
-        // bind to new hash
-        amnezic.core.util.Hash.$on( {
-            'new_hash': this.on_new_hash,
-            scope: this
+        // on new hash
+        aria.utils.HashManager.addCallback( {
+            fn : this.on_new_hash,
+            scope : this
         } );
         
     },
@@ -51,7 +48,7 @@ Aria.classDefinition({
         // data
 
         fetch_data : function() {
-            this.$logDebug( 'fetch_data>' );
+            // this.$logDebug( 'fetch_data>' );
             var default_data = {
                     users: [],
                     themes: [ 
@@ -63,9 +60,6 @@ Aria.classDefinition({
                 },
                 stored_data = this.storage.getItem( 'data' ),
                 data = stored_data || default_data;
-            
-            console.log( stored_data );
-            console.log( default_data );
             
             this.setData( data );
         },
@@ -84,9 +78,9 @@ Aria.classDefinition({
         // //////////////////////////////////////////////////
         // hash
         
-        on_new_hash : function( event ) {
-            // this.$logDebug( 'on_new_hash>' );
-            var hash = event ? event.hash : undefined;
+        on_new_hash : function() {
+            this.$logDebug( 'on_new_hash>' );
+            var hash = aria.utils.HashManager.getHashString();
             this.load_section( hash );
         },
         
@@ -97,7 +91,7 @@ Aria.classDefinition({
         
         load_current_section : function() {
             this.$logDebug( 'load_current_section>' );
-            amnezic.core.util.Hash.trigger();
+            this.on_new_hash();
         },
         
         load_section : function( hash ) {
@@ -107,9 +101,7 @@ Aria.classDefinition({
                 div = 'section',
                 data = this.getData();
             
-            console.log( section );
-            
-            // set section
+            // section
             this.$json.setValue( data, 'section', section );
               
             Aria.loadTemplate( { 
