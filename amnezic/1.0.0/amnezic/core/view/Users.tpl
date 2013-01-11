@@ -17,7 +17,7 @@
                     <thead>
                         
                         <th class="name">Name</th>
-                        <th class="active">Active</th>
+                        <th class="score">Active</th>
                         <th class="score">Score</th>
                         <th class="actions"></th>
                         
@@ -35,15 +35,15 @@
                                             bind: { value: { to: 'name', inside: user } }
                                         }/}
                                     </td>
-                                        
+                                    
                                     <td class="active">
                                         {if user.active}
-                                            <span class="btn" title="Playing" {on click { fn:deactivate, args: user }/}>
-                                                <i class="icon-play"></i>
+                                            <span class="btn btn-success" title="Playing" {on click { fn:deactivate, args: user }/}>
+                                                <i class="icon-off"></i>
                                             </span>
                                         {else/}
                                             <span class="btn" title="Not playing" {on click { fn:activate, args: user }/}>
-                                                <i class="icon-pause"></i>
+                                                <i class="icon-off"></i>
                                             </span>
                                         {/if}
                                     </td>

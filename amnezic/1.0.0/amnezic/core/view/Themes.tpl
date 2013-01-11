@@ -19,13 +19,18 @@
                         <th class="name">Name</th>
                         <th class="active">Active</th>
                         <th class="nb_questions">Nb. questions</th>
+                        <th class="actions"></th>
                         
                     </head>
                     
                     <tbody>
-                
+                        
+                        {var count = 0/}
                         {foreach theme inArray data.themes}
                             {if !theme.deleted}
+                                {if theme.active}
+                                    {set count = count + theme.questions.length/}
+                                {/if}
                                 <tr>
                                     
                                     <td class="name">
@@ -34,12 +39,12 @@
                                         
                                     <td class="active">
                                         {if theme.active}
-                                            <span class="btn" title="Active" {on click { fn:deactivate, args: theme }/}>
-                                                <i class="icon-ok"></i>
+                                            <span class="btn btn-success" title="Active" {on click { fn:deactivate, args: theme }/}>
+                                                <i class="icon-off"></i>
                                             </span>
                                         {else/}
                                             <span class="btn" title="Inactive" {on click { fn:activate, args: theme }/}>
-                                                <i class="icon-remove"></i>
+                                                <i class="icon-off"></i>
                                             </span>
                                         {/if}
                                     </td>
@@ -48,9 +53,37 @@
                                         ${theme.questions.length}
                                     </td>
                                     
+                                    <td class="actions">
+                                        <span class="btn-group">
+                                            {if data.admin}
+                                                <a href="#theme-${theme.id}" class="btn" title="Edit">
+                                                    <i class="icon-pencil"></i>
+                                                </a>
+                                            {/if}
+                                        </span>
+                                    </td>
+                                    
                                 </tr>
                             {/if}
                         {/foreach}
+                
+                        <tr class="total">
+                                    
+                            <td class="name">
+                                Total
+                            </td>
+                                
+                            <td class="active">
+                            </td>
+                            
+                            <td class="nb_questions">
+                                ${count}
+                            </td>
+                            
+                            <td class="actions">
+                            </td>
+                            
+                        </tr>
                 
                     </tbody>
                 </table>

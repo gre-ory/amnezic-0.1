@@ -17,13 +17,20 @@
         {section {
             id: 'header',
             bindRefreshTo: [
-                { to: 'section', inside: data, recursive: true }
+                { to: 'section', inside: data, recursive: true },
+                { to: 'admin', inside: data, recursive: true }
             ]
 	    }}
     
             <div class="navbar">
                 <div class="navbar-inner">
-                    <span class="brand">Amnezic</span>
+                    
+                    {if data.admin}
+                        <a href="/#${data.section.hash}" class="brand">Amnezic</a>
+                    {else/}
+                        <a href="/index.html?admin#${data.section.hash}" class="brand">Amnezic</a>
+                    {/if}
+                    
                     <ul class="nav">
                     
                         {call menu( 'Users', 'users' )/}

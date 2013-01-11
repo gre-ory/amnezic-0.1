@@ -16,6 +16,10 @@ Aria.classDefinition({
             
             'users' : 'amnezic.core.view.Users',
             'themes' : 'amnezic.core.view.Themes',
+            'theme' : {
+                view: 'amnezic.core.view.Theme',
+                names: [ 'number' ]
+            },
             'settings' : {
                 view: 'amnezic.core.view.Settings'
             },

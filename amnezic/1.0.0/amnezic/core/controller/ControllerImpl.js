@@ -20,9 +20,16 @@ Aria.classDefinition({
         this.$json = aria.utils.Json;
         this.storage = new aria.storage.SessionStorage( { namespace: 'amnezic' } );
         
-        // handle data
+        // data
         this.fetch_data();
-        this.$json.addListener( this.getData(), null, this.store_data.bind(this), false, true );
+        var data = this.getData(),
+            admin = aria.utils.QueryString.getKeyValue('admin');
+        this.$json.setValue( data, 'admin', typeof admin == 'string' );
+        this.$json.addListener( data, null, this.store_data.bind(this), false, true );
+        
+        console.log( admin );
+        console.log( typeof admin );
+        console.log( typeof admin == 'string' );
         
         // on new hash
         aria.utils.HashManager.addCallback( {
