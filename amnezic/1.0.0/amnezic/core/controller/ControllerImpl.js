@@ -7,8 +7,11 @@ Aria.classDefinition({
         'aria.utils.HashManager',
         'aria.storage.SessionStorage',
         'amnezic.core.controller.Flow',
-        'amnezic.mock.service.GameLoader'
+        'amnezic.local.service.JsonLoader'
     ],
+    $statics: {
+        AMNEZIC_ROOT: 'amnezic/1.0.0/'
+    },
     
     // //////////////////////////////////////////////////
     // constructor
@@ -26,10 +29,6 @@ Aria.classDefinition({
             admin = aria.utils.QueryString.getKeyValue('admin');
         this.$json.setValue( data, 'admin', typeof admin == 'string' );
         this.$json.addListener( data, null, this.store_data.bind(this), false, true );
-        
-        console.log( admin );
-        console.log( typeof admin );
-        console.log( typeof admin == 'string' );
         
         // on new hash
         aria.utils.HashManager.addCallback( {
@@ -58,11 +57,8 @@ Aria.classDefinition({
             // this.$logDebug( 'fetch_data>' );
             var default_data = {
                     users: [],
-                    themes: [ 
-                        { name: 'Rock', active: true, questions: [ 0, 0, 0, 0, 0, 0, 0 ] },
-                        { name: 'Jazz', active: true, questions: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] },
-                        { name: 'Pop', active: true, questions: [ 0, 0, 0 ] }
-                    ],
+                    themes: undefined,
+                    theme: undefined,
                     section: undefined
                 },
                 stored_data = this.storage.getItem( 'data' ),
@@ -171,6 +167,12 @@ Aria.classDefinition({
 
         // //////////////////////////////////////////////////
         // themes
+
+        has_themes : function() {
+            this.$logDebug( 'has_themes>' );
+            var data = this.getData();
+            return data.themes !== undefined;
+        },
         
         get_themes : function() {
             this.$logDebug( 'get_themes>' );
@@ -178,28 +180,59 @@ Aria.classDefinition({
             return data.themes || [];
         },
         
-        get_nb_themes : function() {
-            this.$logDebug( 'get_nb_themes>' );
+        get_theme : function( id ) {
+            this.$logDebug( 'get_theme> ' + id );
             var themes = this.get_themes();
-            return themes.length;
+            for ( var i = 0 ; i < themes.length; i++ ) {
+                var theme = themes[i];
+                if ( theme.id == id ) {
+                    return theme;
+                }    
+            }
+            return undefined;
         },
         
-        create_theme : function( name, questions ) {
-            this.$logDebug( 'create_theme>' );
-            return {
-                name: name,
-                active: true,
-                deleted: false,
-                questions: questions
-            };
+        load_themes : function() {
+            this.$logDebug( 'load_themes>' );
+            if ( !this.has_themes() ) {
+                this.$json.setValue( this.getData(), 'themes', undefined );
+                var service = new amnezic.local.service.JsonLoader(),
+                    json_file = this.AMNEZIC_ROOT + 'amnezic/local/json/themes.json',
+                    callback = {
+                        fn: this.themes_loaded,
+                        scope: this
+                    };
+                
+                service.load_json( json_file, callback );
+            }
         },
         
-        add_theme : function( name, questions ) {
-            this.$logDebug( 'add_theme>' );
-            var themes = this.get_themes(),
-                theme = this.create_theme( name, questions );
+        themes_loaded : function( json ) {
+            this.$logDebug( 'themes_loaded>' );
+            console.log( json.themes );
+            json.themes && this.$json.setValue( this.getData(), 'themes', json.themes );
+        },
+        
+        load_theme : function( id ) {
+            this.$logDebug( 'load_theme> ' + id );
+            this.$json.setValue( this.getData(), 'theme', undefined );
+            var theme = this.get_theme( id ),
+                service = new amnezic.local.service.JsonLoader(),
+                json_file = theme ? this.AMNEZIC_ROOT + 'amnezic/local/json/' + theme.json : undefined,
+                callback = {
+                    fn: this.theme_loaded,
+                    scope: this
+                };
             
-            this.$json.add( themes, theme );
+            if ( json_file ) {
+                service.load_json( json_file, callback );
+            }
+        },
+        
+        theme_loaded : function( json ) {
+            this.$logDebug( 'theme_loaded>' );
+            console.log( json );
+            json && this.$json.setValue( this.getData(), 'theme', json );
         },
         
         activate_theme : function( theme ) {
@@ -217,8 +250,8 @@ Aria.classDefinition({
 
         load_game : function() {
             this.$logDebug("[load_game] Start...");
-            var service = new amnezic.mock.service.GameLoader();
-            service.load_game( 'amnezic/mock/service/game.json', { fn: this.game_loaded, scope: this } );
+            var service = new amnezic.local.service.JsonLoader();
+            service.load_json( this.AMNEZIC_ROOT + 'amnezic/local/json/game.json', { fn: this.game_loaded, scope: this } );
         },
         
         game_loaded : function( game ) {

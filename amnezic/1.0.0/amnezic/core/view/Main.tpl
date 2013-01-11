@@ -25,10 +25,11 @@
             <div class="navbar">
                 <div class="navbar-inner">
                     
+                    {var hash = data.section ? '#' + data.section.hash : ''/}
                     {if data.admin}
-                        <a href="/#${data.section.hash}" class="brand">Amnezic</a>
+                        <a href="/${hash}" class="brand">Amnezic</a>
                     {else/}
-                        <a href="/index.html?admin#${data.section.hash}" class="brand">Amnezic</a>
+                        <a href="/index.html?admin${hash}" class="brand">Amnezic</a>
                     {/if}
                     
                     <ul class="nav">

@@ -1,5 +1,5 @@
 Aria.tplScriptDefinition({
-	$classpath : 'amnezic.core.view.ThemesScript',
+	$classpath : 'amnezic.core.view.ThemeScript',
 
 	// //////////////////////////////////////////////////
 	// Constructor
@@ -23,23 +23,8 @@ Aria.tplScriptDefinition({
 		
 		$viewReady : function () {
 			this.$logDebug( '$viewReady>' );
-            this.moduleCtrl.load_themes();
-		}, 
-        
-		// //////////////////////////////////////////////////
-		// activate
-		
-		activate : function ( event, theme ) {
-			this.$logDebug( 'activate>' );
-            this.moduleCtrl.activate_theme( theme );
-		},     
-        
-		// //////////////////////////////////////////////////
-		// deactivate
-		
-		deactivate : function ( event, theme ) {
-			this.$logDebug( 'deactivate>' );
-            this.moduleCtrl.deactivate_theme( theme );
+            console.log( this.data.section.args.id );
+            this.moduleCtrl.load_theme( this.data.section.args.id );
 		}
 		
 	}
