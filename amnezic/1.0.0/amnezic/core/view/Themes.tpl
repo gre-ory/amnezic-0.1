@@ -34,7 +34,7 @@
                             
                             <th class="title">Title</th>
                             <th class="active">Active</th>
-                            <th class="nb_musics">Nb. musics</th>
+                            <th class="nb_musics">Nb. questions</th>
                             <th class="actions"></th>
                             
                         </head>
@@ -48,7 +48,7 @@
                                         <tr>
                                             
                                             <td class="title">
-                                                ${theme.title}
+                                                ${theme.title|empty:''}
                                             </td>
                                                 
                                             <td class="active">
@@ -63,7 +63,7 @@
                                                 {/if}
                                             </td>
                                             
-                                            <td class="nb_musics">
+                                            <td class="nb_questions">
                                             </td>
                                             
                                             <td class="actions">

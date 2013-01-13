@@ -7,7 +7,6 @@
     
         <div class="row-fluid pagination-centered">
             <a href="#users" class="btn">New game</a>
-            <a href="#users" class="btn" {on click { fn:clear_data }/}>Reset game</a>
         </div>
             
         <div class="row-fluid">

@@ -7,7 +7,8 @@ Aria.classDefinition({
         'aria.utils.HashManager',
         'aria.storage.SessionStorage',
         'amnezic.core.controller.Flow',
-        'amnezic.local.service.JsonLoader'
+        'amnezic.local.service.JsonLoader',
+        'amnezic.deezer.service.Search'
     ],
     $statics: {
         AMNEZIC_ROOT: 'amnezic/1.0.0/'
@@ -59,6 +60,10 @@ Aria.classDefinition({
                     users: [],
                     themes: undefined,
                     theme: undefined,
+                    search: {
+                        request: 'mars',
+                        response: undefined
+                    },
                     section: undefined
                 },
                 stored_data = this.storage.getItem( 'data' ),
@@ -194,7 +199,7 @@ Aria.classDefinition({
         
         load_themes : function() {
             this.$logDebug( 'load_themes>' );
-            if ( !this.has_themes() ) {
+            // if ( !this.has_themes() ) {
                 this.$json.setValue( this.getData(), 'themes', undefined );
                 var service = new amnezic.local.service.JsonLoader(),
                     json_file = this.AMNEZIC_ROOT + 'amnezic/local/json/themes.json',
@@ -204,12 +209,11 @@ Aria.classDefinition({
                     };
                 
                 service.load_json( json_file, callback );
-            }
+            // }
         },
         
         themes_loaded : function( json ) {
             this.$logDebug( 'themes_loaded>' );
-            console.log( json.themes );
             json.themes && this.$json.setValue( this.getData(), 'themes', json.themes );
         },
         
@@ -243,6 +247,30 @@ Aria.classDefinition({
         deactivate_theme : function( theme ) {
             this.$logDebug( 'deactivate_theme>' );
             theme && this.$json.setValue( theme, 'active', false );
+        },
+
+        // //////////////////////////////////////////////////
+        // search
+
+        search : function() {
+            this.$logDebug( 'search>' );
+            var service = new amnezic.deezer.service.Search(),
+                data = this.getData(),
+                request = data && data.search ? data.search.request : undefined,
+                callback = {
+                    fn: this.found,
+                    scope: this
+                };
+                
+            console.log( request );
+            
+            service.search( request, callback );
+        },
+        
+        found : function( json ) {
+            this.$logDebug( 'found>' );
+            console.log( json );
+            json && this.$json.setValue( this.getData(), 'theme', json );
         },
 
         // //////////////////////////////////////////////////

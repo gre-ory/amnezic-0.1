@@ -13,66 +13,162 @@
 	    }}
             
             <div class="row-fluid pagination-centered">
-                <div class="well offset1 span10">Title</div>
+                <div class="well offset1 span10">
+                    <span>
+                        Title
+                    </span>
+                    {if data.theme}
+                        {@aria:TextField {
+                            sclass: 'simple',
+                            bind: { value: { to: 'title', inside: data.theme } }
+                        }/}
+                    {/if}
+                </div>
             </div>
             
             <div class="row-fluid">
-                
-                <div class="search well offset1 span5">
-                    [search]
-                    
-                    [${data.length}]
-                    {if data.theme && data.theme.musics}
-                        [${data.theme.musics.length}]
-                    {/if}
-                    
-                </div>
             
-                <div class="search well span5">
+                <div class="search well offset1 span5">
                     <table class="theme table table-condensed">
                         
                         <thead>
                             
-                            <th class="album">Album</th>
-                            <th class="title">Title</th>
-                            <th class="hint">Hint</th>
-                            <th class="music">Music</th>
+                            <th colspan="4">Questions</th>
                             
                         </head>
                         
                         <tbody>
                             
-                            {if data.theme && data.theme.musics}
-                                {foreach music inArray data.theme.musics}
+                            {if data.theme && data.theme.questions}
+                                {foreach question inArray data.theme.questions}
+                                    
                                     <tr>
                                         
-                                        <td class="album">
-                                            {if music.img}
-                                                <!-- <img src="${music.img}"/> -->
+                                        <td class="album" rowspan="3">
+                                            {if question.img}
+                                                <img src="${question.img}"/>
                                             {/if}
                                         </td>
                                         
-                                        <td class="title">
-                                            ${music.title}
+                                        <td>
+                                            Answer
                                         </td>
                                             
-                                        <td class="hint">
-                                            ${music.hint}
-                                        </td>
-                                        
-                                        <td class="nb_musics">
-                                        </td>
-                                        
-                                        <td class="actions">
+                                        <td>
+                                            {@aria:TextField {
+                                                sclass: 'simple',
+                                                bind: { value: { to: 'answer', inside: question } }
+                                            }/}
                                         </td>
                                         
                                     </tr>
+                                    
+                                    <tr>
+                                        
+                                        <td>
+                                            Hint
+                                        </td>
+                                            
+                                        <td>
+                                            {@aria:TextField {
+                                                sclass: 'simple',
+                                                bind: { value: { to: 'hint', inside: question } }
+                                            }/}
+                                        </td>
+                                        
+                                    </tr>
+                                    
+                                    <tr>
+                                        
+                                        <td colspan="2">
+                                            
+                                            <span class="btn" title="Switch answer and hint" {on click { fn: switch_answer_and_hint, args: question }/}>
+                                                <i class="icon-refresh"></i>
+                                            </span>
+                                            
+                                        </td>
+                                        
+                                    </tr>
+                                    
                                 {/foreach}
                             {/if}
                     
                         </tbody>
                     </table>
                 </div>
+                
+                <div class="search well span5">
+                    
+                    <table class="theme table table-condensed">
+                        
+                        <thead>
+                            
+                            <th>Search</th>
+                            <th colspan="2">
+                                {@aria:TextField {
+                                    sclass: 'simple',
+                                    bind: { value: { to: 'request', inside: data.search } }
+                                }/}
+                            </th>
+                            <th>
+                                <span class="btn" title="Search" {on click { fn: search }/}>
+                                    <i class="icon-search"></i>
+                                </span>
+                            </th>
+                            
+                        </head>
+                        
+                        <tbody>
+                            
+                            {if data.search && data.search.response && data.search.response.questions}
+                                {foreach question inArray data.search.response.questions}
+                                    
+                                    <tr>
+                                        
+                                        <td class="album" rowspan="2">
+                                            {if question.img}
+                                                <img src="${question.img}"/>
+                                            {/if}
+                                        </td>
+                                        
+                                        <td>
+                                            Answer
+                                        </td>
+                                            
+                                        <td>
+                                            {@aria:TextField {
+                                                sclass: 'simple',
+                                                bind: { value: { to: 'answer', inside: question } }
+                                            }/}
+                                        </td>
+                                        
+                                        <td rowspan="2">
+                                        </td>
+                                        
+                                    </tr>
+                                    
+                                    <tr>
+                                        
+                                        <td>
+                                            Hint
+                                        </td>
+                                            
+                                        <td>
+                                            {@aria:TextField {
+                                                sclass: 'simple',
+                                                bind: { value: { to: 'hint', inside: question } }
+                                            }/}
+                                        </td>
+                                        
+                                    </tr>
+                                    
+                                {/foreach}
+                            {/if}
+                    
+                        </tbody>
+                    </table>
+                    
+                </div>                
             
             </div>
             
@@ -87,24 +183,28 @@
                 <div class="raw offset1 span10">
                     <pre>
                         ${left_curly_bracket}${eol}
-                        ${tab}musics: ${left_square_bracket}${eol}
+                        {if data.theme}
+                            ${tab}title: '${data.theme.title}',${eol}
+                            ${tab}active: ${data.theme.active},${eol}
+                        {/if}
+                        ${tab}questions: ${left_square_bracket}${eol}
                         
-                        {if data.theme && data.theme.musics}
-                            {foreach music inArray data.theme.musics}
+                        {if data.theme && data.theme.questions}
+                            {foreach question inArray data.theme.questions}
                                 
                                 ${tab}${tab}${left_curly_bracket}${eol}
                                 
-                                {if music.title}
-                                    ${tab}${tab}${tab}title: '${music.title}',${eol}
+                                {if question.answer}
+                                    ${tab}${tab}${tab}answer: '${question.answer}',${eol}
                                 {/if}
-                                {if music.hint}
-                                    ${tab}${tab}${tab}hint: '${music.hint}',${eol}
+                                {if question.hint}
+                                    ${tab}${tab}${tab}hint: '${question.hint}',${eol}
                                 {/if}
-                                {if music.img}
-                                    ${tab}${tab}${tab}img: '${music.img}',${eol}
+                                {if question.img}
+                                    ${tab}${tab}${tab}img: '${question.img}',${eol}
                                 {/if}
-                                {if music.mp3}
-                                    ${tab}${tab}${tab}mp3: '${music.mp3}',${eol}
+                                {if question.mp3}
+                                    ${tab}${tab}${tab}mp3: '${question.mp3}',${eol}
                                 {/if}                                                                                                
                                 
                                 ${tab}${tab}${right_curly_bracket},${eol}

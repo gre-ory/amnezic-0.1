@@ -29,9 +29,6 @@ Aria.classDefinition({
         json_loaded : function ( response, args ) {
             // this.$logDebug( 'json_loaded>' );
             var json = response.responseJson ? response.responseJson : response.responseText ? aria.utils.Json.load(response.responseText, this) : null;
-			this.$logInfo( 'json_loaded> ' + response.url + ' >>> ' + json + ' >>> ' + args.callback);
-            console.log( json );
-            console.log( args.callback );
             this.$callback( args.callback, json );
 		}
         

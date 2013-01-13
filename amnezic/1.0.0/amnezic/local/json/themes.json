@@ -2,20 +2,14 @@
     themes : [
         {
             id: 'daftpunk',
-            title: 'Daft Punk',
-            active: true,
             json: 'theme-daft-punk.json'
         },
         {
             id: 'discovery',
-            title: 'Discovery',
-            active: true,
             json: 'theme-discovery.json'
         },
         {
             id: 'test',
-            title: 'Test',
-            active: false,
             json: 'theme-test.json'
         }
     ]

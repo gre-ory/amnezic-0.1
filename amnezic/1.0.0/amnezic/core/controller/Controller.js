@@ -8,6 +8,8 @@ Aria.interfaceDefinition({
     
         load_current_section: 'Function',
         
+        search: 'Function',
+        
         store_data: 'Function',
         clear_data: 'Function',
         

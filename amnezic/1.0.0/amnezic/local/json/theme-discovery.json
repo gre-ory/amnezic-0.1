@@ -1,21 +1,22 @@
 {
-    musics: [
+    title: 'Discovery',
+    active: true,
+    questions: [
         {
-            title: 'One More Time',
+            answer: 'One More Time',
             mp3: 'http://cdn-preview-b.deezer.com/stream/b18965a0efe1a8f312ff415c39397a51-1.mp3',
         },
         {
-            title: 'Digital Love',
-            hint: '...',
+            answer: 'Digital Love',
             mp3: 'http://cdn-preview-0.deezer.com/stream/0507dcb244c248d3e848bdddc3482890-1.mp3',
         },
         {
-            title: 'Harder Better Faster Stronger',
+            answer: 'Harder Better Faster Stronger',
             img: 'http://api.deezer.com/2.0/album/302127/image',
             mp3: 'http://cdn-preview-a.deezer.com/stream/a4e149e52e2ffdc4f057661b40ba7ee3-1.mp3',
         },
         {
-            title: 'Crescendolls',
+            answer: 'Crescendolls',
             mp3: 'http://cdn-preview-1.deezer.com/stream/17bcbd40468589a40353a3888229bfeb-1.mp3',
         },
     ]
