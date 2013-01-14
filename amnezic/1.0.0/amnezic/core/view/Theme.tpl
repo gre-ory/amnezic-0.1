@@ -106,10 +106,6 @@
                 
             </div>
             
-            <div id="search" class="modal hide fade in" style="display: none; ">
-                [not loaded]
-            </div>
-            
             {var eol = '<br/>' /}
             {var tab = '&nbsp;&nbsp;&nbsp;&nbsp;' /}
             {var left_square_bracket = '&#91;' /}
@@ -163,6 +159,13 @@
                 <a href="#settings" class="btn pull-right" title="Next">
                     <i class="icon-chevron-right"></i>
                 </a>
+            </div>
+            
+            <!-- ************************************************** -->
+            <!-- modal search                                       -->
+            <!-- ************************************************** -->
+            
+            <div id="search" class="search modal hide fade in" style="display: none;">
             </div>
         
         {/section}

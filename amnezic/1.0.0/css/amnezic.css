@@ -65,3 +65,15 @@ input{
 .amnezic .users .score {
     width: 100px;
 }
+
+/* amnezic.search **************************************************/
+
+.amnezic .search .response .result {
+    margin-bottom: 5px;
+}
+
+.amnezic .search .response .result .action {
+    margin-top: 20px;
+    text-align: center;
+}
+

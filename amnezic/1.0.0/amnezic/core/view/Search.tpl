@@ -4,13 +4,16 @@
 }}
     
     {macro main()}
-
-        <div class="modal-header">  
+        
+        <div class="search">
+        
+        <!-- ************************************************** -->
+        <!-- request                                            -->
+        <!-- ************************************************** -->
+        
+        <div class="request modal-header">
+              
             <a class="close" data-dismiss="modal">x</a>  
-            
-            <h3>
-            
-            <!-- Search -->
             
             <span class="input-append">
             
@@ -24,12 +27,14 @@
                 </span>
             
             </span>
-            
-            </h3>
               
         </div>
         
-        <div class="modal-body">
+        <!-- ************************************************** -->
+        <!-- response                                           -->
+        <!-- ************************************************** -->
+        
+        <div class="response modal-body">
         
             {section {
                 id: 'results_section',
@@ -41,35 +46,35 @@
                 {if data.search && data.search.response && data.search.response.questions}
                     {foreach question inArray data.search.response.questions}
                         
-                        <div class="row-fluid" style="margin-bottom: 5px;">
+                        <div class="result row-fluid">
                             
-                            <div class="span2 pagination-centered" rowspan="3" style="margin-top: 20px;">
+                            <div class="action span2">
                                 {if question.selected}
-                                    <span class="btn btn-success" title="Unselect" {on click { fn: unselect, args: question }/}>
+                                    <span class="btn selected btn-success" title="Unselect" {on click { fn: unselect, args: question }/}>
                                         <i class="icon-ok"></i>
                                     </span>
                                 {else/}
-                                    <span class="btn" title="Select" {on click { fn: select, args: question }/}>
+                                    <span class="btn unselected" title="Select" {on click { fn: select, args: question }/}>
                                         <i class="icon-ban-circle"></i>
                                     </span>
                                 {/if}
                             </div>
                             
-                            <div class="span2">
+                            <div class="cover span2">
                                 {if question.img}
                                     <img src="${question.img}"/>
                                 {/if}
                             </div>
                             
-                            <div class="span6">
+                            <div class="music span6">
                                 
                                 <div class="row-fluid">
                                     
-                                    <div class="span12">
+                                    <div class="artist span12">
                                         ${question.answer|empty:''}
                                     </div>
                                     
-                                    <div class="offset1 span11">
+                                    <div class="title offset1 span11">
                                         <i>${question.hint|empty:''}</i>
                                     </div>
                                     
@@ -77,9 +82,9 @@
                             
                             </div>
                             
-                            <div class="span2 pagination-centered" style="margin-top: 20px;">
+                            <div class="action span2">
                                 
-                                <span class="btn" title="Play" {on click { fn: play, args: question }/}>
+                                <span class="btn play" title="Play" {on click { fn: play, args: question }/}>
                                     <i class="icon-play"></i>
                                 </span>
                                 
