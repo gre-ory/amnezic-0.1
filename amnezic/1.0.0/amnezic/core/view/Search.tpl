@@ -38,75 +38,57 @@
                 ]
     	    }}            
         
-            <table class="theme table table-condensed">
-                
-                <tbody>
-                    
-                    {if data.search && data.search.response && data.search.response.questions}
-                        {foreach question inArray data.search.response.questions}
+                {if data.search && data.search.response && data.search.response.questions}
+                    {foreach question inArray data.search.response.questions}
+                        
+                        <div class="row-fluid" style="margin-bottom: 5px;">
                             
-                            <tr>
-                                
-                                <td class="album" rowspan="3" style="vertical-align: middle;">
-                                    {if question.selected}
-                                        <span class="btn btn-success" title="Unselect" {on click { fn: unselect, args: question }/}>
-                                            <i class="icon-ok"></i>
-                                        </span>
-                                    {else/}
-                                        <span class="btn" title="Select" {on click { fn: select, args: question }/}>
-                                            <i class="icon-ban-circle"></i>
-                                        </span>
-                                    {/if}
-                                </td>
-                                
-                                <td class="album" rowspan="3">
-                                    {if question.img}
-                                        <img src="${question.img}"/>
-                                    {/if}
-                                </td>
-                                
-                                <td>
-                                    Answer
-                                </td>
-                                    
-                                <td>
-                                    ${question.answer|empty:''}
-                                </td>
-                                
-                                <td rowspan="2">
-                                </td>
-                                
-                            </tr>
-                            
-                            <tr>
-                                
-                                <td>
-                                    Hint
-                                </td>
-                                    
-                                <td>
-                                    ${question.hint|empty:''}
-                                </td>
-                                
-                            </tr>
-                            
-                            <tr>
-                                
-                                <td colspan="2">
-                                    
-                                    <span class="btn" title="Play" {on click { fn: play, args: question }/}>
-                                        <i class="icon-play"></i>
+                            <div class="span2 pagination-centered" rowspan="3" style="margin-top: 20px;">
+                                {if question.selected}
+                                    <span class="btn btn-success" title="Unselect" {on click { fn: unselect, args: question }/}>
+                                        <i class="icon-ok"></i>
                                     </span>
-                                    
-                                </td>
-                                
-                            </tr>
+                                {else/}
+                                    <span class="btn" title="Select" {on click { fn: select, args: question }/}>
+                                        <i class="icon-ban-circle"></i>
+                                    </span>
+                                {/if}
+                            </div>
                             
-                        {/foreach}
-                    {/if}
-            
-                </tbody>
-            </table>
+                            <div class="span2">
+                                {if question.img}
+                                    <img src="${question.img}"/>
+                                {/if}
+                            </div>
+                            
+                            <div class="span6">
+                                
+                                <div class="row-fluid">
+                                    
+                                    <div class="span12">
+                                        ${question.answer|empty:''}
+                                    </div>
+                                    
+                                    <div class="offset1 span11">
+                                        <i>${question.hint|empty:''}</i>
+                                    </div>
+                                    
+                                </div>
+                            
+                            </div>
+                            
+                            <div class="span2 pagination-centered" style="margin-top: 20px;">
+                                
+                                <span class="btn" title="Play" {on click { fn: play, args: question }/}>
+                                    <i class="icon-play"></i>
+                                </span>
+                                
+                            </div>
+                            
+                        </div>
+                        
+                    {/foreach}
+                {/if}
             
             {/section}
         
