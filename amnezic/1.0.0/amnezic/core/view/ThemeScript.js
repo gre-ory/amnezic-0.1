@@ -25,6 +25,28 @@ Aria.tplScriptDefinition({
 			this.$logDebug( '$viewReady>' );
             this.moduleCtrl.load_theme( this.data.section.args.id );
 		},
+
+        // //////////////////////////////////////////////////
+		// switch_answer_and_hint
+                
+        add_questions : function ( event, theme ) {
+            this.$logDebug( 'add_questions> ' + theme );
+            
+            Aria.loadTemplate( { 
+				classpath: 'amnezic.core.view.Search',
+				div: 'search',
+				moduleCtrl: this.moduleCtrl,
+				data : {
+                    container_id: 'search',
+                    theme: this.data.theme,
+                    search: {
+                        request: '',
+                        response: undefined
+                    }
+                }
+			} );
+            
+        },
         
         // //////////////////////////////////////////////////
 		// switch_answer_and_hint
@@ -43,6 +65,31 @@ Aria.tplScriptDefinition({
 		search : function () {
 			this.$logDebug( 'search>' );
             this.moduleCtrl.search();
+		},
+        
+        // //////////////////////////////////////////////////
+		// select
+		
+		select : function ( event, question ) {
+			this.$logDebug( 'select>' );
+            this.$json.setValue( question, 'selected', true );
+            this.moduleCtrl.add_question( question );
+		},
+        
+        // //////////////////////////////////////////////////
+		// unselect
+		
+		unselect : function ( event, question ) {
+			this.$logDebug( 'select>' );
+            this.$json.setValue( question, 'selected', false );
+            this.moduleCtrl.remove_question( question );
+		},
+        
+        // //////////////////////////////////////////////////
+		// play
+		
+		play : function ( event, question ) {
+			this.$logDebug( 'play>' );
 		}
 		
 	}

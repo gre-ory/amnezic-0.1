@@ -22,6 +22,7 @@ Aria.interfaceDefinition({
         load_theme: 'Function',
         activate_theme: 'Function',
         deactivate_theme: 'Function',
+        add_to_theme: 'Function',
 
     }
 });

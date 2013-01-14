@@ -33,7 +33,14 @@
                         
                         <thead>
                             
-                            <th colspan="4">Questions</th>
+                            <th colspan="4">
+                                Questions
+                                
+                                <span class="btn" title="Add" {on click { fn: add_questions, args: data.theme }/}>
+                                    <i class="icon-plus"></i>
+                                </span>
+                                
+                            </th>
                             
                         </head>
                         
@@ -46,7 +53,7 @@
                                         
                                         <td class="album" rowspan="3">
                                             {if question.img}
-                                                <img src="${question.img}"/>
+                                                <img src="${question.img}" width="50px"/>
                                             {/if}
                                         </td>
                                         
@@ -97,79 +104,10 @@
                     </table>
                 </div>
                 
-                <div class="search well span5">
-                    
-                    <table class="theme table table-condensed">
-                        
-                        <thead>
-                            
-                            <th>Search</th>
-                            <th colspan="2">
-                                {@aria:TextField {
-                                    sclass: 'simple',
-                                    bind: { value: { to: 'request', inside: data.search } }
-                                }/}
-                            </th>
-                            <th>
-                                <span class="btn" title="Search" {on click { fn: search }/}>
-                                    <i class="icon-search"></i>
-                                </span>
-                            </th>
-                            
-                        </head>
-                        
-                        <tbody>
-                            
-                            {if data.search && data.search.response && data.search.response.questions}
-                                {foreach question inArray data.search.response.questions}
-                                    
-                                    <tr>
-                                        
-                                        <td class="album" rowspan="2">
-                                            {if question.img}
-                                                <img src="${question.img}"/>
-                                            {/if}
-                                        </td>
-                                        
-                                        <td>
-                                            Answer
-                                        </td>
-                                            
-                                        <td>
-                                            {@aria:TextField {
-                                                sclass: 'simple',
-                                                bind: { value: { to: 'answer', inside: question } }
-                                            }/}
-                                        </td>
-                                        
-                                        <td rowspan="2">
-                                        </td>
-                                        
-                                    </tr>
-                                    
-                                    <tr>
-                                        
-                                        <td>
-                                            Hint
-                                        </td>
-                                            
-                                        <td>
-                                            {@aria:TextField {
-                                                sclass: 'simple',
-                                                bind: { value: { to: 'hint', inside: question } }
-                                            }/}
-                                        </td>
-                                        
-                                    </tr>
-                                    
-                                {/foreach}
-                            {/if}
-                    
-                        </tbody>
-                    </table>
-                    
-                </div>                
+            </div>
             
+            <div id="search" class="modal hide fade in" style="display: none; ">
+                [not loaded]
             </div>
             
             {var eol = '<br/>' /}

@@ -25,7 +25,7 @@
             <div class="navbar">
                 <div class="navbar-inner">
                     
-                    {var hash = data.section ? '#' + data.section.hash : ''/}
+                    {var hash = data.section && data.section.hash ? '#' + data.section.hash : ''/}
                     <span class="brand">Amnezic</span>
                     
                     <span>

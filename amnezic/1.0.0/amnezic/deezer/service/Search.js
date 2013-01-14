@@ -9,29 +9,27 @@ Aria.classDefinition({
 
 		search : function ( search, callback ) {
             this.$logDebug( 'search>' );
-            !search && search = 'jackson';
             
             var url = 'http://api.deezer.com/2.0/search?q=' + search + '&output=jsonp';
             
-            /*
             jQuery.ajax({
                 type: 'GET',
                 url: url,
                 contentType: 'application/json; charset=utf-8',
                 dataType: 'jsonp',
                 error: function () {
-                    this.$logDebug( 'error>' );
-                    this.found( search, callback, null );
+                    this.found( undefined, callback );
                 }.bind(this),
                 success: function ( response ) {
-                    this.$logDebug( 'success>' );
-                    this.found( search, callback, response );
+                    this.found( response, callback );
                 }.bind(this)
             });
-            */
             
+            // TODO : make it work with aria!!!
+            /*
             aria.core.IO.asyncRequest({
                 url: url,
+                method: 'POST',
                 callback: {
                     fn: this.found,
                     onerror: this.found,
@@ -40,51 +38,38 @@ Aria.classDefinition({
                         callback: callback
                     }
                 }
-            })
+            });
+            */
             
 		},
         
-        found : function ( response, args ) {
+        found : function ( response, callback ) {
             this.$logDebug( 'found>' );
             
             console.log( response );
-            console.log( args );
+            // console.log( callback );
             
+            var questions = [];
             
-            /*
-            var theme = {},
-                music = {},
-                musics = [];
-                
-            controller.$logInfo("[_fetch] Start...");
-            
-            if ( response ) {
-                controller.$logInfo("[_fetch] album: " + response.id + ' - ' + response.title );
-                theme.title = response.title;
-                theme.url = response.cover;
-                
-    			if ( response.tracks && response.tracks.data ) {
-                    for ( i = 0 ; i < response.tracks.data.length; i++ ) {
-                        var track = response.tracks.data[i];
-                        music = {};
-                        music.title = track.title;
-                        if ( track.artist ) {
-                            music.artist = track.artist.name;
-                        }
-                        music.url = track.preview;
-                        music.external_url = track.link;
-                        controller.$logInfo("[_fetch] music: " + music.title + " by " + music.artist );
-                        musics.push( music );
+            if ( response.data ) {
+                for ( var i = 0 ; i < response.data.length && i < 20 ; i++ ) {
+                    var track = response.data[i];
+                    // console.log( track );
+                    if ( track.readable ) {
+                        var question = {
+                            answer: track.artist ? track.artist.name : undefined,
+                            hint: track.title,
+                            img: track.album ? track.album.cover : undefined,
+                            mp3: track.preview 
+                        };
+                        questions.push( question ); 
                     }
                 }
             }
             
-            controller.$logInfo("[_fetch] length: " + musics.length );
-            controller.$logInfo("[_fetch] callback: " + callback );
-            controller.$logInfo("[_fetch] callback.scope: " + callback.scope );
-            
-			controller.$callback( callback, [ theme, musics ] );
-            */
+            if ( callback ) {
+                this.$callback( callback, { questions: questions } );
+            }
             
 		}
 		

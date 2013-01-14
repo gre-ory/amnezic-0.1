@@ -248,29 +248,30 @@ Aria.classDefinition({
             this.$logDebug( 'deactivate_theme>' );
             theme && this.$json.setValue( theme, 'active', false );
         },
+        
+        add_to_theme : function( question, theme ) {
+            this.$logDebug( 'add_to_theme>' );
+            question && theme && this.$json.add( theme.questions, question );
+        },
 
         // //////////////////////////////////////////////////
         // search
 
-        search : function() {
+        search : function( request, callback ) {
             this.$logDebug( 'search>' );
-            var service = new amnezic.deezer.service.Search(),
-                data = this.getData(),
-                request = data && data.search ? data.search.request : undefined,
-                callback = {
-                    fn: this.found,
-                    scope: this
-                };
+            var service = new amnezic.deezer.service.Search();
                 
             console.log( request );
             
             service.search( request, callback );
         },
         
-        found : function( json ) {
+        found_bad : function( json ) {
             this.$logDebug( 'found>' );
             console.log( json );
-            json && this.$json.setValue( this.getData(), 'theme', json );
+            var data = this.getData(),
+                search = data.search;
+            json && this.$json.setValue( search, 'response', json );
         },
 
         // //////////////////////////////////////////////////
