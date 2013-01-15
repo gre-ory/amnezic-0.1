@@ -217,26 +217,25 @@ Aria.classDefinition({
             json.themes && this.$json.setValue( this.getData(), 'themes', json.themes );
         },
         
-        load_theme : function( id ) {
-            this.$logDebug( 'load_theme> ' + id );
+        load_theme : function( id, callback ) {
+            this.$logDebug( 'load_theme> ' + id + ', ' + callback );
             this.$json.setValue( this.getData(), 'theme', undefined );
-            var theme = this.get_theme( id ),
-                service = new amnezic.core.service.JsonFileLoader(),
-                json_file = theme ? this.AMNEZIC_ROOT + '/json/' + theme.json : undefined,
-                callback = {
-                    fn: this.theme_loaded,
-                    scope: this
-                };
-            
-            if ( json_file ) {
-                service.load_json_file( json_file, undefined, callback );
+            if ( id && id != '' ) {
+                var theme = this.get_theme( id ),
+                    service = new amnezic.core.service.JsonFileLoader(),
+                    json_file = theme ? this.AMNEZIC_ROOT + '/json/' + theme.json : undefined;
+                
+                if ( json_file ) {
+                    service.load_json_file( json_file, undefined, callback );
+                }
+            } else {
+                var theme = {
+                        title: undefined,
+                        active: false,
+                        questions: []
+                    };
+                this.$callback( callback, theme );
             }
-        },
-        
-        theme_loaded : function( json ) {
-            this.$logDebug( 'theme_loaded>' );
-            console.log( json );
-            json && this.$json.setValue( this.getData(), 'theme', json );
         },
         
         activate_theme : function( theme ) {

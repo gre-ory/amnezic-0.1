@@ -15,6 +15,8 @@ Aria.tplScriptDefinition({
 		
 		$displayReady : function () {
 			this.$logDebug( '$displayReady>' );
+            
+            // TODO : fix this > should be handled by the controller itself
             this.moduleCtrl.store_data();
 		},
         
@@ -23,16 +25,32 @@ Aria.tplScriptDefinition({
 		
 		$viewReady : function () {
 			this.$logDebug( '$viewReady>' );
-            if ( this.data.section.args.id ) {
-                this.moduleCtrl.load_theme( this.data.section.args.id );
-            } else {
-                var theme = {
-                    title: '',
-                    active: false,
-                    questions: []
+            
+            this.load_theme();
+		},
+        
+        // //////////////////////////////////////////////////
+		// load_theme
+		
+		load_theme : function () {
+			this.$logDebug( 'load_theme>' );
+            
+            var id = this.data.section.args.id,
+                callback = {
+                    fn: this.theme_loaded,
+                    scope: this
                 };
-                this.$json.setValue( this.data, 'theme', theme );
-            }
+            
+            this.moduleCtrl.load_theme( id, callback );
+		},
+        
+        // //////////////////////////////////////////////////
+		// theme_loaded
+		
+		theme_loaded : function ( theme ) {
+			this.$logDebug( 'theme_loaded>' );
+            
+            this.$json.setValue( this.data, 'theme', theme || {} );
 		},
         
         // //////////////////////////////////////////////////
@@ -40,9 +58,8 @@ Aria.tplScriptDefinition({
 		
 		show_raw : function ( event ) {
 			this.$logDebug( 'show_raw>' );
-            if ( this.data.theme ) {
-                this.$json.setValue( this.data.theme, 'raw', true );
-            } 
+            
+            this.$json.setValue( this.data.theme, 'raw', true );
 		},
         
         // //////////////////////////////////////////////////
@@ -50,9 +67,8 @@ Aria.tplScriptDefinition({
 		
 		hide_raw : function ( event ) {
 			this.$logDebug( 'hide_raw>' );
-            if ( this.data.theme ) {
-                this.$json.setValue( this.data.theme, 'raw', false );
-            } 
+            
+            this.$json.setValue( this.data.theme, 'raw', false );
 		},
 
         // //////////////////////////////////////////////////
@@ -69,12 +85,11 @@ Aria.tplScriptDefinition({
                     container_id: 'search',
                     theme: this.data.theme,
                     search: {
-                        request: '',
+                        request: undefined,
                         response: undefined
                     }
                 }
 			} );
-            
         },
 
         // //////////////////////////////////////////////////
@@ -83,7 +98,7 @@ Aria.tplScriptDefinition({
         remove_question_at : function ( event, index ) {
             this.$logDebug( 'remove_question_at>' );
             
-            if ( this.data.theme && this.data.theme.questions ) {
+            if ( this.data.theme.questions ) {
                 this.$json.removeAt( this.data.theme.questions, index );
             }
         },
@@ -93,36 +108,12 @@ Aria.tplScriptDefinition({
 		
 		switch_answer_and_hint : function ( event, question ) {
 			this.$logDebug( 'switch_answer_and_hint> ' + question );
+            
             var answer = question.answer,
                 hint = question.hint;
+                
             this.$json.setValue( question, 'answer', hint );
             this.$json.setValue( question, 'hint', answer );
-		},
-        
-        // //////////////////////////////////////////////////
-		// search
-		
-		search : function () {
-			this.$logDebug( 'search>' );
-            this.moduleCtrl.search();
-		},
-        
-        // //////////////////////////////////////////////////
-		// select
-		
-		select : function ( event, question ) {
-			this.$logDebug( 'select>' );
-            this.$json.setValue( question, 'selected', true );
-            this.moduleCtrl.add_question( question );
-		},
-        
-        // //////////////////////////////////////////////////
-		// unselect
-		
-		unselect : function ( event, question ) {
-			this.$logDebug( 'select>' );
-            this.$json.setValue( question, 'selected', false );
-            this.moduleCtrl.remove_question( question );
 		},
         
         // //////////////////////////////////////////////////
