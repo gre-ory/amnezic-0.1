@@ -41,6 +41,11 @@ input{
 	margin: 0px;
 }
 
+.table th,
+.table td {
+    background-color: #FFF;
+}
+
 /* amnezic **************************************************/
 
 .amnezic .form-horizontal  .control-group {
@@ -54,16 +59,69 @@ input{
 
 /* amnezic.users **************************************************/
 
+.amnezic .users {
+    /* border-radius: 5px; */
+    margin: auto;
+    width: auto;
+}
+
+.amnezic .users th {
+    background-image: -webkit-linear-gradient(top,#fff,#f2f2f2);
+    /* border-radius: 5px; */
+}
+
 .amnezic .users .name {
-    width: 200px;
+    /* width: 200px; */
 }
 
 .amnezic .users .active {
-    width: 100px;
+    text-align: center;
 }
 
 .amnezic .users .score {
-    width: 100px;
+    text-align: center;
+}
+
+.amnezic .users .actions {
+    text-align: center;
+}
+
+.amnezic .users .toolbar {
+    background-color: transparent;
+}
+
+/* amnezic.themes **************************************************/
+
+.amnezic .themes {
+    /* border-radius: 5px; */
+    margin: auto;
+    width: auto;
+}
+
+.amnezic .themes th {
+    background-image: -webkit-linear-gradient(top,#fff,#f2f2f2);
+    /* border-radius: 5px; */
+}
+
+.amnezic .themes .toolbar {
+    background-color: transparent;
+}
+
+/* amnezic.questions **************************************************/
+
+.amnezic .questions {
+    /* border-radius: 5px; */
+    margin: auto;
+    width: auto;
+}
+
+.amnezic .questions th {
+    background-image: -webkit-linear-gradient(top,#fff,#f2f2f2);
+    /* border-radius: 5px; */
+}
+
+.amnezic .questions .toolbar {
+    background-color: transparent;
 }
 
 /* amnezic.search **************************************************/

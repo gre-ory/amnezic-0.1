@@ -11,14 +11,15 @@
                 { to: 'themes', inside: data, recursive: true }
             ]
 	    }}
+        
             <div class="row-fluid">
                 
                 <!-- ************************************************** -->
                 <!--  previous                                          -->
                 <!-- ************************************************** -->
                 
-                <div class="span1">
-                    <a href="#users" class="btn pull-left" title="Previous">
+                <div class="span1 pagination-centered">
+                    <a href="#users" class="btn" title="Previous">
                         <i class="icon-chevron-left"></i>
                     </a>
                 </div>
@@ -27,8 +28,9 @@
                 <!--  content                                           -->
                 <!-- ************************************************** -->
                 
-                <div class="well span10">
-                    <table class="themes table table-condensed">
+                <div class="span10 pagination-centered">
+                    
+                    <table class="table themes">
                         
                         <thead>
                             
@@ -53,12 +55,12 @@
                                                 
                                             <td class="active">
                                                 {if theme.active}
-                                                    <span class="btn btn-success" title="Active" {on click { fn:deactivate, args: theme }/}>
-                                                        <i class="icon-off"></i>
+                                                    <span class="btn btn-success" title="Used" {on click { fn:deactivate, args: theme }/}>
+                                                        <i class="icon-ok"></i>
                                                     </span>
                                                 {else/}
-                                                    <span class="btn" title="Inactive" {on click { fn:activate, args: theme }/}>
-                                                        <i class="icon-off"></i>
+                                                    <span class="btn" title="Not used" {on click { fn:activate, args: theme }/}>
+                                                        <i class="icon-ban-circle"></i>
                                                     </span>
                                                 {/if}
                                             </td>
@@ -83,14 +85,15 @@
                     
                         </tbody>
                     </table>
+                    
                 </div>
                 
                 <!-- ************************************************** -->
                 <!--  next                                              -->
                 <!-- ************************************************** -->
                 
-                <div class="span1">
-                    <a href="#settings" class="btn pull-right" title="Next">
+                <div class="span1 pagination-centered">
+                    <a href="#settings" class="btn" title="Next">
                         <i class="icon-chevron-right"></i>
                     </a>
                 </div>

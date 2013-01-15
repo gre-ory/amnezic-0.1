@@ -11,79 +11,96 @@
                 { to: 'users', inside: data, recursive: true }
             ]
 	    }}
+        
             <div class="row-fluid">
-                <table class="users table table-condensed offset2 span8">
-                    
-                    <thead>
+            
+                <!-- ************************************************** -->
+                <!--  previous                                          -->
+                <!-- ************************************************** -->
+                
+                <!-- none -->
+                
+                <!-- ************************************************** -->
+                <!--  content                                           -->
+                <!-- ************************************************** -->
+                
+                <div class="offset1 span10 pagination-centered">
+                
+                    <table class="table users">
                         
-                        <th class="name">Name</th>
-                        <th class="score">Active</th>
-                        <th class="score">Score</th>
-                        <th class="actions"></th>
+                        <thead>
+                            
+                            <th class="name">Name</th>
+                            <th class="active">Active</th>
+                            <th class="score">Score</th>
+                            <th class="actions"></th>
+                            
+                        </head>
                         
-                    </head>
+                        <tbody>
                     
-                    <tbody>
-                
-                        {foreach user inArray data.users}
-                            {if !user.deleted}
-                                <tr>
-                                    
-                                    <td class="name">
-                                        {@aria:TextField {
-                                            sclass: 'simple',
-                                            bind: { value: { to: 'name', inside: user } }
-                                        }/}
-                                    </td>
-                                    
-                                    <td class="active">
-                                        {if user.active}
-                                            <span class="btn btn-success" title="Playing" {on click { fn:deactivate, args: user }/}>
-                                                <i class="icon-off"></i>
+                            {foreach user inArray data.users}
+                                {if !user.deleted}
+                                    <tr>
+                                        
+                                        <td class="name">
+                                            {@aria:TextField {
+                                                sclass: 'simple',
+                                                bind: { value: { to: 'name', inside: user } }
+                                            }/}
+                                        </td>
+                                        
+                                        <td class="active">
+                                            {if user.active}
+                                                <span class="btn btn-success" title="Playing" {on click { fn:deactivate, args: user }/}>
+                                                    <i class="icon-ok"></i>
+                                                </span>
+                                            {else/}
+                                                <span class="btn" title="Not playing" {on click { fn:activate, args: user }/}>
+                                                    <i class="icon-ban-circle"></i>
+                                                </span>
+                                            {/if}
+                                        </td>
+                                        
+                                        <td class="score">
+                                            ${user.score}
+                                        </td>
+                                        
+                                        <td class="actions">
+                                            <span class="btn-group">
+                                                <span class="btn" title="Delete" {on click { fn:remove, args: user }/}>
+                                                    <i class="icon-trash"></i>
+                                                </span>
                                             </span>
-                                        {else/}
-                                            <span class="btn" title="Not playing" {on click { fn:activate, args: user }/}>
-                                                <i class="icon-off"></i>
-                                            </span>
-                                        {/if}
-                                    </td>
-                                    
-                                    <td class="score">
-                                        ${user.score}
-                                    </td>
-                                    
-                                    <td class="actions">
-                                        <span class="btn-group">
-                                            <span class="btn" title="Delete" {on click { fn:remove, args: user }/}>
-                                                <i class="icon-trash"></i>
-                                            </span>
-                                        </span>
-                                    </td>
-                                    
-                                </tr>
-                            {/if}
-                        {/foreach}
+                                        </td>
+                                        
+                                    </tr>
+                                {/if}
+                            {/foreach}
+                            
+                            <tr>
+                                <td class="toolbar" colspan="4">
+                                    <span class="btn" title="Add" {on click { fn : add } /}>
+                                        <i class="icon-plus"></i>
+                                    </span>
+                                </td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                    
+                </div>
                 
-                    </tbody>
-                </table>
-            
-            </div>
-            
-            <div class="row-fluid">
+                <!-- ************************************************** -->
+                <!--  next                                              -->
+                <!-- ************************************************** -->
                 
-                <span class="btn offset2" title="Add" {on click { fn : add } /}>
-                    <i class="icon-plus"></i>
-                </span>
-                
-            </div>
+                <div class="span1 pagination-centered">
+                    <a href="#themes" class="btn" title="Next">
+                        <i class="icon-chevron-right"></i>
+                    </a>
+                </div>
             
-            <div class="row-fluid">
-                <span class="btn disabled pull-left" title="Previous">
-                    <i class="icon-chevron-left"></i>
-                </span>
-                <a href="#themes" class="btn pull-right" title="Next">
-                    <i class="icon-chevron-right"></i>
-                </a>
             </div>
         
         {/section}

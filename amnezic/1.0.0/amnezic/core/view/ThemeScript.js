@@ -23,14 +23,43 @@ Aria.tplScriptDefinition({
 		
 		$viewReady : function () {
 			this.$logDebug( '$viewReady>' );
-            this.moduleCtrl.load_theme( this.data.section.args.id );
+            if ( this.data.section.args.id ) {
+                this.moduleCtrl.load_theme( this.data.section.args.id );
+            } else {
+                var theme = {
+                    title: '',
+                    active: false,
+                    questions: []
+                };
+                this.$json.setValue( this.data, 'theme', theme );
+            }
+		},
+        
+        // //////////////////////////////////////////////////
+		// show_raw
+		
+		show_raw : function ( event ) {
+			this.$logDebug( 'show_raw>' );
+            if ( this.data.theme ) {
+                this.$json.setValue( this.data.theme, 'raw', true );
+            } 
+		},
+        
+        // //////////////////////////////////////////////////
+		// hide_raw
+		
+		hide_raw : function ( event ) {
+			this.$logDebug( 'hide_raw>' );
+            if ( this.data.theme ) {
+                this.$json.setValue( this.data.theme, 'raw', false );
+            } 
 		},
 
         // //////////////////////////////////////////////////
-		// switch_answer_and_hint
+		// add_questions
                 
-        add_questions : function ( event, theme ) {
-            this.$logDebug( 'add_questions> ' + theme );
+        add_questions : function ( event ) {
+            this.$logDebug( 'add_questions>' );
             
             Aria.loadTemplate( { 
 				classpath: 'amnezic.core.view.Search',
@@ -46,6 +75,17 @@ Aria.tplScriptDefinition({
                 }
 			} );
             
+        },
+
+        // //////////////////////////////////////////////////
+		// remove_question_at
+                
+        remove_question_at : function ( event, index ) {
+            this.$logDebug( 'remove_question_at>' );
+            
+            if ( this.data.theme && this.data.theme.questions ) {
+                this.$json.removeAt( this.data.theme.questions, index );
+            }
         },
         
         // //////////////////////////////////////////////////

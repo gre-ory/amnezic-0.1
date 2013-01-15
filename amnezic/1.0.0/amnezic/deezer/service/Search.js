@@ -1,7 +1,6 @@
 Aria.classDefinition({
 	$classpath : 'amnezic.deezer.service.Search',
-    $extends : 'aria.core.JsObject',
-    $dependencies: [ 'aria.core.IO.asyncRequest' ],
+    $extends : 'amnezic.core.service.JsonUrlLoader',
 	$prototype : {
 
 		// //////////////////////////////////////////////////
@@ -10,51 +9,24 @@ Aria.classDefinition({
 		search : function ( search, callback ) {
             this.$logDebug( 'search>' );
             
-            var url = 'http://api.deezer.com/2.0/search?q=' + search + '&output=jsonp';
+            var url = 'http://api.deezer.com/2.0/search?q=' + search + '&output=jsonp',
+                adapter = this.adapt.bind(this);
             
-            jQuery.ajax({
-                type: 'GET',
-                url: url,
-                contentType: 'application/json; charset=utf-8',
-                dataType: 'jsonp',
-                error: function () {
-                    this.found( undefined, callback );
-                }.bind(this),
-                success: function ( response ) {
-                    this.found( response, callback );
-                }.bind(this)
-            });
-            
-            // TODO : make it work with aria!!!
-            /*
-            aria.core.IO.asyncRequest({
-                url: url,
-                method: 'POST',
-                callback: {
-                    fn: this.found,
-                    onerror: this.found,
-                    scope: this,
-                    args: {
-                        callback: callback
-                    }
-                }
-            });
-            */
-            
+            this.load_json_url( url, adapter, callback );
 		},
         
-        found : function ( response, callback ) {
-            this.$logDebug( 'found>' );
+        adapt : function ( json ) {
+            this.$logDebug( 'adapt>' );
             
-            console.log( response );
-            // console.log( callback );
+            console.log( json );
             
-            var questions = [];
+            var max_tracks = 20,
+                tracks = json ? json.data : undefined,
+                questions = [];
             
-            if ( response.data ) {
-                for ( var i = 0 ; i < response.data.length && i < 20 ; i++ ) {
-                    var track = response.data[i];
-                    // console.log( track );
+            if ( tracks ) {
+                for ( var i = 0 ; i < tracks.length && i < max_tracks ; i++ ) {
+                    var track = tracks[i];
                     if ( track.readable ) {
                         var question = {
                             answer: track.artist ? track.artist.name : undefined,
@@ -67,10 +39,9 @@ Aria.classDefinition({
                 }
             }
             
-            if ( callback ) {
-                this.$callback( callback, { questions: questions } );
-            }
-            
+            return {
+                questions: questions
+            };
 		}
 		
 	}

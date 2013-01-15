@@ -102,8 +102,7 @@
         <!-- main                                               -->
         <!-- ************************************************** -->
     
-        <div id="main">
-        </div>
+        <div id="main"></div>
         
         <!-- ************************************************** -->
         <!-- init                                               -->
@@ -113,7 +112,9 @@
 			Aria.loadTemplate( {
                 classpath: 'amnezic.core.view.Main',
                 div: 'main',
-                moduleCtrl: { classpath : 'amnezic.core.controller.ControllerImpl' }
+                moduleCtrl: {
+                    classpath : 'amnezic.core.controller.ControllerImpl'
+                }
             } );
         </script>
         

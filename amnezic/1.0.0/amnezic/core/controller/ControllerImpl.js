@@ -7,7 +7,7 @@ Aria.classDefinition({
         'aria.utils.HashManager',
         'aria.storage.SessionStorage',
         'amnezic.core.controller.Flow',
-        'amnezic.local.service.JsonLoader',
+        'amnezic.core.service.JsonFileLoader',
         'amnezic.deezer.service.Search'
     ],
     $statics: {
@@ -201,14 +201,14 @@ Aria.classDefinition({
             this.$logDebug( 'load_themes>' );
             // if ( !this.has_themes() ) {
                 this.$json.setValue( this.getData(), 'themes', undefined );
-                var service = new amnezic.local.service.JsonLoader(),
-                    json_file = this.AMNEZIC_ROOT + 'amnezic/local/json/themes.json',
+                var service = new amnezic.core.service.JsonFileLoader(),
+                    json_file = this.AMNEZIC_ROOT + '/json/themes.json',
                     callback = {
                         fn: this.themes_loaded,
                         scope: this
                     };
                 
-                service.load_json( json_file, callback );
+                service.load_json_file( json_file, undefined, callback );
             // }
         },
         
@@ -221,15 +221,15 @@ Aria.classDefinition({
             this.$logDebug( 'load_theme> ' + id );
             this.$json.setValue( this.getData(), 'theme', undefined );
             var theme = this.get_theme( id ),
-                service = new amnezic.local.service.JsonLoader(),
-                json_file = theme ? this.AMNEZIC_ROOT + 'amnezic/local/json/' + theme.json : undefined,
+                service = new amnezic.core.service.JsonFileLoader(),
+                json_file = theme ? this.AMNEZIC_ROOT + '/json/' + theme.json : undefined,
                 callback = {
                     fn: this.theme_loaded,
                     scope: this
                 };
             
             if ( json_file ) {
-                service.load_json( json_file, callback );
+                service.load_json_file( json_file, undefined, callback );
             }
         },
         
@@ -272,20 +272,6 @@ Aria.classDefinition({
             var data = this.getData(),
                 search = data.search;
             json && this.$json.setValue( search, 'response', json );
-        },
-
-        // //////////////////////////////////////////////////
-        // load
-
-        load_game : function() {
-            this.$logDebug("[load_game] Start...");
-            var service = new amnezic.local.service.JsonLoader();
-            service.load_json( this.AMNEZIC_ROOT + 'amnezic/local/json/game.json', { fn: this.game_loaded, scope: this } );
-        },
-        
-        game_loaded : function( game ) {
-            this.$logDebug("[game_loaded] Start...");
-            this.$raiseEvent( { name: 'game_loaded', game: game } );
         }
         
     }
