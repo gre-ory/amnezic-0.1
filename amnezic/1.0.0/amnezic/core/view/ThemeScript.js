@@ -26,7 +26,9 @@ Aria.tplScriptDefinition({
 		$viewReady : function () {
 			this.$logDebug( '$viewReady>' );
             
-            this.load_theme();
+            if ( !this.data.theme ) {
+                this.load_theme();
+            }
 		},
         
         // //////////////////////////////////////////////////
@@ -50,7 +52,7 @@ Aria.tplScriptDefinition({
 		theme_loaded : function ( theme ) {
 			this.$logDebug( 'theme_loaded>' );
             
-            this.$json.setValue( this.data, 'theme', theme || {} );
+            this.$json.setValue( this.data, 'theme', theme );
 		},
         
         // //////////////////////////////////////////////////

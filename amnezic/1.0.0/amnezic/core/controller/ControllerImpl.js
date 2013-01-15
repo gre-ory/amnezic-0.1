@@ -197,44 +197,37 @@ Aria.classDefinition({
             return undefined;
         },
         
-        load_themes : function() {
+        load_themes : function( callback ) {
             this.$logDebug( 'load_themes>' );
-            // if ( !this.has_themes() ) {
-                this.$json.setValue( this.getData(), 'themes', undefined );
-                var service = new amnezic.core.service.JsonFileLoader(),
-                    json_file = this.AMNEZIC_ROOT + '/json/themes.json',
-                    callback = {
-                        fn: this.themes_loaded,
-                        scope: this
-                    };
-                
-                service.load_json_file( json_file, undefined, callback );
-            // }
-        },
-        
-        themes_loaded : function( json ) {
-            this.$logDebug( 'themes_loaded>' );
-            json.themes && this.$json.setValue( this.getData(), 'themes', json.themes );
+            
+            var service = new amnezic.core.service.JsonFileLoader(),
+                json_file = this.AMNEZIC_ROOT + 'json/themes.json',
+                adapter = function( json ) {
+                    return json.themes || [];
+                };
+            
+            service.load_json_file( json_file, adapter, callback );
         },
         
         load_theme : function( id, callback ) {
-            this.$logDebug( 'load_theme> ' + id + ', ' + callback );
-            this.$json.setValue( this.getData(), 'theme', undefined );
-            if ( id && id != '' ) {
-                var theme = this.get_theme( id ),
-                    service = new amnezic.core.service.JsonFileLoader(),
-                    json_file = theme ? this.AMNEZIC_ROOT + '/json/' + theme.json : undefined;
-                
-                if ( json_file ) {
-                    service.load_json_file( json_file, undefined, callback );
-                }
+            this.$logDebug( 'load_theme>' );
+            
+            var service = new amnezic.core.service.JsonFileLoader(),
+                default_theme = {
+                    title: undefined,
+                    active: false,
+                    questions: []
+                },
+                theme = id && id != '' ? this.get_theme( id ) : undefined,
+                json_file = theme ? this.AMNEZIC_ROOT + 'json/' + theme.json : undefined,
+                adapter = function( json ) {
+                    return json || default_theme;
+                };
+            
+            if ( json_file ) {
+                service.load_json_file( json_file, adapter, callback );
             } else {
-                var theme = {
-                        title: undefined,
-                        active: false,
-                        questions: []
-                    };
-                this.$callback( callback, theme );
+                this.$callback( callback, default_theme );
             }
         },
         
