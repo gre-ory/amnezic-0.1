@@ -30,7 +30,8 @@ Aria.classDefinition({
         this.service = {
             storage: new amnezic.core.service.Storage( this ),
             theme: new amnezic.core.service.Theme( this ),
-            user: new amnezic.core.service.User( this )
+            user: new amnezic.core.service.User( this ),
+            search: new amnezic.deezer.service.Search( this )
         };
         
         // admin mode
@@ -134,37 +135,12 @@ Aria.classDefinition({
         theme_retrieve : function( id, callback ) {
             this.service.theme.retrieve( id, callback );
         },
-        
-        theme_set : function( theme ) {
-            this.service.theme.set( theme );
-        },
-        
-        theme_activate : function( theme ) {
-            this.service.theme.activate( theme );
-        },
-        
-        theme_deactivate : function( theme ) {
-            this.service.theme.deactivate( theme );
-        },
-        
-        theme_add_question : function( theme, question ) {
-            this.service.theme.add_question( theme, question );
-        },
-        
-        theme_remove_question_at : function( theme, index ) {
-            this.service.theme.remove_question_at( theme, index );
-        },
 
         // //////////////////////////////////////////////////
         // search
         
         search : function( request, callback ) {
-            this.$logDebug( 'search>' );
-            var service = new amnezic.deezer.service.Search();
-                
-            console.log( request );
-            
-            service.search( request, callback );
+            this.service.search.search( request, callback );
         }
         
     }

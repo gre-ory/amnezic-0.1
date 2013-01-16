@@ -1,16 +1,13 @@
 {
     themes : [
         {
-            id: 'daftpunk',
-            json: 'theme-daft-punk.json'
+            id: 'daftpunk'
         },
         {
-            id: 'discovery',
-            json: 'theme-discovery.json'
+            id: 'discovery'
         },
         {
-            id: 'test',
-            json: 'theme-test.json'
+            id: 'test'
         }
     ]
 }

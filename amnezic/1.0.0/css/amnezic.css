@@ -103,6 +103,22 @@ input{
     /* border-radius: 5px; */
 }
 
+.amnezic .themes .title {
+    /* width: 200px; */
+}
+
+.amnezic .themes .active {
+    text-align: center;
+}
+
+.amnezic .themes .nb_questions {
+    text-align: center;
+}
+
+.amnezic .themes .actions {
+    text-align: center;
+}
+
 .amnezic .themes .toolbar {
     background-color: transparent;
 }

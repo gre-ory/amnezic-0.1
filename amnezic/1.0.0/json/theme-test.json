@@ -2,21 +2,35 @@
     title: 'Test',
     active: false,
     questions: [
-        {   
-            answer: '???',
-            mp3: 'http://cdn-preview-b.deezer.com/stream/b18965a0efe1a8f312ff415c39397a51-1.mp3'
+        {
+            answer: 'AAA',
+            hint: 'The Holloways',
+            img: 'http://api.deezer.com/2.0/album/419494/image',
+            mp3: 'http://cdn-preview-b.deezer.com/stream/bbc0431ce75e25a3b57f2e29be863222-3.mp3',
         },
-        {   
-            answer: '???',
-            mp3: 'http://cdn-preview-0.deezer.com/stream/0507dcb244c248d3e848bdddc3482890-1.mp3'
+        {
+            answer: 'Grzegorz Turnau and Magda Umer',
+            hint: 'Aaa, Kotki Dwa',
+            img: 'http://api.deezer.com/2.0/album/1097766/image',
+            mp3: 'http://cdn-preview-9.deezer.com/stream/9324798123f2535dfbbce7e35ac3bb1a-0.mp3',
         },
-        {   
-            answer: '???',
-            mp3: 'http://cdn-preview-a.deezer.com/stream/a4e149e52e2ffdc4f057661b40ba7ee3-1.mp3'
+        {
+            answer: 'Locked Out Of Heaven',
+            hint: 'Bruno Mars',
+            img: 'http://api.deezer.com/2.0/album/5972020/image',
+            mp3: 'http://cdn-preview-5.deezer.com/stream/5dbdafa33acfdc0452cce93360958524-1.mp3',
         },
-        {   
-            answer: '???',
-            mp3: 'http://cdn-preview-1.deezer.com/stream/17bcbd40468589a40353a3888229bfeb-1.mp3'
-        }        
+        {
+            answer: 'Bruno Mars',
+            hint: 'Locked Out Of Heaven',
+            img: 'http://api.deezer.com/2.0/album/6157078/image',
+            mp3: 'http://cdn-preview-4.deezer.com/stream/419be07900b85cf6db2c44dd2d83b661-0.mp3',
+        },
+        {
+            answer: 'Locked Out Of Heaven',
+            hint: 'Bruno Mars',
+            img: 'http://api.deezer.com/2.0/album/6157080/image',
+            mp3: 'http://cdn-preview-5.deezer.com/stream/5dbdafa33acfdc0452cce93360958524-0.mp3',
+        },
     ]
 }

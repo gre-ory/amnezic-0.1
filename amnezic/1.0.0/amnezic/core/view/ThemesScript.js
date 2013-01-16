@@ -22,7 +22,9 @@ Aria.tplScriptDefinition({
 		
 		$viewReady : function () {
 			this.$logDebug( '$viewReady>' );
-            this.load_themes();
+            if ( !this.data.themes ) {
+                this.load_themes();
+            }
 		},
         
         // //////////////////////////////////////////////////
@@ -90,7 +92,7 @@ Aria.tplScriptDefinition({
 		
 		activate : function ( event, theme ) {
 			this.$logDebug( 'activate>' );
-            this.moduleCtrl.theme_activate( theme );
+            aria.utils.Json.setValue( theme, 'active', true );
 		},     
         
 		// //////////////////////////////////////////////////
@@ -98,7 +100,7 @@ Aria.tplScriptDefinition({
 		
 		deactivate : function ( event, theme ) {
 			this.$logDebug( 'deactivate>' );
-            this.moduleCtrl.theme_deactivate( theme );
+            aria.utils.Json.setValue( theme, 'active', false );
 		},     
         
 		// //////////////////////////////////////////////////
@@ -106,7 +108,7 @@ Aria.tplScriptDefinition({
 		
 		set : function ( event, theme ) {
 			this.$logDebug( 'set>' );
-            this.moduleCtrl.theme_set( theme );
+            this.$json.setValue( this.data, 'theme', theme );
 		}
 		
 	}

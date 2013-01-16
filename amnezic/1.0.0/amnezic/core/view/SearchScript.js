@@ -78,8 +78,11 @@ Aria.tplScriptDefinition({
                 search = data ? data.search : undefined,
                 response = search ? search.response : undefined,
                 questions = response ? response.questions : undefined;
-            
+                
             if ( theme && questions ) {
+                if ( !theme.questions ) {
+                    this.$json.setValue( theme, 'questions', [] );
+                }
                 for ( var i = 0 ; i < questions.length ; i++ ) {
                     var question = questions[i];
                     if ( question && question.selected ) {

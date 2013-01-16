@@ -1,0 +1,36 @@
+{
+    title: 'Daft Punk',
+    active: true,
+    questions: [
+        {
+            answer: 'Bruno Mars',
+            hint: 'Locked Out Of Heaven',
+            img: 'http://api.deezer.com/2.0/album/5972020/image',
+            mp3: 'http://cdn-preview-5.deezer.com/stream/5dbdafa33acfdc0452cce93360958524-1.mp3',
+        },
+        {
+            answer: 'Grenade',
+            hint: 'Bruno Mars',
+            img: 'http://api.deezer.com/2.0/album/739505/image',
+            mp3: 'http://cdn-preview-4.deezer.com/stream/40ae3183b4e7394517ad5266df2c489a-7.mp3',
+        },
+        {
+            answer: 'Adele',
+            hint: 'Rolling In The Deep',
+            img: 'http://api.deezer.com/2.0/album/748196/image',
+            mp3: 'http://cdn-preview-0.deezer.com/stream/0911db8b0f010a65907c128521f672ef-0.mp3',
+        },
+        {
+            answer: 'The Rolling Stones',
+            hint: 'Angie',
+            img: 'http://api.deezer.com/2.0/album/213339/image',
+            mp3: 'http://cdn-preview-c.deezer.com/stream/cfe8165073a7231c7eb401d9ab709f7a-0.mp3',
+        },
+        {
+            answer: 'The Rolling Stones',
+            hint: 'Miss You',
+            img: 'http://api.deezer.com/2.0/album/384268/image',
+            mp3: 'http://cdn-preview-7.deezer.com/stream/7c8c797c840959058b1e55119023e270-0.mp3',
+        },
+    ]
+}
