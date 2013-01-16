@@ -95,9 +95,7 @@ Aria.tplScriptDefinition({
         remove_question_at : function ( event, index ) {
             this.$logDebug( 'remove_question_at>' );
             
-            if ( this.data.theme.questions ) {
-                this.$json.removeAt( this.data.theme.questions, index );
-            }
+            this.$json.removeAt( this.data.theme.questions, index );
         },
         
         // //////////////////////////////////////////////////

@@ -12,11 +12,13 @@
             ]
 	    }}
             
-             {if data.theme && data.theme.raw}
-                {call raw()/}
-             {else/}
-                {call display()/}
-             {/if}
+            {if data.theme}
+                {if data.theme.raw}
+                    {call raw()/}
+                {else/}
+                    {call display()/}
+                 {/if}
+            {/if}
             
         {/section}
         
@@ -48,7 +50,7 @@
                         <span>
                             Title
                         </span>
-                        {if data && data.theme && data.theme.title}
+                        {if data.theme.title}
                             {@aria:TextField {
                                 sclass: 'simple',
                                 bind: { value: { to: 'title', inside: data.theme } }
@@ -72,7 +74,7 @@
                     
                     <tbody>
                         
-                        {if data.theme && data.theme.questions}
+                        {if data.theme.questions}
                             {foreach question inArray data.theme.questions}
                                 
                                 <tr>
