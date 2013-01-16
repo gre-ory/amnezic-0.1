@@ -3,21 +3,52 @@
     active: true,
     questions: [
         {
-            answer: 'One More Time',
-            mp3: 'http://cdn-preview-b.deezer.com/stream/b18965a0efe1a8f312ff415c39397a51-1.mp3',
+            answer: 'Locked Out Of Heaven',
+            hint: 'Bruno Mars',
+            img: 'http://api.deezer.com/2.0/album/5972020/image',
+            mp3: 'http://cdn-preview-5.deezer.com/stream/5dbdafa33acfdc0452cce93360958524-1.mp3',
         },
         {
-            answer: 'Digital Love',
-            mp3: 'http://cdn-preview-0.deezer.com/stream/0507dcb244c248d3e848bdddc3482890-1.mp3',
+            answer: 'Beat It',
+            hint: 'Michael Jackson',
+            img: 'http://api.deezer.com/2.0/album/71623/image',
+            mp3: 'http://cdn-preview-5.deezer.com/stream/581b4fe4e5792e789e75938e13d97b0b-84.mp3',
         },
         {
-            answer: 'Harder Better Faster Stronger',
+            answer: 'Michael Jackson',
+            hint: 'Thriller',
+            img: 'http://api.deezer.com/2.0/album/71623/image',
+            mp3: 'http://cdn-preview-9.deezer.com/stream/95425f5f6a1b8db4b9b3108b6a155d10-83.mp3',
+        },
+        {
+            answer: 'Michael Jackson',
+            hint: 'Smooth Criminal (Radio Edit)',
+            img: 'http://api.deezer.com/2.0/album/77930/image',
+            mp3: 'http://cdn-preview-1.deezer.com/stream/13a5bc7e2dfd4dad3ba2f01ae877b75c-1.mp3',
+        },
+        {
+            answer: 'David Guetta',
+            hint: 'Just One Last Time (feat. Taped Rai) [Extended]',
+            img: 'http://api.deezer.com/2.0/album/6099439/image',
+            mp3: 'http://cdn-preview-c.deezer.com/stream/cc9a2e70f7022873c4fded5950d4da2e-0.mp3',
+        },
+        {
+            answer: 'Who\'s That Chick ? (feat. Rihanna) [Single Version]',
+            hint: 'David Guetta - Rihanna',
+            img: 'http://api.deezer.com/2.0/album/703035/image',
+            mp3: 'http://cdn-preview-f.deezer.com/stream/f0ce8fb57cde5861531478fae55d3508-0.mp3',
+        },
+        {
+            answer: 'Daft Punk',
+            hint: 'Harder Better Faster Stronger',
+            img: 'http://api.deezer.com/2.0/album/302378/image',
+            mp3: 'http://cdn-preview-9.deezer.com/stream/98dd53dd43b2d0beb10b0bfca00f6eaf-1.mp3',
+        },
+        {
+            answer: 'Aerodynamic',
+            hint: 'Daft Punk',
             img: 'http://api.deezer.com/2.0/album/302127/image',
-            mp3: 'http://cdn-preview-a.deezer.com/stream/a4e149e52e2ffdc4f057661b40ba7ee3-1.mp3',
-        },
-        {
-            answer: 'Crescendolls',
-            mp3: 'http://cdn-preview-1.deezer.com/stream/17bcbd40468589a40353a3888229bfeb-1.mp3',
+            mp3: 'http://cdn-preview-4.deezer.com/stream/4927b37690da6a8e5f440b146ddbe4ca-1.mp3',
         },
     ]
 }

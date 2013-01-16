@@ -39,44 +39,46 @@
                         
                         <tbody>
                     
-                            {foreach user inArray data.users}
-                                {if !user.deleted}
-                                    <tr>
-                                        
-                                        <td class="name">
-                                            {@aria:TextField {
-                                                sclass: 'simple',
-                                                bind: { value: { to: 'name', inside: user } }
-                                            }/}
-                                        </td>
-                                        
-                                        <td class="active">
-                                            {if user.active}
-                                                <span class="btn btn-success" title="Playing" {on click { fn:deactivate, args: user }/}>
-                                                    <i class="icon-ok"></i>
+                            {if data.users}
+                                {foreach user inArray data.users}
+                                    {if !user.deleted}
+                                        <tr>
+                                            
+                                            <td class="name">
+                                                {@aria:TextField {
+                                                    sclass: 'simple',
+                                                    bind: { value: { to: 'name', inside: user } }
+                                                }/}
+                                            </td>
+                                            
+                                            <td class="active">
+                                                {if user.active}
+                                                    <span class="btn btn-success" title="Playing" {on click { fn:deactivate, args: user }/}>
+                                                        <i class="icon-ok"></i>
+                                                    </span>
+                                                {else/}
+                                                    <span class="btn" title="Not playing" {on click { fn:activate, args: user }/}>
+                                                        <i class="icon-ban-circle"></i>
+                                                    </span>
+                                                {/if}
+                                            </td>
+                                            
+                                            <td class="score">
+                                                ${user.score}
+                                            </td>
+                                            
+                                            <td class="actions">
+                                                <span class="btn-group">
+                                                    <span class="btn" title="Delete" {on click { fn:remove, args: user }/}>
+                                                        <i class="icon-trash"></i>
+                                                    </span>
                                                 </span>
-                                            {else/}
-                                                <span class="btn" title="Not playing" {on click { fn:activate, args: user }/}>
-                                                    <i class="icon-ban-circle"></i>
-                                                </span>
-                                            {/if}
-                                        </td>
-                                        
-                                        <td class="score">
-                                            ${user.score}
-                                        </td>
-                                        
-                                        <td class="actions">
-                                            <span class="btn-group">
-                                                <span class="btn" title="Delete" {on click { fn:remove, args: user }/}>
-                                                    <i class="icon-trash"></i>
-                                                </span>
-                                            </span>
-                                        </td>
-                                        
-                                    </tr>
-                                {/if}
-                            {/foreach}
+                                            </td>
+                                            
+                                        </tr>
+                                    {/if}
+                                {/foreach}
+                            {/if}
                             
                             <tr>
                                 <td class="toolbar" colspan="4">

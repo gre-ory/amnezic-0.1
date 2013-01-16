@@ -43,14 +43,17 @@
                     </span>
                 
                     <span class="btn-group pull-right">
-                        <span class="btn" {on click { fn:clear_data }/} title="Reset">
-                            <i class="icon-remove"></i>
-                        </span>
-                        {if data.admin}   
+                        {if data.admin}
+                            <span href="/index.html?admin" class="btn" {on click { fn:reset }/} title="Reset">
+                                <i class="icon-remove"></i>
+                            </span>   
                             <a href="/${hash}" class="btn btn-success" title="Admin">
                                 <i class="icon-off"></i>
                             </a>
                         {else/}
+                            <span href="/" class="btn" {on click { fn:reset }/} title="Reset">
+                                <i class="icon-remove"></i>
+                            </span>   
                             <a href="/index.html?admin${hash}" class="btn" title="Admin">
                                 <i class="icon-off"></i>
                             </a>

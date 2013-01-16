@@ -15,7 +15,6 @@ Aria.tplScriptDefinition({
 		
 		$displayReady : function () {
 			this.$logDebug( '$displayReady>' );
-            this.moduleCtrl.store_data();
 		},
         
         // //////////////////////////////////////////////////
@@ -30,15 +29,15 @@ Aria.tplScriptDefinition({
 		
 		add : function () {
 			this.$logDebug( 'add>' );
-            this.moduleCtrl.add_user();
+            this.moduleCtrl.user_add();
 		},     
         
 		// //////////////////////////////////////////////////
 		// remove
 		
 		remove : function ( event, user ) {
-			this.$logDebug( 'add>' );
-            this.moduleCtrl.remove_user( user );
+			this.$logDebug( 'remove>' );
+            this.moduleCtrl.user_remove( user );
 		},   
         
 		// //////////////////////////////////////////////////
@@ -46,7 +45,7 @@ Aria.tplScriptDefinition({
 		
 		activate : function ( event, user ) {
 			this.$logDebug( 'activate>' );
-            this.moduleCtrl.activate_user( user );
+            this.moduleCtrl.user_activate( user );
 		},     
         
 		// //////////////////////////////////////////////////
@@ -54,7 +53,7 @@ Aria.tplScriptDefinition({
 		
 		deactivate : function ( event, user ) {
 			this.$logDebug( 'deactivate>' );
-            this.moduleCtrl.deactivate_user( user );
+            this.moduleCtrl.user_deactivate( user );
 		}
 		
 	}

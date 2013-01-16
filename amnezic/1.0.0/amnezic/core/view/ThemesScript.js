@@ -15,9 +15,6 @@ Aria.tplScriptDefinition({
 		
 		$displayReady : function () {
 			this.$logDebug( '$displayReady>' );
-            
-            // TODO : fix this > should be handled by the controller itself
-            this.moduleCtrl.store_data();
 		},
         
         // //////////////////////////////////////////////////
@@ -39,20 +36,14 @@ Aria.tplScriptDefinition({
                     scope: this
                 };
             
-            this.moduleCtrl.load_themes( callback );
+            this.moduleCtrl.theme_retrieve_all( callback );
 		},
-        
-        // //////////////////////////////////////////////////
-		// themes_loaded
 		
 		themes_loaded : function ( themes ) {
 			this.$logDebug( 'themes_loaded>' );
-            
             this.$json.setValue( this.data, 'themes', themes );
-            
             for ( var i = 0 ; i < themes.length ; i++ ) {
-                var theme = themes[i];
-                this.load_theme( theme );
+                this.load_theme( themes[i] );
             }
 		},
         
@@ -63,6 +54,7 @@ Aria.tplScriptDefinition({
 			this.$logDebug( 'load_theme>' );
             
             var id = theme ? theme.id : undefined,
+                callback = undefined,
                 callback = {
                     fn: this.theme_loaded,
                     scope: this,
@@ -71,46 +63,34 @@ Aria.tplScriptDefinition({
                     }
                 };
 
-            this.moduleCtrl.load_theme( id, callback );
+            this.moduleCtrl.theme_retrieve( id, callback );
 		},
-        
-        // //////////////////////////////////////////////////
-		// theme_loaded
 		
-		theme_loaded : function ( theme, args ) {
+        theme_loaded : function ( theme, args ) {
 			this.$logDebug( 'theme_loaded>' );
             
             var id = args ?  args.id : undefined,
                 themes = this.data.themes;
                 
             for ( var i = 0 ; i < themes.length ; i++ ) {
-                var current_theme = themes[i];
-                if ( id == current_theme.id ) {
-                    for ( var name in theme ) {
-                        this.$json.setValue( current_theme, name, theme[name] );
-                    }
+                if ( id == themes[i].id ) {
+                    aria.utils.Json.removeAt( themes, i );
+                    aria.utils.Json.add( themes, theme, i );
                     return;            
                 }
             }
-		},
-        
-        // //////////////////////////////////////////////////
-		// store_theme
-		
-		store_theme : function ( theme ) {
-			this.$logDebug( 'store_theme>' );
             
-            this.$json.setValue( this.data, 'theme', theme );
-            // TODO : fix this > should be handled by the controller itself
-            this.moduleCtrl.store_data();
-		}, 
+            if ( theme ) {
+                aria.utils.Json.add( themes, theme );
+            }
+		},
         
 		// //////////////////////////////////////////////////
 		// activate
 		
 		activate : function ( event, theme ) {
 			this.$logDebug( 'activate>' );
-            this.moduleCtrl.activate_theme( theme );
+            this.moduleCtrl.theme_activate( theme );
 		},     
         
 		// //////////////////////////////////////////////////
@@ -118,7 +98,15 @@ Aria.tplScriptDefinition({
 		
 		deactivate : function ( event, theme ) {
 			this.$logDebug( 'deactivate>' );
-            this.moduleCtrl.deactivate_theme( theme );
+            this.moduleCtrl.theme_deactivate( theme );
+		},     
+        
+		// //////////////////////////////////////////////////
+		// set
+		
+		set : function ( event, theme ) {
+			this.$logDebug( 'set>' );
+            this.moduleCtrl.theme_set( theme );
 		}
 		
 	}

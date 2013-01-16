@@ -15,9 +15,6 @@ Aria.tplScriptDefinition({
 		
 		$displayReady : function () {
 			this.$logDebug( '$displayReady>' );
-            
-            // TODO : fix this > should be handled by the controller itself
-            this.moduleCtrl.store_data();
 		},
         
         // //////////////////////////////////////////////////
@@ -25,17 +22,21 @@ Aria.tplScriptDefinition({
 		
 		$viewReady : function () {
 			this.$logDebug( '$viewReady>' );
-            
-            if ( !this.data.theme ) {
-                this.load_theme();
+            if ( !this.is_loaded() ) {
+                this.load();
             }
 		},
         
         // //////////////////////////////////////////////////
-		// load_theme
+		// load
 		
-		load_theme : function () {
-			this.$logDebug( 'load_theme>' );
+        is_loaded : function () {
+            this.$logDebug( 'is_loaded>' );
+            return this.data.section.args.id && this.data.theme && this.data.section.args.id == this.data.theme.id;
+        },
+        
+		load : function ( id ) {
+			this.$logDebug( 'load>' );
             
             var id = this.data.section.args.id,
                 callback = {
@@ -43,15 +44,11 @@ Aria.tplScriptDefinition({
                     scope: this
                 };
             
-            this.moduleCtrl.load_theme( id, callback );
+            this.moduleCtrl.theme_retrieve( id, callback );
 		},
-        
-        // //////////////////////////////////////////////////
-		// theme_loaded
 		
-		theme_loaded : function ( theme ) {
-			this.$logDebug( 'theme_loaded>' );
-            
+		loaded : function ( theme ) {
+			this.$logDebug( 'loaded>' );
             this.$json.setValue( this.data, 'theme', theme );
 		},
         
@@ -60,7 +57,6 @@ Aria.tplScriptDefinition({
 		
 		show_raw : function ( event ) {
 			this.$logDebug( 'show_raw>' );
-            
             this.$json.setValue( this.data.theme, 'raw', true );
 		},
         
@@ -69,7 +65,6 @@ Aria.tplScriptDefinition({
 		
 		hide_raw : function ( event ) {
 			this.$logDebug( 'hide_raw>' );
-            
             this.$json.setValue( this.data.theme, 'raw', false );
 		},
 
@@ -119,10 +114,10 @@ Aria.tplScriptDefinition({
 		},
         
         // //////////////////////////////////////////////////
-		// play
+		// play_mp3
 		
-		play : function ( event, question ) {
-			this.$logDebug( 'play>' );
+		play_mp3 : function ( event, question ) {
+			this.$logDebug( 'play_mp3>' );
 		}
 		
 	}

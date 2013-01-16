@@ -39,7 +39,6 @@ Aria.tplScriptDefinition({
         
         found : function( json ) {
             this.$logDebug( 'found>' );
-            console.log( json );
             this.$json.setValue( this.data.search, 'response', json );
         },
         
@@ -81,12 +80,11 @@ Aria.tplScriptDefinition({
                 questions = response ? response.questions : undefined;
             
             if ( theme && questions ) {
-                console.log( questions.length );
                 for ( var i = 0 ; i < questions.length ; i++ ) {
                     var question = questions[i];
                     if ( question && question.selected ) {
-                        console.log( question );
-                        this.moduleCtrl.add_to_theme( question, theme );
+                        // this.moduleCtrl.theme_add_question( theme, question );
+                        this.$json.add( theme.questions, question );
                     }
                 }
             }

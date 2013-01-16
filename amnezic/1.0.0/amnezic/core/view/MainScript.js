@@ -12,11 +12,11 @@ Aria.tplScriptDefinition({
         },
         
         // //////////////////////////////////////////////////
-		// clear_data
+		// reset
 		
-		clear_data : function () {
-			this.$logDebug( 'clear_data>' );
-            this.moduleCtrl.clear_data();
+		reset : function () {
+			this.$logDebug( 'reset>' );
+            this.moduleCtrl.storage_clear();
 		}
         
     }

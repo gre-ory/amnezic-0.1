@@ -12,7 +12,7 @@
             ]
 	    }}
             
-             {if data && data.theme && data.theme.raw}
+             {if data.theme && data.theme.raw}
                 {call raw()/}
              {else/}
                 {call display()/}
@@ -139,7 +139,7 @@
                                     <i class="icon-plus"></i>
                                 </span>
 
-                                <span class="btn" title="Raw" {on click { fn: show_raw }/}>
+                                <span class="btn" title="Raw" {on click { fn: show_raw, args: data.theme }/}>
                                     <i class="icon-file"></i>
                                 </span>
                                 
@@ -177,7 +177,7 @@
             <!-- ************************************************** -->
             
             <div class="span1 pagination-centered">
-                <span class="btn" title="Back" {on click { fn: hide_raw }/}>
+                <span class="btn" title="Back" {on click { fn: hide_raw, args: data.theme }/}>
                     <i class="icon-chevron-left"></i>
                 </span>
             </div>        

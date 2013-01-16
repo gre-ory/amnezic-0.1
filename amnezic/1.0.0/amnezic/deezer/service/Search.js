@@ -18,8 +18,6 @@ Aria.classDefinition({
         adapt : function ( json ) {
             this.$logDebug( 'adapt>' );
             
-            console.log( json );
-            
             var max_tracks = 20,
                 tracks = json ? json.data : undefined,
                 questions = [];

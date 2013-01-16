@@ -5,24 +5,32 @@ Aria.interfaceDefinition({
         'game_loaded': { description: 'Game has been loaded' }
     },
     $interface : {
-    
+        
         load_current_section: 'Function',
-        
         search: 'Function',
+
+        // service.storage
         
-        store_data: 'Function',
-        clear_data: 'Function',
+        storage_clear:  'Function',
         
-        add_user: 'Function',
-        remove_user: 'Function',
-        activate_user: 'Function',
-        deactivate_user: 'Function',
+        // service.section
         
-        load_themes: 'Function',
-        load_theme: 'Function',
-        activate_theme: 'Function',
-        deactivate_theme: 'Function',
-        add_to_theme: 'Function',
+        // service.user
+        
+        user_add: 'Function',
+        user_activate: 'Function',
+        user_deactivate: 'Function',
+        user_remove: 'Function',
+        
+        // service.theme
+
+        theme_retrieve_all: 'Function',
+        theme_retrieve: 'Function',
+        theme_set: 'Function',
+        theme_activate: 'Function',
+        theme_deactivate: 'Function',
+        theme_add_question: 'Function',
+        theme_remove_question_at: 'Function'
 
     }
 });
