@@ -15,7 +15,7 @@ Aria.classDefinition({
     // constructor
     
     $constructor : function ( cfg, context, lineNumber ) {
-        this.$BindableWidget.constructor.apply( this, arguments );
+        this.$BindableWidget.constructor.call( this, cfg, context, lineNumber );
         this.id = this._createDynamicId();
         this.element = undefined;
         this.delegate_id = undefined;
@@ -119,7 +119,7 @@ Aria.classDefinition({
         writeMarkupEnd : function ( out ) {
             this.$logDebug( 'writeMarkupEnd>' );
             var cfg = this._cfg,
-                tag_name = cfg.tagName,
+                tag_name = cfg.tagName || 'span',
                 markup = [ '</', tag_name, '>' ];
             out.write( markup.join( '' ) );
         },
@@ -127,7 +127,7 @@ Aria.classDefinition({
         get_open_markup : function () {
             this.$logDebug( 'get_open_markup>' );
             var cfg = this._cfg,
-                tag_name = cfg.tagName,
+                tag_name = cfg.tagName || 'span',
                 attributes = cfg.attributes,
                 markup = [ '<', tag_name, ' id="', this.id, '"' ];
             

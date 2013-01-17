@@ -48,24 +48,6 @@
                     
                     <div>
                     
-                        {@html:Element {
-                            tagName: 'input',
-                            attributes: {
-                                type: 'range',
-                                value: '50',
-                                min: '10',
-                                max: '100',
-                                step: '10'
-                            },
-                            bind: { value: { to: 'nb_questions', inside: data.settings } }
-                        }}
-                            [inside]
-                        {/@html:Element}
-                    
-                    </div>
-                    
-                    <div>
-                    
                         {@html:Input {
                             bind: { value: { to: 'nb_questions', inside: data.settings } }
                         }/}
@@ -76,6 +58,7 @@
                     
                         {@html:Input {
                             attributes: {
+                                type: 'range',
                                 class: 'input-xxlarge'
                             },
                             bind: { value: { to: 'nb_questions', inside: data.settings } }
@@ -91,6 +74,30 @@
                             },
                             bind: { value: { to: 'nb_questions', inside: data.settings } }
                         }/}
+                    
+                    </div>
+                    
+                    <div>
+                    
+                        {@html:Element {
+                            tagName: 'span',
+                            attributes: {
+                                class_list: [ 'btn', 'btn-success' ]
+                            }
+                        }/}
+                    
+                    </div>
+                    
+                    <div>
+                    
+                        {@html:Element {
+                            tagName: 'span',
+                            attributes: {
+                                class_list: [ 'btn' ]
+                            }
+                        }}
+                            Ok
+                        {/@html:Element}
                     
                     </div>
                     
