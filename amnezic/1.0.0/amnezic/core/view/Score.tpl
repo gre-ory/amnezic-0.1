@@ -6,24 +6,45 @@
     {macro main()}
     
         {section {
-	       id: 'score',
-	       bindRefreshTo: [ { to: 'section', inside: data, recursive: false } ]
+            id: 'score_section',
+            bindRefreshTo: [ 
+                { to: 'score', inside: data, recursive: true }
+            ]
 	    }}
         
-            <div class="row-fluid pagination-centered">
-                <span class="btn disabled">Loading score...</span>
-            </div>
-            
             <div class="row-fluid">
-                <a href="#question" class="btn pull-left" title="Previous">
-                    <i class="icon-chevron-left"></i>
-                </a>
-                <a href="#end" class="btn pull-right" title="Next">
-                    <i class="icon-chevron-right"></i>
-                </a>
+                
+                <!-- ************************************************** -->
+                <!--  previous                                          -->
+                <!-- ************************************************** -->
+                
+                <div class="span1 pagination-centered">
+                    <a href="#question" class="btn" title="Previous">
+                        <i class="icon-chevron-left"></i>
+                    </a>
+                </div>
+                
+                <!-- ************************************************** -->
+                <!--  content                                           -->
+                <!-- ************************************************** -->
+                
+                <div class="span10 pagination-centered">
+                    <span class="btn disabled">Loading score...</span>
+                </div>
+                
+                <!-- ************************************************** -->
+                <!--  next                                              -->
+                <!-- ************************************************** -->
+                
+                <div class="span1 pagination-centered">
+                    <a href="#end" class="btn" title="Next">
+                        <i class="icon-chevron-right"></i>
+                    </a>
+                </div>
+            
             </div>
-	
-	    {/section}
+        
+        {/section}
     
     {/macro}
 
