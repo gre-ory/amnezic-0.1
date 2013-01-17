@@ -50,8 +50,12 @@ Aria.tplScriptDefinition({
 		
 		show_raw : function ( event ) {
 			this.$logDebug( 'show_raw>' );
-            var raw = this.$json. ; // true
-            this.$json.setValue( this.data.theme, 'raw', true );
+            var options = {
+                indent : '    ',
+                maxDepth : 10,
+                keepMetadata: false
+            };
+            this.$json.setValue( this.data.theme, 'raw', this.$json.convertToJsonString( this.data.theme, options ) );
 		},
         
         // //////////////////////////////////////////////////
@@ -59,7 +63,7 @@ Aria.tplScriptDefinition({
 		
 		hide_raw : function ( event ) {
 			this.$logDebug( 'hide_raw>' );
-            this.$json.setValue( this.data.theme, 'raw', false );
+            this.$json.deleteKey( this.data.theme, 'raw' );
 		},
 
         // //////////////////////////////////////////////////

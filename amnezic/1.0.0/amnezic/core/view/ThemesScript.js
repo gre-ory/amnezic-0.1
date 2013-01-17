@@ -32,7 +32,7 @@ Aria.tplScriptDefinition({
 			this.$logDebug( 'load_themes>' );
             
             if ( this.data.themes ) {
-                themes_loaded( this.data.themes );
+                this.themes_loaded( this.data.themes );
                 return;
             }
             
