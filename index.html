@@ -47,6 +47,10 @@
             aria.core.IO.defaultPostHeader = 'application/json; charset=utf-8';
             
             aria.core.AppEnvironment.setEnvironment({
+                defaultWidgetLibs : {
+                    'aria': 'aria.widgets.AriaLib',
+                    'html': 'amnezic.html.Library'
+                },
                 requestHandler : {
                     implementation : 'aria.modules.requestHandler.JSONRequestHandler'
                 }
