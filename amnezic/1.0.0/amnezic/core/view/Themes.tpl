@@ -79,7 +79,7 @@
                                             <td class="actions">
                                                 <span class="btn-group">
                                                     {if data.admin}
-                                                        <a href="#theme-${theme.id}" class="btn" title="Edit" {on click { fn:set, args: theme }/}>
+                                                        <a href="#theme-${theme.id}" class="btn" title="Edit">
                                                             <i class="icon-pencil"></i>
                                                         </a>
                                                     {/if}

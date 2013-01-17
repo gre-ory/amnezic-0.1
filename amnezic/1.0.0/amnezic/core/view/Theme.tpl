@@ -190,6 +190,10 @@
 
             <div class="raw span10">
                 <pre>
+                    ${data.theme.raw}
+                </pre>
+                
+                <!--
                     ${left_curly_bracket}${eol}
                     {if data.theme}
                         ${tab}title: '${data.theme.title}',${eol}
@@ -222,7 +226,7 @@
  
                     ${tab}${right_square_bracket}${eol}
                     ${right_curly_bracket}
-                </pre>
+                -->
             </div>
             
         </div>

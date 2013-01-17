@@ -22,9 +22,7 @@ Aria.tplScriptDefinition({
 		
 		$viewReady : function () {
 			this.$logDebug( '$viewReady>' );
-            if ( !this.data.themes ) {
-                this.load_themes();
-            }
+            this.load_themes();
 		},
         
         // //////////////////////////////////////////////////
@@ -32,6 +30,11 @@ Aria.tplScriptDefinition({
 		
 		load_themes : function () {
 			this.$logDebug( 'load_themes>' );
+            
+            if ( this.data.themes ) {
+                themes_loaded( this.data.themes );
+                return;
+            }
             
             var callback = {
                     fn: this.themes_loaded,
@@ -56,15 +59,28 @@ Aria.tplScriptDefinition({
 			this.$logDebug( 'load_theme>' );
             
             var id = theme ? theme.id : undefined,
-                callback = undefined,
+                themes = this.data.themes,
+                args = {
+                    id: id
+                },
                 callback = {
                     fn: this.theme_loaded,
                     scope: this,
-                    args: {
-                        id: id
-                    }
+                    args: args
                 };
-
+            
+            if ( themes ) {
+                for ( var i = 0 ; i < themes.length ; i++ ) {
+                    if ( theme.id == themes[i].id ) {
+                        if ( themes[i].questions ) {
+                            this.theme_loaded( themes[i], args );
+                            return;
+                        }
+                        break;
+                    }
+                }
+            }
+            
             this.moduleCtrl.theme_retrieve( id, callback );
 		},
 		
@@ -101,14 +117,6 @@ Aria.tplScriptDefinition({
 		deactivate : function ( event, theme ) {
 			this.$logDebug( 'deactivate>' );
             aria.utils.Json.setValue( theme, 'active', false );
-		},     
-        
-		// //////////////////////////////////////////////////
-		// set
-		
-		set : function ( event, theme ) {
-			this.$logDebug( 'set>' );
-            this.$json.setValue( this.data, 'theme', theme );
 		}
 		
 	}
