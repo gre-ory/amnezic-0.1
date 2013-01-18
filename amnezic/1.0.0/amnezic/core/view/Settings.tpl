@@ -1,6 +1,6 @@
 {Template {
     $classpath: 'amnezic.core.view.Settings',
-    $hasScript: false
+    $hasScript: true
 }}
         
     {macro main()}
@@ -30,74 +30,77 @@
                 
                 <div class="span10 pagination-centered">
                     
-                    <div>
-                    
-                        {@html:Element {
-                            tagName: 'input',
-                            attributes: {
-                                type: 'range',
-                                value: '50',
-                                min: '10',
-                                max: '100',
-                                step: '10'
-                            },
-                            bind: { value: { to: 'nb_questions', inside: data.settings } }
-                        }/}
-                    
-                    </div>
-                    
-                    <div>
-                    
-                        {@html:Input {
-                            bind: { value: { to: 'nb_questions', inside: data.settings } }
-                        }/}
-                    
-                    </div>
-                    
-                    <div>
-                    
-                        {@html:Input {
-                            attributes: {
-                                type: 'range',
-                                class: 'input-xxlarge'
-                            },
-                            bind: { value: { to: 'nb_questions', inside: data.settings } }
-                        }/}
-                    
-                    </div>
-                    
-                    <div>
-                    
-                        {@html:Input {
-                            attributes: {
-                                class_list: [ 'input-xxlarge', 'toto' ]
-                            },
-                            bind: { value: { to: 'nb_questions', inside: data.settings } }
-                        }/}
-                    
-                    </div>
-                    
-                    <div>
-                    
-                        {@html:Element {
-                            tagName: 'span',
-                            attributes: {
-                                class_list: [ 'btn', 'btn-success' ]
-                            }
-                        }/}
-                    
-                    </div>
-                    
-                    <div>
-                    
-                        {@html:Element {
-                            tagName: 'span',
-                            attributes: {
-                                class_list: [ 'btn' ]
-                            }
-                        }}
-                            Ok
-                        {/@html:Element}
+                    <div class="row-fluid">
+                        
+                        <div class="span1">
+                            ${data.nb}
+                        </div>
+                        
+                        <div class="span1">
+                        
+                            {section {
+                                id: 'nb_section',
+                                bindRefreshTo: [
+                                    { to: 'nb', inside: data, recursive: true }
+                                ]
+                    	    }}
+                                ${data.nb}
+                            {/section}
+                            
+                        </div>
+                        
+                        <div class="span1">
+                            <span class="btn" title="Increment" {on click { fn: increment }/}>
+                                <i class="icon-plus"></i>
+                            </span>
+                        </div>
+                        
+                        <div class="span1">
+                            <span class="btn" title="Decrement" {on click { fn: decrement }/}>
+                                <i class="icon-minus"></i>
+                            </span>
+                        </div>
+                        
+                        <div class="span1">
+                            {@html:element {
+                                tag: 'span',
+                                class: 'btn',
+                                title: 'Increment',
+                                on: {
+                                    click: {
+                                        fn: increment
+                                    }
+                                }
+                            }}
+                                <i class="icon-plus"></i>
+                            {/@html:element}
+                        </div>
+                        
+                        <div class="span1">
+                            {@html:element {
+                                tag: 'span',
+                                class: 'btn',
+                                title: 'Decrement',
+                                on: {
+                                    click: {
+                                        fn: this.decrement
+                                    }
+                                }
+                            }}
+                                <i class="icon-minus"></i>
+                            {/@html:element}
+                        </div>
+                        
+                        <div class="span4">
+                            {@html:input {
+                                bind: {
+                                    value: {
+                                        to: 'nb',
+                                        inside: data 
+                                    }
+                                }
+                            }/}
+                        </div>
                     
                     </div>
                     

@@ -84,6 +84,7 @@ Aria.classDefinition({
                 out += ', themes' + ( data.themes ? '[' + data.themes.length + ']' : '' );
                 out += ', theme' + ( data.theme ? '-' + data.theme.id : '' );
                 out += ', section' + ( data.section ? '-' + data.section.id : '' );
+                out += ', nb' + ( data.nb ? '-' + data.nb : '' );
                 // out += ' }';
             }
             this.$logInfo( out );

@@ -4,8 +4,8 @@ Aria.classDefinition({
     $singleton : true,
     $prototype : {
         widgets : {
-            'Element' : 'amnezic.html.Element',
-            'Input' : 'amnezic.html.Input'
+            'element' : 'amnezic.html.Element',
+            'input' : 'amnezic.html.Input'
         }
     }
 });

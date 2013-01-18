@@ -42,7 +42,7 @@ Aria.tplScriptDefinition({
 		
 		theme_loaded : function ( theme ) {
 			this.$logDebug( 'theme_loaded>' );
-            this.$json.setValue( this.data, 'theme', theme );
+            aria.utils.Json.setValue( this.data, 'theme', theme );
 		},
         
         // //////////////////////////////////////////////////
@@ -55,7 +55,7 @@ Aria.tplScriptDefinition({
                 maxDepth : 10,
                 keepMetadata: false
             };
-            this.$json.setValue( this.data.theme, 'raw', this.$json.convertToJsonString( this.data.theme, options ) );
+            aria.utils.Json.setValue( this.data.theme, 'raw', aria.utils.Json.convertToJsonString( this.data.theme, options ) );
 		},
         
         // //////////////////////////////////////////////////
@@ -63,7 +63,7 @@ Aria.tplScriptDefinition({
 		
 		hide_raw : function ( event ) {
 			this.$logDebug( 'hide_raw>' );
-            this.$json.deleteKey( this.data.theme, 'raw' );
+            aria.utils.Json.deleteKey( this.data.theme, 'raw' );
 		},
 
         // //////////////////////////////////////////////////
@@ -93,7 +93,7 @@ Aria.tplScriptDefinition({
         remove_question_at : function ( event, index ) {
             this.$logDebug( 'remove_question_at>' );
             
-            this.$json.removeAt( this.data.theme.questions, index );
+            aria.utils.Json.removeAt( this.data.theme.questions, index );
         },
         
         // //////////////////////////////////////////////////
@@ -105,8 +105,8 @@ Aria.tplScriptDefinition({
             var answer = question.answer,
                 hint = question.hint;
                 
-            this.$json.setValue( question, 'answer', hint );
-            this.$json.setValue( question, 'hint', answer );
+            aria.utils.Json.setValue( question, 'answer', hint );
+            aria.utils.Json.setValue( question, 'hint', answer );
 		},
         
         // //////////////////////////////////////////////////

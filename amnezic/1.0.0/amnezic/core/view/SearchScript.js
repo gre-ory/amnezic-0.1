@@ -39,7 +39,7 @@ Aria.tplScriptDefinition({
         
         found : function( json ) {
             this.$logDebug( 'found>' );
-            this.$json.setValue( this.data.search, 'response', json );
+            aria.utils.Json.setValue( this.data.search, 'response', json );
         },
         
         // //////////////////////////////////////////////////
@@ -47,7 +47,7 @@ Aria.tplScriptDefinition({
 		
 		select : function ( event, question ) {
 			this.$logDebug( 'select>' );
-            this.$json.setValue( question, 'selected', true );
+            aria.utils.Json.setValue( question, 'selected', true );
 		},
         
         // //////////////////////////////////////////////////
@@ -55,7 +55,7 @@ Aria.tplScriptDefinition({
 		
 		unselect : function ( event, question ) {
 			this.$logDebug( 'select>' );
-            this.$json.setValue( question, 'selected', false );
+            aria.utils.Json.setValue( question, 'selected', false );
 		},
         
         // //////////////////////////////////////////////////
@@ -81,13 +81,13 @@ Aria.tplScriptDefinition({
                 
             if ( theme && questions ) {
                 if ( !theme.questions ) {
-                    this.$json.setValue( theme, 'questions', [] );
+                    aria.utils.Json.setValue( theme, 'questions', [] );
                 }
                 for ( var i = 0 ; i < questions.length ; i++ ) {
                     var question = questions[i];
                     if ( question && question.selected ) {
                         // this.moduleCtrl.theme_add_question( theme, question );
-                        this.$json.add( theme.questions, question );
+                        aria.utils.Json.add( theme.questions, question );
                     }
                 }
             }

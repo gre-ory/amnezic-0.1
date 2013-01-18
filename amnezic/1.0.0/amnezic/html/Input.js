@@ -6,18 +6,9 @@ Aria.classDefinition({
     // constructor
     
     $constructor : function ( cfg, context, lineNumber ) {
-        
-        // sanitize
-        cfg.tagName = 'input';
-        cfg.attributes = cfg.attributes || {};
-        cfg.attributes.type = cfg.attributes.type || 'text';
-        cfg.on = cfg.on || {};
-
-        // this._reactOnType = this._registerType(cfg.on, context);
-        // this._registerBlur(cfg.on, context);
-        
         this.$Element.constructor.call( this, cfg, context, lineNumber );
-        
+        this.tag = 'input';
+        !this.attributes.type && ( this.attributes.type = 'text' );
     },
     
     // //////////////////////////////////////////////////
@@ -53,48 +44,31 @@ Aria.classDefinition({
         // //////////////////////////////////////////////////
         // bind
         
-        on_bind : function ( name, new_value, old_value ) {
-            if ( name === 'value' ) {
-                this.element.value = new_value;
+        set_widget_value : function( value ) {
+            this.$logDebug( 'set_widget_value>' );
+            if ( this.element ) {
+                this.element.value = value || '';
+            } else {
+                this.$logDebug( 'set_widget_value> undefined element' );
             }
         },
-
-        _registerType : function (listeners, context) {
-            if (listeners.type) {
-                if (listeners.keydown) {
-                    var normalizedKeydown = this.$normCallback.call(context._tpl, listeners.keydown);
-                }
-
-                var normalizedType = this.$normCallback.call(context._tpl, listeners.type);
-                listeners.keydown = {
-                    fn : keyDownToType,
-                    scope : this,
-                    args : {
-                        type : normalizedType,
-                        keydown : normalizedKeydown
-                    }
-                };
-
-                delete listeners.type;
-
-                return true;
+        
+        on_value_change : function ( new_value, old_value ) {
+            this.$logDebug( 'on_value_change>' );
+            if ( this.element ) {
+                this.element.value = ( new_value || '' );
+            } else {
+                this.$logDebug( 'on_value_change> undefined element' );
             }
-
-            return false;
         },
-
-        _registerBlur : function (listeners, context) {
-            var normalized;
-
-            if (listeners.blur) {
-                normalized = this.$normCallback.call(context._tpl, listeners.blur);
-            }
-
-            listeners.blur = {
-                fn : bidirectionalBlurBinding,
-                scope : this,
-                args : normalized
-            };
+        
+        on_keyup : function ( event ) {
+            this.$logDebug( 'on_keyup>' );
+            this.notify_widget_change( 'value', this.element.value );
+        },
+        
+        on_blur : function ( event ) {
+            this.$logDebug( 'on_blur>' );
         }
 
     }

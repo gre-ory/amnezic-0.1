@@ -49,7 +49,7 @@ Aria.tplScriptDefinition({
 		
 		musicReady : function () {
 			this.$logDebug( "[musicReady] Start..." );
-            this.$json.setValue(this.data.audio, "loaded", true);    
+            aria.utils.Json.setValue(this.data.audio, "loaded", true);    
             // this.play();
 		},        
         
@@ -60,7 +60,7 @@ Aria.tplScriptDefinition({
 			this.$logDebug( "[musicPlaying] Start..." );
             var percent = ( this.data.audio.mp3.position * 100 ) / this.data.audio.mp3.duration;
             this.$logDebug( "[musicPlaying] percent : " + percent );
-            this.$json.setValue(this.data.audio, "progress", percent);    
+            aria.utils.Json.setValue(this.data.audio, "progress", percent);    
 		},        
         
 		// //////////////////////////////////////////////////
@@ -68,7 +68,7 @@ Aria.tplScriptDefinition({
 		
 		pause : function () {
 			this.$logDebug( "[pause] Start..." );
-            this.$json.setValue(this.data.audio, "play", false);
+            aria.utils.Json.setValue(this.data.audio, "play", false);
             this.data.audio.mp3.pause();
 		},        
         
@@ -77,7 +77,7 @@ Aria.tplScriptDefinition({
 		
 		play : function () {
 			this.$logDebug( "[play] Start..." );
-            this.$json.setValue(this.data.audio, "play", true);
+            aria.utils.Json.setValue(this.data.audio, "play", true);
             this.data.audio.mp3.play();
 		},        
         
@@ -87,9 +87,9 @@ Aria.tplScriptDefinition({
 		decrease_volume : function () {
 			this.$logDebug( "[decrease_volume] Start..." );
             if ( this.data.audio.volume > 20 ) {
-                this.$json.setValue(this.data.audio, "volume", this.data.audio.volume - 10);
+                aria.utils.Json.setValue(this.data.audio, "volume", this.data.audio.volume - 10);
             } else {
-                this.$json.setValue(this.data.audio, "volume", 10);
+                aria.utils.Json.setValue(this.data.audio, "volume", 10);
             }
             this.data.audio.mp3.setVolume(this.data.audio.volume);
 		},        
@@ -100,9 +100,9 @@ Aria.tplScriptDefinition({
 		increase_volume : function () {
 			this.$logDebug( "[increase_volume] Start..." );
             if ( this.data.audio.volume < 90 ) {
-                this.$json.setValue(this.data.audio, "volume", this.data.audio.volume + 10);
+                aria.utils.Json.setValue(this.data.audio, "volume", this.data.audio.volume + 10);
             } else {
-                this.$json.setValue(this.data.audio, "volume", 100);
+                aria.utils.Json.setValue(this.data.audio, "volume", 100);
             }
             this.data.audio.mp3.setVolume(this.data.audio.volume);
 		},        
@@ -112,7 +112,7 @@ Aria.tplScriptDefinition({
 		
 		full_volume : function () {
 			this.$logDebug( "[full_volume] Start..." );
-            this.$json.setValue(this.data.audio, "volume", 100);
+            aria.utils.Json.setValue(this.data.audio, "volume", 100);
             this.data.audio.mp3.volume = this.data.audio.volume;
 		}
 		

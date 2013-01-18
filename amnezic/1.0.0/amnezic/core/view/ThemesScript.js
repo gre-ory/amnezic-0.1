@@ -46,8 +46,8 @@ Aria.tplScriptDefinition({
 		
 		themes_loaded : function ( themes ) {
 			this.$logDebug( 'themes_loaded>' );
-            this.$json.setValue( this.data, 'themes', themes );
-            this.$json.setValue( this.data, 'nb_themes_loaded', 0 );
+            aria.utils.Json.setValue( this.data, 'themes', themes );
+            aria.utils.Json.setValue( this.data, 'nb_themes_loaded', 0 );
             for ( var i = 0 ; i < themes.length ; i++ ) {
                 this.load_theme( themes[i] );
             }
@@ -87,7 +87,7 @@ Aria.tplScriptDefinition({
 		
         theme_loaded : function ( theme, args ) {
 			this.$logDebug( 'theme_loaded>' );
-            this.$json.setValue( this.data, 'nb_themes_loaded', ( this.data.nb_themes_loaded + 1 ) );
+            aria.utils.Json.setValue( this.data, 'nb_themes_loaded', ( this.data.nb_themes_loaded + 1 ) );
             
             var id = args ?  args.id : undefined,
                 themes = this.data.themes;
