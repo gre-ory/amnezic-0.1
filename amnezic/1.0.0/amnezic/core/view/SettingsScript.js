@@ -14,15 +14,17 @@ Aria.tplScriptDefinition({
 		// displayReady
 		
 		$displayReady : function () {
-			this.$logDebug( '$displayReady>' );
+			// this.$logDebug( '$displayReady>' );
 		},
         
         // //////////////////////////////////////////////////
 		// viewReady
 		
 		$viewReady : function () {
-			this.$logDebug( '$viewReady>' );
-            aria.utils.Json.setValue( this.data, 'nb', 10 );
+			// this.$logDebug( '$viewReady>' );
+            if ( !this.data.nb ) {
+                aria.utils.Json.setValue( this.data, 'nb', 10 );
+            }
 		},
         
         // //////////////////////////////////////////////////
@@ -30,7 +32,7 @@ Aria.tplScriptDefinition({
         
 		increment : function () {
 			this.$logDebug( 'increment>' );
-            aria.utils.Json.setValue( this.moduleCtrl.getData(), 'nb', ( this.data.nb + 1 ) );
+            aria.utils.Json.setValue( this.data, 'nb', ( this.data.nb + 1 ) );
 		},
 
         // //////////////////////////////////////////////////

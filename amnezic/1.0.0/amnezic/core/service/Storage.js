@@ -43,7 +43,7 @@ Aria.classDefinition({
             // this.$logDebug( 'synchronize>' );
             var data = this.storage.getItem( this.key );
             this.controller.setData( data );
-            // this.log_data( 'synchronize' );
+            this.log_data( 'synchronize' );
         },
 
 		// //////////////////////////////////////////////////
@@ -61,13 +61,14 @@ Aria.classDefinition({
         
         clear : function() {
             // this.$logDebug( 'clear>' );
+            this.storage.removeItem( this.key );
             var data = this.controller.getData();
+            data && this.$logDebug( 'clear>' + data.nb + ', ' + typeof(data.nb) );
             for ( var name in data ) {
                 aria.utils.Json.deleteKey( data, name );
             }
-            this.storage.removeItem( this.key );
             this.synchronize();
-            this.log_data( 'clear' );
+            // this.log_data( 'clear' );
         },
 
 		// //////////////////////////////////////////////////

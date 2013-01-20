@@ -21,6 +21,8 @@ Aria.classDefinition({
         this.$ModuleCtrl.constructor.call(this);
         this.$logDebug( 'constructor>' );
         
+        var data = this.getData();
+        
         // config
         this.config = config || {
             root: 'amnezic/1.0.0/'
@@ -35,9 +37,8 @@ Aria.classDefinition({
         };
         
         // admin mode
-        var data = this.getData(),
-            admin = aria.utils.QueryString.getKeyValue('admin');
-        this.json.setValue( data, 'admin', typeof admin == 'string' );
+        var admin = aria.utils.QueryString.getKeyValue('admin');
+        this.json.setValue( data, 'admin', typeof(admin) === 'string' );
         
         // bind
         this.bind();

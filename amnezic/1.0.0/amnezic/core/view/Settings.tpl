@@ -33,32 +33,16 @@
                     <div class="row-fluid">
                         
                         <div class="span1">
-                            ${data.nb}
-                        </div>
-                        
-                        <div class="span1">
-                        
                             {section {
                                 id: 'nb_section',
                                 bindRefreshTo: [
-                                    { to: 'nb', inside: data, recursive: true }
+                                    { to: 'nb', inside: this.data, recursive: true }
                                 ]
                     	    }}
-                                ${data.nb}
+                                {if data && data.nb}
+                                    ${data.nb}
+                                {/if}    
                             {/section}
-                            
-                        </div>
-                        
-                        <div class="span1">
-                            <span class="btn" title="Increment" {on click { fn: increment }/}>
-                                <i class="icon-plus"></i>
-                            </span>
-                        </div>
-                        
-                        <div class="span1">
-                            <span class="btn" title="Decrement" {on click { fn: decrement }/}>
-                                <i class="icon-minus"></i>
-                            </span>
                         </div>
                         
                         <div class="span1">
@@ -83,7 +67,7 @@
                                 title: 'Decrement',
                                 on: {
                                     click: {
-                                        fn: this.decrement
+                                        fn: decrement
                                     }
                                 }
                             }}
@@ -96,7 +80,29 @@
                                 bind: {
                                     value: {
                                         to: 'nb',
-                                        inside: data 
+                                        inside: this.data,
+                                        transform: {
+                                            from_widget: parseInt
+                                        }
+                                    }
+                                }
+                            }/}
+                        </div>
+                        
+                        <div class="span4">
+                            {@html:element {
+                                tag: 'input',
+                                type: 'range',
+                                min: '2',
+                                max: '20',
+                                step: '1',
+                                bind: {
+                                    value: {
+                                        to: 'nb',
+                                        inside: this.data,
+                                        transform: {
+                                            from_widget: parseInt
+                                        }
                                     }
                                 }
                             }/}

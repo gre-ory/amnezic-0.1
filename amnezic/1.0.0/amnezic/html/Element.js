@@ -16,29 +16,46 @@ Aria.classDefinition({
     
     $constructor : function ( cfg, context, lineNumber ) {
         this.$BaseWidget.constructor.call( this, cfg, context, lineNumber );
-        this.$logDebug( 'constructor>' );
+        // this.$logDebug( 'constructor>' );
         
-        // extract attributes
-        this.attributes = aria.utils.Json.copy( this._cfg || {} );
-        !this.attributes.id && ( this.attributes.id = this._createDynamicId() );
-        
-        // extract tag
-        this.tag = this.attributes.tag || 'span';
-        aria.utils.Json.deleteKey( this.attributes, 'tag' );
-        
-        // bindings
-        this.bindings = aria.utils.Json.copy( this.attributes.bind || {} );
-        aria.utils.Json.deleteKey( this.attributes, 'bind' );
-        this.register_bindings();
-        
-        // listeners
-        this.listeners = aria.utils.Json.copy( this.attributes.on || {} );
-        aria.utils.Json.deleteKey( this.attributes, 'on' );
+        // set
+        this.tag = 'span';
+        this.attributes = {};
+        this.bindings = {};
         this.delegate_id = undefined;
+        this.listeners = {};
+        this.element = undefined;
+        
+        // extract
+        if ( this._cfg ) {
+            for ( var name in this._cfg ) {
+                if ( !name || !this._cfg.hasOwnProperty( name ) ) {
+                    continue;
+                }
+                var value = this._cfg[ name ];
+                if ( !value ) {
+                    continue;
+                }
+                // this.$logDebug( 'constructor> ' + name + ' ' + typeof( value ) );
+                if ( name === 'tag' ) {
+                    this.tag = value;
+                } else if ( name === 'bind' ) {
+                    this.bindings = value;
+                } else if ( name === 'on' ) {
+                    this.listeners = value;
+                } else {
+                    this.attributes[ name ] = value;
+                }
+            }
+        }
+        
+        // init
+        if ( !this.attributes.id ) {
+            this.attributes.id = this._createDynamicId();
+        }
+        this.normalize_listeners();
         this.register_listeners();
         
-        // dom
-        this.element = undefined;
     },
     
     // //////////////////////////////////////////////////
@@ -47,138 +64,88 @@ Aria.classDefinition({
     $destructor : function () {
         this.$logDebug( 'destructor>' );
         
-        // bindings
         this.unregister_bindings();
-
-        // listeners
-        this.unregister_listeners();
-        if ( this.delegate_id ) {
-            aria.utils.Delegate.remove( this.delegate_id );
-            this.delegate_id = undefined;
-        }
         
-        // dom
+        this.unregister_listeners();
+        this.delegate_id = undefined;
+        
         this.element = undefined;
         
         this.$BaseWidget.$destructor.call(this);
-        
-
-        // TODO
-        
     },
     
     $prototype : {
 
         // //////////////////////////////////////////////////
-        // bindings
-        
-        register_bindings : function () {
-            this.$logDebug( 'register_bindings>' );
-            
-            for ( var name in this.bindings ) {
-                this.register_binding( name );
-            }
-        },
-        
-        register_binding : function ( name ) {
-            this.$logDebug( 'register_binding>' );
-            
-            if ( !name || !this.bindings.hasOwnProperty( name ) ) {
-                return;
-            }
-            var binding = this.bindings[ name ];
-            
-            if ( binding ) {
-                
-                // register
-                try {
-                    binding.callback = {
-                        fn : this.notify_data_change,
-                        scope : this,
-                        args : name
-                    };
-                    // aria.utils.Json.addListener( binding.inside, binding.to, binding.callback, true );
-                    console.log( binding.inside );
-                    console.log( binding.to );
-                    console.log( binding.callback );
-                    aria.utils.Json.addListener( binding.inside, binding.to, binding.callback );
-                } catch ( ex ) {
-                    this.$logError( 'Error while registering binding for property %1', [ name ] );
-                }
-                
-                // set widget value
-                try {
-                    var value = binding.inside[ binding.to ],
-                        widget_value = this.transform_value( binding.transform, value, 'to_widget' ),
-                        setter = this[ 'set_widget_' + name ];
-                    if ( setter ) {
-                        setter.call( this, widget_value );
-                    }
-                } catch ( ex ) {
-                    this.$logError( 'Error while setting value for property %1', [ name ] );
-                }
-            }
-        },
-        
-        unregister_bindings : function () {
-            this.$logDebug( 'unregister_bindings>' );
-            
-            for ( var name in this.bindings ) {
-                this.unregister_binding( name );
-            }
-        },
-        
-        unregister_binding : function ( name ) {
-            this.$logDebug( 'unregister_binding>' );
-            
-            if ( !name || !this.bindings.hasOwnProperty( name ) ) {
-                return;
-            }
-            var binding = this.bindings[ name ];
-            
-            if ( binding && binding.callback ) {
-                aria.utils.Json.removeListener( binding.inside, binding.to, binding.callback );
-            }
-        },
-        
-        _notifyDataChange : function ( args, name ) {
-            this.$logDebug( '_notifyDataChange>' );
-        },
-        
-        notify_data_change : function ( args, name ) {
-            this.$logDebug( 'notify_data_change>' );
-            
-            var bindings = this.bindings,
-                binding = bindings ? bindings [ name ] : undefined,
-                old_value = args.oldValue,
-                new_value = args.newValue,
-                new_widget_value = this.transform_value( binding.transform, new_value, 'to_widget' ),
-                callback = this[ 'on_' + ( name || '' ) + '_change' ];
+        // init
 
-            this.$logDebug( 'notify_data_change> data.' + binding.to + ' = ' + new_value + ' >>> ' + new_widget_value + ' >>> widget.' + name + ' = ???' );
+        initWidget : function () {
+            // this.$logDebug( 'initWidget>' );
+            this.element = aria.utils.Dom.getElementById( this.attributes.id );
+            this.register_bindings();
+            this.synchronize_from_data();
+        },
+        
+        // //////////////////////////////////////////////////
+        // data property
+
+        get_data_property : function ( name ) {
+            // this.$logDebug( 'get_data_property>' );
             
-            if ( callback ) {
-                callback.call( this, new_value, old_value );
+            var binding = this.bindings[ name ];
+            if ( !binding || !binding.inside || !binding.to ) {
+                return;
+            }
+            
+            return binding.inside[ binding.to ];
+        },
+        
+        set_data_property : function ( name, new_value, override ) {
+            // this.$logDebug( 'set_data_property>' );
+            
+            if ( !name || !this.bindings.hasOwnProperty( name ) ) {
+                return;
+            }
+            
+            var binding = this.bindings[ name ],
+                old_value = binding.inside[ binding.to ];
+            
+            if ( ( old_value !== new_value ) || ( override === true ) ) {
+                this.$logDebug( 'set_data_property> data.' + binding.to + ' <<< ' + new_value + ', ' + typeof(new_value) );
+                aria.utils.Json.setValue( binding.inside, binding.to, new_value );
+            } else {
+                // this.$logDebug( 'set_data_property> data.' + binding.to + ' === ' + new_value );
             }
         },
         
-        notify_widget_change : function ( name, new_widget_value ) {
-            this.$logDebug( 'notify_widget_change>' );
+        set_data_property_from_widget : function ( name ) {
+            // this.$logDebug( 'set_data_property_from_widget>' );
             
-            var bindings = this.bindings,
-                binding = bindings ? bindings [ name ] : undefined,
-                old_value = binding.inside[ binding.to ],
-                new_value = this.transform_value( binding.transform, new_widget_value, 'from_widget' );
+            if ( !name || !this.bindings.hasOwnProperty( name ) ) {
+                return;
+            }
             
-            this.$logDebug( 'notify_widget_change> widget.' + name + ' = ' + new_widget_value + ' >>> ' + new_value + ' >>> data.' + binding.to + ' = ' + old_value );
+            var binding = this.bindings[ name ],
+                widget_value = this.get_widget_property( name ),
+                transform = binding ? binding.transform : undefined,
+                data_value = this.transform_value( transform, widget_value, 'from_widget' );
             
-            if ( binding ) {
-                aria.utils.Json.setValue( binding.inside, binding.to, new_value );
+            this.set_data_property( name, data_value );
+        },
+        
+        synchronize_from_widget : function () {
+            // this.$logDebug( 'synchronize_from_widget>' );
+            
+            for ( var name in this.bindings ) {
+                this.set_data_property_from_widget( name );
             }
         },
+
+        // //////////////////////////////////////////////////
+        // transform
         
         transform_value : function ( transform, value, direction ) {
-            this.$logDebug( 'transform_value>' );
+            // this.$logDebug( 'transform_value>' );
             var new_value = value;
             if ( transform ) {
                 var created = false;
@@ -187,9 +154,9 @@ Aria.classDefinition({
                     created = true;
                 }
                 if ( transform[ direction ] ) {
-                    new_value = this.evalCallback( transform[ direction ], new_value );
+                    new_value = this._context.evalCallback( transform[ direction ], new_value );
                 } else if ( aria.utils.Type.isFunction( transform ) ) {
-                    new_value = this.evalCallback( transform, new_value );
+                    new_value = this._context.evalCallback( transform, new_value );
                 }
                 if ( created ) {
                     transform.$dispose();
@@ -197,139 +164,183 @@ Aria.classDefinition({
             }
             return new_value;
         },
+        
+        // //////////////////////////////////////////////////
+        // widget property
+
+        get_widget_property : function ( name ) {
+            // this.$logDebug( 'get_widget_property>' );
+            if ( !this.element ) {
+                return;
+            }
+            return this.element[ name ];
+        },
+        
+        set_widget_property : function ( name, new_value, override ) {
+            // this.$logDebug( 'set_widget_property>' );
+            
+            if ( !this.element ) {
+                return;
+            }
+            
+            var old_value = this.element.getAttribute( name );
+            
+            if ( ( old_value !== new_value ) || ( override === true ) ) {
+                this.$logDebug( 'set_widget_property> widget.' + name + ' <<< ' + new_value + ', ' + typeof(new_value) );
+                // this.element.setAttribute( name, new_value );
+                this.element[ name ] = new_value ;
+            } else {
+                // this.$logDebug( 'set_widget_property> widget.' + name + ' = ' + new_value );
+            }
+        },
+        
+        set_widget_property_from_data : function ( name ) {
+            // this.$logDebug( 'set_widget_property_from_data>' );
+            
+            if ( !name || !this.bindings.hasOwnProperty( name ) ) {
+                return;
+            }
+            
+            var binding = this.bindings[ name ],
+                data_value = binding.inside[ binding.to ],
+                transform = binding ? binding.transform : undefined,
+                widget_value = this.transform_value( transform, data_value, 'to_widget' );
+                
+            this.set_widget_property( name, widget_value );
+        },
+        
+        synchronize_from_data : function () {
+           // this.$logDebug( 'synchronize_from_data>' );
+            
+            for ( var name in this.bindings ) {
+                this.set_widget_property_from_data( name );
+            }
+        },
 
         // //////////////////////////////////////////////////
-        // listeners
-        
-        /*
-        
-        delegate_event : function ( event ) {
-            var method = this[ 'on_' + event.type ];
-            if ( method ) {
-                method.call( this, event );
-                event.preventDefault();
-            }
-        },
-        
-        register_listener : function ( type, global ) {
-            this.$logDebug( 'register_listener>' );
-            global = ( global === true );
+        // bindings
+
+        register_bindings : function () {
+            // this.$logDebug( 'register_bindings>' );
             
-            var element = global ? Aria.$window.document.body : this.element;
-            
-            if ( element && type ) {
-            
-                var listener = {
-                        global: global,
-                        element: element,
-                        type: type,
-                        callback: {
-                            fn: global ? 'on_global_' + type : 'on_' + type,
-                            scope: this
-                        } 
-                    };
+            for ( var name in this.bindings ) {
+                if ( !name || !this.bindings.hasOwnProperty( name ) ) {
+                    continue;
+                }
+                
+                var binding = this.bindings[ name ];
+                
+                if ( !binding ) {
+                    continue;
+                }
                     
-                aria.utils.Event.addListener( listener.element, listener.type, listener.callback, true );
-                this.listeners.push( listener );
+                // register
+                binding.callback = {
+                    fn : this.notify_data_change,
+                    scope : this,
+                    args : name
+                };
+                // aria.utils.Json.addListener( binding.inside, binding.to, binding.callback, true );
+                
+                // this.$logDebug( 'register_bindings> data.' + binding.to + ' > notify_data_change'  );
+                aria.utils.Json.addListener( binding.inside, binding.to, binding.callback, false, true );
             }
         },
         
-        unregister_listener : function ( type, global ) {
-            this.$logDebug( 'unregister_listener>' );
-            global = ( global === true );
+        unregister_bindings : function () {
+            // this.$logDebug( 'unregister_bindings>' );
             
-            var element = global ? Aria.$window.document.body : this.element;
-            
-            if ( element && type ) {
-                for ( var i = 0 ; i < this.listeners.length ; i++ ) {
-                    var listener = this.listeners[i];
-                    if ( listener.global && listener.type == type ) {
-                        aria.utils.Event.removeListener( listener.element, listener.type, listener.callback );
-                    }
+            for ( var name in this.bindings ) {
+                if ( !name || !this.bindings.hasOwnProperty( name ) ) {
+                    continue;
+                }
+                
+                var binding = this.bindings[ name ];
+                
+                if ( binding && binding.callback ) {
+                    aria.utils.Json.removeListener( binding.inside, binding.to, binding.callback );
                 }
             }
         },
         
-        */
+        notify_data_change : function ( args, name ) {
+            // this.$logDebug( 'notify_data_change>' );
+            this.set_widget_property_from_data( name, args.newValue );
+        },
         
-        register_listeners : function () {
-            this.$logDebug( 'register_listeners>' );
-            
-            var has_listeners = false;
+        // //////////////////////////////////////////////////
+        // listeners
+        
+        normalize_listeners : function () {
+            // this.$logDebug( 'normalize_listeners>' );
 
             for ( var type in this.listeners ) {
                 if ( !this.listeners.hasOwnProperty( type ) ) {
                     continue;
                 }
-                
                 this.listeners[ type ] = this.$normCallback.call( this._context, this.listeners[ type ] );
-                
-                this.$logDebug( 'register_listeners> ' + type + ', ' + this.listeners[ type ] );
-                
-                has_listeners = true;
             }
-
-            this.$logDebug( 'register_listeners> ' + this.listeners.length );
-
+        },
+        
+        register_listeners : function () {
+            // this.$logDebug( 'register_listeners>' );
+            
             this.delegate_id = aria.utils.Delegate.add( {
                 fn : this.delegate_event,
                 scope : this
             } );
             
-            this.$logDebug( 'register_listeners> ' + this.delegate_id );
+            // this.$logDebug( 'register_listeners> ' + this.delegate_id );
+        },
+        
+        unregister_listeners : function () {
+            // this.$logDebug( 'unregister_listeners>' );
+
+            if ( this.delegate_id ) {
+                aria.utils.Delegate.remove( this.delegate_id ); 
+            }
         },
         
         delegate_event : function ( event ) {
             // this.$logDebug( 'delegate_event>' );
             
-            // global level?
-            // TODO
-            
-            // widget level
-            this.call_widget_callback( event );
-            
-            // listener level
-            this.call_listener_callback( event );
-        },
-        
-        call_widget_callback : function ( event ) {
-            // this.$logDebug( 'call_widget_callback> ' + event.type );
-            // mousemove, mouseout, mouseover, click
-            
-            var type = event.type,
-                callback = type ? this[ 'on_' + type ] : undefined;
-
-            if ( callback ) {
-                var return_value = callback.call( this, event );
-                if ( return_value === false ) {
-                    event.preventDefault();
+            {
+                var callback = this[ 'on_' + event.type ];
+                if ( callback ) {
+                    if ( callback.call( this, event ) === false ) {
+                        return false;
+                    }
                 }
             }
-        },
-        
-        call_listener_callback : function ( event ) {
-            // this.$logDebug( 'call_listener_callback> ' + event.type );
             
-            var type = event.type,
-                callback = this.listeners.hasOwnProperty( type ) ? this.listeners[ type ] : undefined;
-
-            if ( callback ) {
-                this.$logDebug( 'call_listener_callback> ' + type );
-                var wrapped = new aria.templates.DomEventWrapper( event );
-                var return_value = callback.fn.call( callback.scope, wrapped, callback.args );
-                wrapped.$dispose();
-                if ( return_value === false ) {
-                    event.preventDefault();
+            {
+                var callback = this.listeners.hasOwnProperty( event.type ) ? this.listeners[ event.type ] : undefined;
+                if ( callback ) {
+                    var wrapped = new aria.templates.DomEventWrapper( event );
+                    if ( callback.fn.call( callback.scope, wrapped, callback.args ) === false ) {
+                        wrapped.$dispose();
+                        return false;
+                    }
+                    wrapped.$dispose();
                 }
             }
+            
+            return true;
         },
         
-        // //////////////////////////////////////////////////
-        // init
-
-        initWidget : function () {
-            this.$logDebug( 'initWidget>' );
-            this.element = aria.utils.Dom.getElementById( this.attributes.id );
+        on_change : function ( event ) {
+            this.$logDebug( 'on_change>' );
+            this.synchronize_from_widget();
+        },
+        
+        on_keyup : function ( event ) {
+            this.$logDebug( 'on_keyup>' );
+            this.synchronize_from_widget();
+        },
+        
+        on_blur : function ( event ) {
+            this.$logDebug( 'on_blur>' );
+            this.synchronize_from_widget();
         },
 
         // //////////////////////////////////////////////////
