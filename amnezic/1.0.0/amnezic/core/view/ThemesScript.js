@@ -22,7 +22,9 @@ Aria.tplScriptDefinition({
 		
 		$viewReady : function () {
 			this.$logDebug( '$viewReady>' );
-            this.load_themes();
+            if ( !this.data.themes ) {
+                this.load_themes();
+            }
 		},
         
         // //////////////////////////////////////////////////
@@ -30,11 +32,6 @@ Aria.tplScriptDefinition({
 		
 		load_themes : function () {
 			this.$logDebug( 'load_themes>' );
-            
-            if ( this.data.themes ) {
-                this.themes_loaded( this.data.themes );
-                return;
-            }
             
             var callback = {
                     fn: this.themes_loaded,
@@ -49,7 +46,9 @@ Aria.tplScriptDefinition({
             aria.utils.Json.setValue( this.data, 'themes', themes );
             aria.utils.Json.setValue( this.data, 'nb_themes_loaded', 0 );
             for ( var i = 0 ; i < themes.length ; i++ ) {
-                this.load_theme( themes[i] );
+                if ( !themes[i].questions ) {
+                    this.load_theme( themes[i] );
+                }
             }
 		},
         

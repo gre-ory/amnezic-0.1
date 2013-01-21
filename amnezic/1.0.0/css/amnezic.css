@@ -8,7 +8,32 @@ body {
 }
 
 input{
-    min-height: 30px;
+    /* min-height: 30px; */
+}
+
+input[type='range'] {
+    -webkit-appearance: none !important;
+    /* background-color: #90CA77; */
+    background-color: #FFF;
+    /* border: 1px solid #000; */
+    height: 1px;
+    border-radius: 1px;
+    /* padding: 0px 10px; */
+    box-shadow: -2px -1px 2px #000;
+}
+
+input[type='range']::-webkit-slider-thumb {
+    -webkit-appearance: none !important;
+    background-color: #AAA;
+    border: 1px solid #AAA;
+    height: 20px;
+    width: 10px;
+    border-radius: 5px;
+    box-shadow: 1px 1px 4px #555;
+}
+
+input[type='range']::-webkit-slider-thumb:hover {
+    cursor: pointer;
 }
 
 /* aria.templates **************************************************/

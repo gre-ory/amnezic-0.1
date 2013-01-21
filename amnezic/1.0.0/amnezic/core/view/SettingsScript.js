@@ -22,25 +22,12 @@ Aria.tplScriptDefinition({
 		
 		$viewReady : function () {
 			// this.$logDebug( '$viewReady>' );
-            if ( !this.data.nb ) {
-                aria.utils.Json.setValue( this.data, 'nb', 10 );
+            if ( !this.data.settings ) {
+                aria.utils.Json.setValue( this.data, 'settings', {} );
             }
-		},
-        
-        // //////////////////////////////////////////////////
-		// increment
-        
-		increment : function () {
-			this.$logDebug( 'increment>' );
-            aria.utils.Json.setValue( this.data, 'nb', ( this.data.nb + 1 ) );
-		},
-
-        // //////////////////////////////////////////////////
-		// decrement
-        		
-		decrement : function () {
-			this.$logDebug( 'decrement>' );
-            aria.utils.Json.setValue( this.data, 'nb', ( this.data.nb - 1 ) );
+            if ( !this.data.settings.nb_questions ) {
+                aria.utils.Json.setValue( this.data.settings, 'nb_questions', 50 );
+            }
 		}
 		
 	}

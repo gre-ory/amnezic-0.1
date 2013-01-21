@@ -4,11 +4,11 @@
 }}
         
     {macro main()}
-    
+        
         {section {
             id: 'settings_section',
             bindRefreshTo: [ 
-                { to: 'settings', inside: data, recursive: true }
+                { to: 'settings', inside: data, recursive: false }
             ]
 	    }}
         
@@ -28,90 +28,55 @@
                 <!--  content                                           -->
                 <!-- ************************************************** -->
                 
-                <div class="span10 pagination-centered">
+                <div class="span10">
                     
-                    <div class="row-fluid">
-                        
-                        <div class="span1">
-                            {section {
-                                id: 'nb_section',
-                                bindRefreshTo: [
-                                    { to: 'nb', inside: this.data, recursive: true }
-                                ]
-                    	    }}
-                                {if data && data.nb}
-                                    ${data.nb}
-                                {/if}    
-                            {/section}
-                        </div>
-                        
-                        <div class="span1">
-                            {@html:element {
-                                tag: 'span',
-                                class: 'btn',
-                                title: 'Increment',
-                                on: {
-                                    click: {
-                                        fn: increment
-                                    }
-                                }
-                            }}
-                                <i class="icon-plus"></i>
-                            {/@html:element}
-                        </div>
-                        
-                        <div class="span1">
-                            {@html:element {
-                                tag: 'span',
-                                class: 'btn',
-                                title: 'Decrement',
-                                on: {
-                                    click: {
-                                        fn: decrement
-                                    }
-                                }
-                            }}
-                                <i class="icon-minus"></i>
-                            {/@html:element}
-                        </div>
-                        
-                        <div class="span4">
-                            {@html:input {
-                                bind: {
-                                    value: {
-                                        to: 'nb',
-                                        inside: this.data,
-                                        transform: {
-                                            from_widget: parseInt
+                    {if data.settings}
+                    
+                        <div class="form-horizontal">
+                            
+                            <div class="control-group">
+                                <label class="control-label" for="inputEmail">Nb questions</label>
+                                <div class="controls">
+                                    
+                                    {@html:element {
+                                        tag: 'input',
+                                        type: 'range',
+                                        min: '10',
+                                        max: '200',
+                                        step: '10',
+                                        bind: {
+                                            value: {
+                                                to: 'nb_questions',
+                                                inside: this.data.settings,
+                                                transform: {
+                                                    from_widget: parseInt
+                                                }
+                                            }
                                         }
-                                    }
-                                }
-                            }/}
-                        </div>
+                                    }/}
+                                    
+                                    {section {
+                                        id: 'nb_questions_section',
+                                        bindRefreshTo: [ 
+                                            { to: 'nb_questions', inside: data.settings }
+                                        ]
+                            	    }}
+                                    
+                                        {if data.settings.nb_questions}
+                                            ${data.settings.nb_questions}
+                                        {/if}
+                                    
+                                    {/section}
+                                    
+                                </div>
+                            </div>
                         
-                        <div class="span4">
-                            {@html:element {
-                                tag: 'input',
-                                type: 'range',
-                                min: '2',
-                                max: '20',
-                                step: '1',
-                                bind: {
-                                    value: {
-                                        to: 'nb',
-                                        inside: this.data,
-                                        transform: {
-                                            from_widget: parseInt
-                                        }
-                                    }
-                                }
-                            }/}
                         </div>
                     
-                    </div>
+                    {/if}
                     
                 </div>
-                
+            
                 <!-- ************************************************** -->
                 <!--  next                                              -->
                 <!-- ************************************************** -->
@@ -124,7 +89,7 @@
             
             </div>
         
-        {/section}
+         {/section}
     
     {/macro}
 
