@@ -41,9 +41,9 @@
                                     {@html:element {
                                         tag: 'input',
                                         type: 'range',
-                                        min: '10',
-                                        max: '200',
-                                        step: '10',
+                                        min: '5',
+                                        max: '20',
+                                        step: '5',
                                         bind: {
                                             value: {
                                                 to: 'nb_questions',

@@ -7,12 +7,10 @@
 
     {macro main()}
         
-        {var number = data.section.args.number /}
-        
         {section {
-            id: 'question' + number + '_section',
+            id: 'question_section',
             bindRefreshTo: [ 
-                { to: 'section', inside: data, recursive: true }
+                { to: 'question', inside: data, recursive: true }
             ]
 	    }}
         
@@ -23,27 +21,45 @@
                 <!-- ************************************************** -->
                 
                 <div class="span1 pagination-centered">
-                    <a href="#start" class="btn" title="Previous">
-                        <i class="icon-chevron-left"></i>
-                    </a>
+                    {if data.question && data.question.previous}
+                        <a href="#question-${data.question.previous}" class="btn" title="Question ${data.question.previous}">
+                            <i class="icon-chevron-left"></i>
+                        </a>
+                    {else/}
+                        <a href="#start" class="btn" title="Start">
+                            <i class="icon-chevron-left"></i>
+                        </a>
+                    {/if}
                 </div>
                 
                 <!-- ************************************************** -->
                 <!--  content                                           -->
                 <!-- ************************************************** -->
                 
-                <div class="span10 pagination-centered">
-                    <span class="btn disabled">Loading question ${number}...</span>
-                </div>
+                {if data.question}
+                    <div class="span10 pagination-centered">
+                        <span class="btn">Question ${data.question.number} loaded...</span>
+                    </div>
+                {else/}
+                    <div class="span10 pagination-centered">
+                        <span class="btn disabled">Loading question...</span>
+                    </div>
+                {/if}
                 
                 <!-- ************************************************** -->
                 <!--  next                                              -->
                 <!-- ************************************************** -->
                 
                 <div class="span1 pagination-centered">
-                    <a href="#score" class="btn" title="Next">
-                        <i class="icon-chevron-right"></i>
-                    </a>
+                    {if data.question && data.question.next}
+                        <a href="#question-${data.question.next}" class="btn" title="Question ${data.question.next}">
+                            <i class="icon-chevron-right"></i>
+                        </a>
+                    {else/}
+                        <a href="#end" class="btn" title="End">
+                            <i class="icon-chevron-right"></i>
+                        </a>
+                    {/if}
                 </div>
             
             </div>

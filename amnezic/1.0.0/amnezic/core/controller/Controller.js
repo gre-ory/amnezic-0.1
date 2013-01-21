@@ -25,7 +25,11 @@ Aria.interfaceDefinition({
         // service.theme
 
         theme_retrieve_all: 'Function',
-        theme_retrieve: 'Function'
+        theme_retrieve: 'Function',
+        
+        // service.question
+        
+        question_prepare_all: 'Function'
 
     }
 });

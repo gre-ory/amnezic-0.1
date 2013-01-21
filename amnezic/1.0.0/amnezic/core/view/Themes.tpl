@@ -54,7 +54,7 @@
                                 
                                 <th class="title">Title</th>
                                 <th class="active">Active</th>
-                                <th class="nb_questions">Nb. questions</th>
+                                <th class="nb">Nb.</th>
                                 <th class="actions"></th>
                                 
                             </head>
@@ -66,8 +66,8 @@
                                     {foreach theme inArray data.themes}
                                         {if !theme.deleted}
                                         
-                                            {if theme.active === true && theme.questions}
-                                                {set count = count + theme.questions.length/}
+                                            {if theme.active === true && theme.items}
+                                                {set count = count + theme.items.length/}
                                             {/if}
                                             
                                             <tr>
@@ -88,9 +88,9 @@
                                                     {/if}
                                                 </td>
                                                 
-                                                <td class="nb_questions">
-                                                    {if theme.questions}
-                                                        ${theme.questions.length}
+                                                <td class="nb">
+                                                    {if theme.items}
+                                                        ${theme.items.length}
                                                     {/if}
                                                 </td>
                                                 
@@ -118,7 +118,7 @@
                                     <td class="active">
                                     </td>
                                     
-                                    <td class="nb_questions">
+                                    <td class="nb">
                                         ${count}
                                     </td>
                                     

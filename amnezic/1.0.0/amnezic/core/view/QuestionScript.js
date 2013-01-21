@@ -23,6 +23,7 @@ Aria.tplScriptDefinition({
 		
 		$viewReady : function () {
 			this.$logDebug( "[$viewReady] Start..." );
+            this.load_question();
             // this.$logInfo( "[$viewReady] Load mp3 : " + this.data.question.mp3 );
             /*
             this.data.audio.volume = 50;
@@ -43,6 +44,28 @@ Aria.tplScriptDefinition({
             this.data.audio.loaded = false;
             */
 		},   
+
+		// //////////////////////////////////////////////////
+		// load_question
+        
+        load_question : function () {
+            this.$logDebug( 'load_question>' + this.data.section.args.number );
+            var number = this.data.section.args.number ? parseInt( this.data.section.args.number ) : undefined,
+                index = number ? number - 1 : undefined,
+                questions = this.data.questions,
+                question = questions && number && ( index < questions.length ) ? questions[ index ] : undefined,
+                previous = number && index > 0 ? number - 1 : undefined, 
+                next = number && index < ( questions.length - 1 ) ? ( number + 1 ) : undefined;
+            
+            if ( question ) {
+                question.number = number;
+                question.previous = previous;
+                question.next = next;
+                aria.utils.Json.setValue( this.data, 'question', question );
+            } else {
+                aria.utils.Json.deleteKey( this.data, 'question' );
+            }
+        },
         
 		// //////////////////////////////////////////////////
 		// music ready

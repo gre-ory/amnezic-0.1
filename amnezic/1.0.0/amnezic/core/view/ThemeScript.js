@@ -67,10 +67,10 @@ Aria.tplScriptDefinition({
 		},
 
         // //////////////////////////////////////////////////
-		// add_questions
+		// add_items
                 
-        add_questions : function ( event ) {
-            this.$logDebug( 'add_questions>' );
+        add_items : function ( event ) {
+            this.$logDebug( 'add_items>' );
             
             Aria.loadTemplate( { 
 				classpath: 'amnezic.core.view.Search',
@@ -88,31 +88,31 @@ Aria.tplScriptDefinition({
         },
 
         // //////////////////////////////////////////////////
-		// remove_question_at
+		// remove_item_at
                 
-        remove_question_at : function ( event, index ) {
-            this.$logDebug( 'remove_question_at>' );
+        remove_item_at : function ( event, index ) {
+            this.$logDebug( 'remove_item_at>' );
             
-            aria.utils.Json.removeAt( this.data.theme.questions, index );
+            aria.utils.Json.removeAt( this.data.theme.items, index );
         },
         
         // //////////////////////////////////////////////////
 		// switch_answer_and_hint
 		
-		switch_answer_and_hint : function ( event, question ) {
-			this.$logDebug( 'switch_answer_and_hint> ' + question );
+		switch_answer_and_hint : function ( event, item ) {
+			this.$logDebug( 'switch_answer_and_hint> ' + item );
             
-            var answer = question.answer,
-                hint = question.hint;
+            var answer = item.answer,
+                hint = item.hint;
                 
-            aria.utils.Json.setValue( question, 'answer', hint );
-            aria.utils.Json.setValue( question, 'hint', answer );
+            aria.utils.Json.setValue( item, 'answer', hint );
+            aria.utils.Json.setValue( item, 'hint', answer );
 		},
         
         // //////////////////////////////////////////////////
 		// play_mp3
 		
-		play_mp3 : function ( event, question ) {
+		play_mp3 : function ( event, item ) {
 			this.$logDebug( 'play_mp3>' );
 		}
 		

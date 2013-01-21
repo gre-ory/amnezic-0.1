@@ -46,7 +46,7 @@ Aria.tplScriptDefinition({
             aria.utils.Json.setValue( this.data, 'themes', themes );
             aria.utils.Json.setValue( this.data, 'nb_themes_loaded', 0 );
             for ( var i = 0 ; i < themes.length ; i++ ) {
-                if ( !themes[i].questions ) {
+                if ( !themes[i].items ) {
                     this.load_theme( themes[i] );
                 }
             }
@@ -68,18 +68,6 @@ Aria.tplScriptDefinition({
                     scope: this,
                     args: args
                 };
-            
-            if ( themes ) {
-                for ( var i = 0 ; i < themes.length ; i++ ) {
-                    if ( theme.id == themes[i].id ) {
-                        if ( themes[i].questions ) {
-                            this.theme_loaded( themes[i], args );
-                            return;
-                        }
-                        break;
-                    }
-                }
-            }
             
             this.moduleCtrl.theme_retrieve( id, callback );
 		},

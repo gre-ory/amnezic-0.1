@@ -1,7 +1,7 @@
 {
     "title": "Test",
     "active": true,
-    "questions": [
+    "items": [
         {
             "answer": "AAA",
             "hint": "The Holloways",

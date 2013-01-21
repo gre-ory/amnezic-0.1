@@ -1,6 +1,6 @@
 {Template {
     $classpath: 'amnezic.core.view.Start',
-    $hasScript: false
+    $hasScript: true
 }}
 
     {macro main()}
@@ -36,11 +36,7 @@
                 <!--  next                                              -->
                 <!-- ************************************************** -->
                 
-                <div class="span1 pagination-centered">
-                    <a href="#question" class="btn" title="Next">
-                        <i class="icon-chevron-right"></i>
-                    </a>
-                </div>
+                <!-- none -->
             
             </div>
         

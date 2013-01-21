@@ -7,7 +7,8 @@ Aria.classDefinition({
         'aria.storage.SessionStorage',
         'amnezic.core.controller.Flow',
         'amnezic.core.service.JsonFileLoader',
-        'amnezic.core.service.Storage',
+        'amnezic.core.service.Question',
+        'amnezic.core.service.Storage',        
         'amnezic.core.service.Theme',
         'amnezic.core.service.User',
         'amnezic.deezer.service.Search'
@@ -33,6 +34,7 @@ Aria.classDefinition({
             storage: new amnezic.core.service.Storage( this ),
             theme: new amnezic.core.service.Theme( this ),
             user: new amnezic.core.service.User( this ),
+            question: new amnezic.core.service.Question( this ),
             search: new amnezic.deezer.service.Search( this )
         };
         
@@ -138,7 +140,14 @@ Aria.classDefinition({
         },
 
         // //////////////////////////////////////////////////
-        // search
+        // service.question
+        
+        question_prepare_all : function( themes, settings, callback ) {
+            this.service.question.prepare_all( themes, settings, callback );
+        },
+
+        // //////////////////////////////////////////////////
+        // service.search
         
         search : function( request, callback ) {
             this.service.search.search( request, callback );

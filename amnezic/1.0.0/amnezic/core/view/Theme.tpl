@@ -62,26 +62,26 @@
                 
                 {var index = 0 /}
                 
-                <table class="table questions">
+                <table class="table items">
                     
                     <thead>
                         
                         <th colspan="4">
-                            Questions
+                            Items
                         </th>
                         
                     </head>
                     
                     <tbody>
                         
-                        {if data.theme.questions}
-                            {foreach question inArray data.theme.questions}
+                        {if data.theme.items}
+                            {foreach item inArray data.theme.items}
                                 
                                 <tr>
                                     
                                     <td class="album" rowspan="2" style="vertical-align: middle; text-align: center;">
-                                        {if question.img}
-                                            <img src="${question.img}" style="width: 75px;"/>
+                                        {if item.img}
+                                            <img src="${item.img}" style="width: 75px;"/>
                                         {/if}
                                     </td>
                                     
@@ -92,7 +92,7 @@
                                     <td>
                                         {@aria:TextField {
                                             sclass: 'simple',
-                                            bind: { value: { to: 'answer', inside: question } }
+                                            bind: { value: { to: 'answer', inside: item } }
                                         }/}
                                     </td>
                                     
@@ -102,11 +102,11 @@
                                             <i class="icon-play"></i>
                                         </span>
                                         
-                                        <span class="btn" title="Switch answer and hint" {on click { fn: switch_answer_and_hint, args: question }/}>
+                                        <span class="btn" title="Switch answer and hint" {on click { fn: switch_answer_and_hint, args: item }/}>
                                             <i class="icon-refresh"></i>
                                         </span>
                                         
-                                        <span class="btn" title="Delete" {on click { fn: remove_question_at, args: index }/}>
+                                        <span class="btn" title="Delete" {on click { fn: remove_item_at, args: index }/}>
                                             <i class="icon-trash"></i>
                                         </span>
                                         
@@ -123,7 +123,7 @@
                                     <td>
                                         {@aria:TextField {
                                             sclass: 'simple',
-                                            bind: { value: { to: 'hint', inside: question } }
+                                            bind: { value: { to: 'hint', inside: item } }
                                         }/}
                                     </td>
                                     
@@ -137,7 +137,7 @@
                         <tr>
                             <td class="toolbar" colspan="4">
                                 
-                                <span class="btn" title="Add" {on click { fn: add_questions }/}>
+                                <span class="btn" title="Add" {on click { fn: add_items }/}>
                                     <i class="icon-plus"></i>
                                 </span>
 
@@ -192,41 +192,6 @@
                 <pre>
                     ${data.theme.raw}
                 </pre>
-                
-                <!--
-                    ${left_curly_bracket}${eol}
-                    {if data.theme}
-                        ${tab}title: '${data.theme.title}',${eol}
-                        ${tab}active: ${data.theme.active},${eol}
-                    {/if}
-                    ${tab}questions: ${left_square_bracket}${eol}
-                    
-                    {if data.theme && data.theme.questions}
-                        {foreach question inArray data.theme.questions}
-                            
-                            ${tab}${tab}${left_curly_bracket}${eol}
-                            
-                            {if question.answer}
-                                ${tab}${tab}${tab}answer: '${question.answer}',${eol}
-                            {/if}
-                            {if question.hint}
-                                ${tab}${tab}${tab}hint: '${question.hint}',${eol}
-                            {/if}
-                            {if question.img}
-                                ${tab}${tab}${tab}img: '${question.img}',${eol}
-                            {/if}
-                            {if question.mp3}
-                                ${tab}${tab}${tab}mp3: '${question.mp3}',${eol}
-                            {/if}                                                                                                
-                            
-                            ${tab}${tab}${right_curly_bracket},${eol}
-                            
-                        {/foreach}
-                    {/if}
- 
-                    ${tab}${right_square_bracket}${eol}
-                    ${right_curly_bracket}
-                -->
             </div>
             
         </div>
