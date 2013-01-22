@@ -1,0 +1,94 @@
+{CSSTemplate {
+    $classpath : 'amnezic.core.view.QuestionStyle'
+}}
+
+    {macro main()}
+    
+        .question {
+            
+        }
+        
+        .question .item {
+            margin-bottom: 20px;
+            position: relative;
+            
+            -webkit-animation-name: question_item_fade_in;
+            -webkit-animation-timing-function: ease-in-out;
+            -webkit-animation-direction: normal;
+            -webkit-animation-duration: 1s;
+        }
+        
+        .question .item1 {
+            -webkit-animation-delay: 0s;
+        }
+            
+        .question .item2 {
+            -webkit-animation-delay: 0.5s;
+        }
+            
+        .question .item3 {
+            -webkit-animation-delay: 1s;
+        }
+            
+        .question .item4 {
+            -webkit-animation-delay: 1.5s;
+        }
+            
+        .question .item5 {
+            -webkit-animation-delay: 2s;
+        }
+
+        .question .item6 {
+            -webkit-animation-delay: 2.5s;
+        }
+            
+        .question .item .number {
+            
+            width: 50px;
+            height: 50px;
+            border: 1px solid #555;
+            border-radius: 5px;
+            padding: 14px;
+            text-align: center;
+            vertical-align: center;
+                    
+            /* -webkit-animation-name: question_number_fade_in; */
+            -webkit-animation-timing-function: linear;
+            -webkit-animation-direction: normal;
+            -webkit-animation-duration: 30s;
+
+        }
+        
+        .question .item .answer {
+            
+            font-size: 120%;
+            /* border: 1px solid #555; */
+            margin-bottom: 5px;
+            padding: 0px 10px;
+            border-radius: 5px;
+            background-color: #FFF;
+            box-shadow: 1px 1px 4px #555;
+            
+            
+        }
+        
+        .question .item .hint {
+            
+            font-size: 80%;
+            margin-left: 50px;
+            padding: 0px 10px;
+            font-style: italic;
+            border: 1px solid #555;
+            border-radius: 5px;
+            margin-bottom: 5px;
+            
+            /* -webkit-animation-name: question_hint_fade_in; */
+            -webkit-animation-timing-function: linear;
+            -webkit-animation-direction: normal;
+            -webkit-animation-duration: 30s;
+            
+        }
+    
+    {/macro}
+
+{/CSSTemplate}

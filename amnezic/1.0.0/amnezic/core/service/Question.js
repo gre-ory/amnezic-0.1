@@ -32,15 +32,19 @@ Aria.classDefinition({
                         question = {
                             title: theme.title,
                             solution: undefined,
-                            answers: []
+                            items: []
                         };
                     
-                    while ( items.length > 0 && question.answers.length < 6 ) {
-                        question.answers.push( aria.utils.Json.removeAt( items, Math.floor( Math.random() * items.length ) ) );
+                    while ( items.length > 0 && question.items.length < 6 ) {
+                        var index = Math.floor( Math.random() * items.length ),
+                            item = items[ index ];
+                        item.number = question.items.length + 1;
+                        question.items.push( item );
+                        aria.utils.Json.removeAt( items, index );
                     }
                     
-                    if ( question.answers.length > 0 ) {
-                        question.solution = Math.floor( Math.random() * question.answers.length );
+                    if ( question.items.length > 0 ) {
+                        question.solution = Math.floor( Math.random() * question.items.length );
                     }        
                     questions.push( question );
                 }

@@ -1,6 +1,7 @@
 {Template {
     $classpath: 'amnezic.core.view.Question',
-    $hasScript: true
+    $hasScript: true,
+    $css : [ 'amnezic.core.view.QuestionStyle' ]
 }}
 	
 	{var answer_css = [ 'one', 'two', 'three', 'four', 'five', 'six' ] /}
@@ -37,8 +38,40 @@
                 <!-- ************************************************** -->
                 
                 {if data.question}
-                    <div class="span10 pagination-centered">
-                        <span class="btn">Question ${data.question.number} loaded...</span>
+                    <div class="question span10">
+                        
+                        {if data.question.title}
+                            <div class="title row-fluid">
+                                <div class="offset1 span10 pagination-centered">
+                                    ${data.question.title}
+                                </div>
+                            </div>
+                        {/if}
+                        
+                        {if data.question.items}
+                            {var solution = data.question.solution /}
+                            {foreach item inArray data.question.items}
+                                <div class="item item${item.number} row-fluid">
+                                    
+                                    <div class="number span1">
+                                        ${item.number}
+                                    </div>
+                                    
+                                    <div class="span10">
+                                        
+                                        <div class="answer">
+                                            ${item.answer}
+                                        </div>
+                                        
+                                        <div class="hint">
+                                            ${item.hint}
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                </div>
+                            {/foreach}
+                        {/if}
                     </div>
                 {else/}
                     <div class="span10 pagination-centered">

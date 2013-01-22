@@ -1,5 +1,70 @@
 /* webkit animation **************************************************/
 
+@-webkit-keyframes question_item_fade_in { 
+    0% {
+        opacity: 0;
+        left: 200px;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        left: 0px;
+    }
+}
+
+@-webkit-keyframes question_number_fade_in { 
+    0% {
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes question_answer_fade_in { 
+    0% {
+        opacity: 0;
+        left: 200px;
+    }
+    1% {
+        opacity: 1;
+    }
+    3% {
+        left: 0px;
+    }
+}
+
+@-webkit-keyframes question_hint_fade_in { 
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0;
+    }
+    60% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes confetti_fade { 
+    0% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
 @-webkit-keyframes confetti_fade { 
     0% {
         opacity: 1;

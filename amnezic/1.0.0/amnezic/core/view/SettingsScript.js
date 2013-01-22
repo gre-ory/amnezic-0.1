@@ -26,7 +26,7 @@ Aria.tplScriptDefinition({
                 aria.utils.Json.setValue( this.data, 'settings', {} );
             }
             if ( !this.data.settings.nb_questions ) {
-                aria.utils.Json.setValue( this.data.settings, 'nb_questions', 50 );
+                aria.utils.Json.setValue( this.data.settings, 'nb_questions', 10 );
             }
 		}
 		

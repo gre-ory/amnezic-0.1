@@ -5,6 +5,7 @@ body {
 	background-color: #DCDDD8;
 	background-image: url('../img/background-noise.png');
     overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 input{
