@@ -1,0 +1,41 @@
+{CSSTemplate {
+    $classpath : 'amnezic.core.view.CardStyle'
+}}
+
+    {macro main()}
+    
+        .card {
+            display: inline-block;
+            width: 46px;
+            height: 67px;
+            box-shadow: 2px 2px 2px #BBB;
+        }
+        
+        .card.mini {
+            width: 20px;
+            height: 20px;
+        }
+        
+        .card {
+            background-position-y: 67px;
+        }
+        
+        .card.spade {
+            background-position-y: 134px;
+        }
+        
+        .card.heart {
+            background-position-y: 201px;
+        }
+        
+        .card.club {
+            background-position-y: 335px;
+        }
+        
+        .card.diamond {
+            background-position-y: 268px;
+        }
+    
+    {/macro}
+
+{/CSSTemplate}

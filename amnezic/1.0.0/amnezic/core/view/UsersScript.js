@@ -54,7 +54,24 @@ Aria.tplScriptDefinition({
 		deactivate : function ( event, user ) {
 			this.$logDebug( 'deactivate>' );
             this.moduleCtrl.user_deactivate( user );
-		}
+		},
+
+        // //////////////////////////////////////////////////
+		// select_card
+                
+        select_card : function ( event, user ) {
+            this.$logDebug( 'select_card>' );
+            
+            Aria.loadTemplate( { 
+				classpath: 'amnezic.core.view.Cards',
+				div: 'select_card',
+				moduleCtrl: this.moduleCtrl,
+				data : {
+                    container_id: 'select_card',
+                    user: user
+                }
+			} );
+        }
 		
 	}
 });

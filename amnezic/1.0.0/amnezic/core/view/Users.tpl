@@ -1,6 +1,7 @@
 {Template {
     $classpath: 'amnezic.core.view.Users',
-    $hasScript: true
+    $hasScript: true,
+    $css : [ 'amnezic.core.view.CardStyle' ]
 }}
     
     {macro main()}
@@ -30,6 +31,7 @@
                         
                         <thead>
                             
+                            <th>Card</th>
                             <th class="name">Name</th>
                             <th class="active">Active</th>
                             <th class="score">Score</th>
@@ -43,6 +45,10 @@
                                 {foreach user inArray data.users}
                                     {if !user.deleted}
                                         <tr>
+                                            
+                                            <td>
+                                                <div class="card mini ${user.card}" {on click { fn: select_card, args: user }/}></div>
+                                            </td>
                                             
                                             <td class="name">
                                                 {@aria:TextField {
@@ -106,6 +112,13 @@
             </div>
         
         {/section}
+        
+        <!-- ************************************************** -->
+        <!-- modal select_card                                  -->
+        <!-- ************************************************** -->
+        
+        <div id="select_card" class="select_card modal hide fade in" style="display: none;">
+        </div>
     
     {/macro}
 
