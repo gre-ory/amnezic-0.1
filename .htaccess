@@ -1,0 +1,9 @@
+
+AddHandler cgi-script .py
+
+DirectoryIndex index.html
+
+<Files *.ini>
+order allow,deny
+deny from all
+</Files>

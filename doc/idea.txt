@@ -1,0 +1,8 @@
+[01] theme: year ( answer: year, hint: ... )
+[02] theme: anagramme ( answer: anagrame, hint: ... )
+[03] question: artiste mystäre
+[04] question: banco
+[05] question: super banco
+[06] theme: tarantino ( answer: film )
+[07] theme: reprise ( answer: artiste original, hint: artiste reprise )
+[08] 

@@ -3,12 +3,6 @@
     <head>
     
         <!-- ************************************************** -->
-        <!-- charset                                            -->
-        <!-- ************************************************** -->
-    
-        <meta charset="utf-8">
-        
-        <!-- ************************************************** -->
         <!-- title                                              -->
         <!-- ************************************************** -->
         
@@ -18,8 +12,14 @@
         <!-- icon                                               -->
         <!-- ************************************************** -->
 
-        <link href="amnezic/1.0.0/img/musique.png" type="image/x-icon" rel="shortcut icon">
+        <link href="img/musique.png" type="image/x-icon" rel="shortcut icon">
 
+        <!-- ************************************************** -->
+        <!-- charset                                            -->
+        <!-- ************************************************** -->
+    
+        <meta charset="utf-8">
+        
         <!-- ************************************************** -->
         <!-- description                                        -->
         <!-- ************************************************** -->
@@ -35,14 +35,14 @@
         <!-- ************************************************** -->
         <!-- javascript                                         -->
         <!-- ************************************************** -->
-
+        
         <!-- html5.shiv -->
-        <!--[if lt IE 9]><script src="html5.shiv/3.6.2pre/js/html5shiv-printshiv.js" media="all"></script><![endif]-->
+        <!--[if lt IE 9]><script src="lib/html5.shiv/3.6.2pre/js/html5shiv-printshiv.js" media="all"></script><![endif]-->
 
         <!-- aria.templates -->
         <script type="text/javascript">Aria = { debug: true }</script>
-        <script type="text/javascript" src="aria.templates/1.3.2/aria/ariatemplates-1.3.2.js"></script>
-        <script type="text/javascript" src="aria.templates/1.3.2/aria/css/atskin-1.3.2.js"></script>
+        <script type="text/javascript" src="lib/aria.templates/1.3.2/aria/ariatemplates-1.3.2.js"></script>
+        <script type="text/javascript" src="lib/aria.templates/1.3.2/aria/css/atskin-1.3.2.js"></script>
         <script type="text/javascript">
             aria.core.IO.defaultPostHeader = 'application/json; charset=utf-8';
             
@@ -57,26 +57,26 @@
             });
             aria.core.DownloadMgr.updateRootMap({
                 amnezic : {
-                    "*" : "amnezic/1.0.0/"
+                    "*" : "js/"
                 }
             });
         </script>
         
         <!-- jquery -->
-        <script type="text/javascript" src="jquery/1.8.3/jquery-1.8.3.js"></script>
+        <script type="text/javascript" src="lib/jquery/1.8.3/jquery-1.8.3.js"></script>
         <script type="text/javascript">
             jQuery.noConflict();
         </script>
         
         <!-- twitter.bootstrap -->
-        <script type="text/javascript" src="twitter.bootstrap/2.2.2/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="lib/twitter.bootstrap/2.2.2/js/bootstrap.min.js"></script>
         
         <!-- sound.manager -->
         <!-- 
-        <script src="sound.manager/2.97a/soundmanager2-jsmin.js"></script>
+        <script src="lib/sound.manager/2.97a/soundmanager2-jsmin.js"></script>
         <script type="text/javascript">
             soundManager.setup({
-                url: 'sound.manager/2.97a/swf/',
+                url: 'lib/sound.manager/2.97a/swf/',
                 onready: function() { console.log("soundmanager READY"); },
                 ontimeout: function() { console.log("soundmanager FAILED"); }
             });
@@ -88,15 +88,15 @@
         <!-- ************************************************** -->
         
         <!-- normalize -->
-        <link href="normalize/2.0.1/css/normalize.css" media="all" type="text/css" rel="stylesheet">
+        <link href="lib/normalize/2.0.1/css/normalize.css" media="all" type="text/css" rel="stylesheet">
         
         <!-- twitter.bootstrap -->
-        <link href="twitter.bootstrap/2.2.2/css/bootstrap.min.css" media="all" type="text/css" rel="stylesheet">
-        <link href="twitter.bootstrap/2.2.2/css/bootstrap-responsive.min.css" media="all" type="text/css" rel="stylesheet">
+        <link href="lib/twitter.bootstrap/2.2.2/css/bootstrap.min.css" media="all" type="text/css" rel="stylesheet">
+        <link href="lib/twitter.bootstrap/2.2.2/css/bootstrap-responsive.min.css" media="all" type="text/css" rel="stylesheet">
 
         <!-- amnezic -->
-        <link href="amnezic/1.0.0/css/amnezic.css" media="all" type="text/css" rel="stylesheet">
-        <link href="amnezic/1.0.0/css/animation.css" media="all" type="text/css" rel="stylesheet">
+        <link href="css/amnezic.css" media="all" type="text/css" rel="stylesheet">
+        <link href="css/animation.css" media="all" type="text/css" rel="stylesheet">
     
     </head>
 

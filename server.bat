@@ -1,1 +1,3 @@
-python -m SimpleHTTPServer 9999
+python server.py
+REM python -m SimpleHTTPServer 9999
+PAUSE
