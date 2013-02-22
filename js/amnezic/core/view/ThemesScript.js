@@ -1,110 +1,45 @@
 Aria.tplScriptDefinition({
 	$classpath : 'amnezic.core.view.ThemesScript',
 
-	// //////////////////////////////////////////////////
-	// Constructor
-	
-	$constructor : function () {
-		this.$logDebug( 'constructor>' );
-	},
-
 	$prototype : {
 		
 		// //////////////////////////////////////////////////
 		// displayReady
 		
 		$displayReady : function () {
-			this.$logDebug( '$displayReady>' );
+            this.service = this.moduleCtrl.get_service();
 		},
         
         // //////////////////////////////////////////////////
 		// viewReady
 		
 		$viewReady : function () {
-			this.$logDebug( '$viewReady>' );
-            if ( !this.data.themes ) {
-                this.load_themes();
-            }
+            this.retrieve_all();
 		},
         
         // //////////////////////////////////////////////////
-		// load_themes
+		// retrieve_all
 		
-		load_themes : function () {
-			this.$logDebug( 'load_themes>' );
-            
-            var callback = {
-                    fn: this.themes_loaded,
-                    scope: this
-                };
-            
-            this.moduleCtrl.theme_retrieve_all( callback );
+		retrieve_all : function () {
+            aria.utils.Json.setValue( this.data, 'themes', [] );
+            this.service.theme.retrieve_all_actives( { fn: this.on_retrieve_all, scope: this } );
 		},
 		
-		themes_loaded : function ( themes ) {
-			this.$logDebug( 'themes_loaded>' );
+		on_retrieve_all : function ( themes ) {
             aria.utils.Json.setValue( this.data, 'themes', themes );
-            aria.utils.Json.setValue( this.data, 'nb_themes_loaded', 0 );
-            for ( var i = 0 ; i < themes.length ; i++ ) {
-                if ( !themes[i].items ) {
-                    this.load_theme( themes[i] );
-                }
-            }
-		},
-        
-        // //////////////////////////////////////////////////
-		// load_theme
-		
-		load_theme : function ( theme ) {
-			this.$logDebug( 'load_theme>' );
-            
-            var id = theme ? theme.id : undefined,
-                themes = this.data.themes,
-                args = {
-                    id: id
-                },
-                callback = {
-                    fn: this.theme_loaded,
-                    scope: this,
-                    args: args
-                };
-            
-            this.moduleCtrl.theme_retrieve( id, callback );
-		},
-		
-        theme_loaded : function ( theme, args ) {
-			this.$logDebug( 'theme_loaded>' );
-            aria.utils.Json.setValue( this.data, 'nb_themes_loaded', ( this.data.nb_themes_loaded + 1 ) );
-            
-            var id = args ?  args.id : undefined,
-                themes = this.data.themes;
-                
-            for ( var i = 0 ; i < themes.length ; i++ ) {
-                if ( id == themes[i].id ) {
-                    aria.utils.Json.removeAt( themes, i );
-                    aria.utils.Json.add( themes, theme, i );
-                    return;            
-                }
-            }
-            
-            if ( theme ) {
-                aria.utils.Json.add( themes, theme );
-            }
 		},
         
 		// //////////////////////////////////////////////////
 		// activate
 		
 		activate : function ( event, theme ) {
-			this.$logDebug( 'activate>' );
             aria.utils.Json.setValue( theme, 'active', true );
-		},     
+		},  
         
 		// //////////////////////////////////////////////////
 		// deactivate
 		
 		deactivate : function ( event, theme ) {
-			this.$logDebug( 'deactivate>' );
             aria.utils.Json.setValue( theme, 'active', false );
 		}
 		

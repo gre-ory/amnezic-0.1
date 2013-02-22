@@ -29,7 +29,7 @@ Aria.tplScriptDefinition({
             this.data.audio.volume = 50;
             if ( this.data.audio.mp3 ) {
                 this.data.audio.mp3.unload();
-                this.data.audio.mp3 = null;
+                this.data.audio.mp3 = undefined;
             }
             this.data.audio.mp3 = soundManager.createSound({
                 id: 'mp3_' + this.data.number,

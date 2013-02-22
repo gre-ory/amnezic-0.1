@@ -219,7 +219,7 @@ Aria.classDefinition({
           if (binding) {
             value = binding.inside[binding.to];
           }
-          if (value == null) {
+          if ( value == undefined ) {
             value = 0;
           }
           if (value < 0) {
@@ -285,7 +285,7 @@ Aria.classDefinition({
          */
         getButtonDom : function () {
           var domElt = this.element;
-          if (domElt == null) {
+          if ( domElt == undefined ) {
             domElt = aria.utils.Dom.getElementById(this.id);
             this.element = domElt;
           }

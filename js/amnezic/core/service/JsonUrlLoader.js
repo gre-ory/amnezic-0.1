@@ -7,80 +7,66 @@ Aria.classDefinition({
 		// //////////////////////////////////////////////////
 		// json
 
-        load_json_url : function ( json_url, adapter, callback ) {
+        load_json_url : function ( json_url, adapter, on_success, on_error ) {
             this.$logDebug( 'load_json> ' + json_url );
             
-            if ( json_url ) {
-                jQuery.ajax( {
-                    type: 'GET',
-                    url: json_url,
-                    contentType: 'application/json; charset=utf-8',
-                    dataType: 'jsonp',
-                    error: function () {
-                        this.json_url_loaded( undefined, adapter, callback );
-                    }.bind(this),
-                    success: function ( response ) {
-                        this.json_url_loaded( response, adapter, callback );
-                    }.bind(this)
-                } );
-            } else {
-                this.json_url_loaded( undefined, adapter, callback );
-            }
+            var args = {
+                    adapter: adapter,
+                    on_success: on_success,
+                    on_error: on_error
+                };
             
-            // var args = {
-            //         adapter: adapter,
-            //         callback: callback
-            //     };
-            // 
-            // if ( json_file ) {
-            //     aria.core.IO.asyncRequest({
-            //         url: json_file,
-            //         callback: {
-            //             fn: this.json_url_loaded,
-            //             onerror: this.json_url_loaded,
-            //             scope: this,
-            //             args: args
-            //        }
-            //     });
-            // } else {
-            //     this.json_url_loaded( undefined, args );
-            // }
+            if ( json_url ) {
+                aria.core.IO.asyncRequest({
+                    url: json_url,
+                    callback: {
+                        fn: this.json_url_loaded,
+                        onerror: this.json_url_loaded,
+                        scope: this,
+                        args: args
+                   }
+                });
+            } else {
+                this.json_url_loaded( undefined, args );
+            }
 		},
 
 		// //////////////////////////////////////////////////
 		// json_url_loaded
                 
-        json_url_loaded : function ( response, adapter, callback ) {
-            this.$logDebug( 'json_url_loaded' );
+        json_url_loaded : function ( response, args ) {
+            // this.$logDebug( 'json_url_loaded>' );
+                
+            var json = undefined,
+                error = undefined;
             
-            // decode
-            var json = response;
-            // var json = undefined;
-            // if ( response ) {
-            //     if ( response.responseJson ) {
-            //         json = response.responseJson;
-            //     }
-            //     if ( response.responseText ) {
-            //         json = aria.utils.Json.load( response.responseText, this );
-            //     }
-            // }
+            // decode json
+            if ( response ) {
+                if ( response.responseJson ) {
+                    json = response.responseJson;
+                }
+                if ( response.responseText ) {
+                    json = aria.utils.Json.load( response.responseText, this );
+                }
+            }
             
-            // adapt
-            if ( adapter ) {
-                json = this.$callback( adapter, json );
+            // decode data or error
+            if ( args.adapter ) {
+                var result = this.$callback( args.adapter, json );
+                // this.$logDebug( 'json_url_loaded> result: ' + result );
+                json = result.json ? result.json : undefined;
+                error = result.error ? result.error : undefined;
             }
-            // if ( args.adapter ) {
-            //     json = args.adapter( json );
-            // }
-
-            // callback
-            if ( callback ) {
-                this.$callback( callback, json );
+            
+            // this.$logDebug( 'json_url_loaded> json: ' + json );
+            // this.$logDebug( 'json_url_loaded> error: ' + error );
+            
+            if ( args.on_error && error ) {
+                this.$callback( args.on_error, error );
             }
-            // if ( args.callback ) {
-            //     this.$callback( args.callback, json );
-            // }
-
+            if ( args.on_success ) {
+                this.$callback( args.on_success, json );
+            }
 		}
         
 	}

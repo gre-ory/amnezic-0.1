@@ -38,6 +38,7 @@
                             <th class="title">Title</th>
                             <th class="active">Active</th>
                             <th class="nb">Nb.</th>
+                            <th class="actions"></th>
                             
                         </head>
                         
@@ -78,6 +79,16 @@
                                                 ${theme.nb}
                                             </td>
                                             
+                                            <td class="actions">
+                                                <span class="btn-group">
+                                                    {if data.admin || true}
+                                                        <a href="#theme-${theme.oid}" class="btn" title="Edit">
+                                                            <i class="icon-pencil"></i>
+                                                        </a>
+                                                    {/if}
+                                                </span>
+                                            </td>
+                                            
                                         </tr>
                                     {/if}
                                 {/foreach}
@@ -97,6 +108,12 @@
                                 
                                 <td class="nb">
                                     ${nb}
+                                </td>
+                                
+                                <td class="actions">
+                                    <span class="btn" title="Add" {on click { fn:insert }/}>
+                                        <i class="icon-plus"></i>
+                                    </span>
                                 </td>
                                 
                             </tr>

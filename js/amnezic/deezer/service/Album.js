@@ -27,7 +27,7 @@ Aria.classDefinition({
                 dataType: 'jsonp',
                 error: function () {
                     controller.$logInfo("[error] Start...");
-                    this._fetch( controller, callback, null );
+                    this._fetch( controller, callback, undefined );
                 }.bind(this),
                 success: function ( response ) {
                     controller.$logInfo("[success] Start...");

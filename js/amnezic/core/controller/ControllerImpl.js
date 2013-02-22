@@ -8,7 +8,8 @@ Aria.classDefinition({
         'amnezic.core.controller.Flow',
         'amnezic.core.service.JsonFileLoader',
         'amnezic.core.service.Question',
-        'amnezic.core.service.Storage',        
+        'amnezic.core.service.Storage',
+        'amnezic.core.service.Message',        
         'amnezic.core.service.Theme',
         'amnezic.core.service.User',
         'amnezic.deezer.service.Search'
@@ -25,13 +26,17 @@ Aria.classDefinition({
         var data = this.getData();
         
         // config
-        this.config = config || {
-            root: 'amnezic/1.0.0/'
+        // this.config = config || {
+        this.config = {
+            root: '',
+            lite_url: 'http://lite.amnezic.com/lite.py',
+            lite_db: 'amnezic'
         };
         
         // service
         this.service = {
             storage: new amnezic.core.service.Storage( this ),
+            message: new amnezic.core.service.Message( this ),
             theme: new amnezic.core.service.Theme( this ),
             user: new amnezic.core.service.User( this ),
             question: new amnezic.core.service.Question( this ),
@@ -103,6 +108,13 @@ Aria.classDefinition({
         },
 
         // //////////////////////////////////////////////////
+        // service
+
+        get_service : function() {
+            return this.service;
+        },
+
+        // //////////////////////////////////////////////////
         // service.storage
         
         storage_clear : function() {
@@ -126,17 +138,6 @@ Aria.classDefinition({
         
         user_remove : function( user ) {
             this.service.user.remove( user );
-        },
-
-        // //////////////////////////////////////////////////
-        // service.theme
-        
-        theme_retrieve_all : function( callback ) {
-            this.service.theme.retrieve_all( callback );
-        },
-        
-        theme_retrieve : function( id, callback ) {
-            this.service.theme.retrieve( id, callback );
         },
 
         // //////////////////////////////////////////////////

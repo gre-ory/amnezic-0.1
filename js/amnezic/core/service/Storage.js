@@ -30,7 +30,7 @@ Aria.classDefinition({
         bind : function() {
             // this.$logDebug( 'bind>' );
             var data = this.controller.getData();
-            aria.utils.Json.addListener( data, null, {
+            aria.utils.Json.addListener( data, undefined, {
                 fn: this.store,
                 scope: this
             }, false, true );
@@ -88,7 +88,7 @@ Aria.classDefinition({
                 out += ', nb' + ( data.nb ? '-' + data.nb : '' );
                 // out += ' }';
             }
-            this.$logInfo( out );
+            // this.$logInfo( out );
         }
         
 	}

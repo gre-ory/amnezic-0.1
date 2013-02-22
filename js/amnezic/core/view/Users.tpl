@@ -47,7 +47,11 @@
                                         <tr>
                                             
                                             <td>
-                                                <div class="card mini ${user.card}" {on click { fn: select_card, args: user }/}></div>
+                                                {if user.card}
+                                                    <div class="card mini ${user.card}" {on click { fn: select_card, args: user }/}></div>
+                                                {else/}
+                                                    <div class="card mini void" {on click { fn: select_card, args: user }/}></div>
+                                                {/if}
                                             </td>
                                             
                                             <td class="name">

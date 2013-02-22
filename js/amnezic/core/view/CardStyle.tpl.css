@@ -11,29 +11,33 @@
             box-shadow: 2px 2px 2px #BBB;
         }
         
+        .card {
+            background-image: url('/img/jeu-de-cartes.jpg');
+        }
+        
         .card.mini {
             width: 20px;
             height: 20px;
         }
         
         .card {
-            background-position-y: 67px;
+            background-position: 0 67px;
         }
         
         .card.spade {
-            background-position-y: 134px;
+            background-position: 0 134px;
         }
         
         .card.heart {
-            background-position-y: 201px;
+            background-position: 0 201px;
         }
         
         .card.club {
-            background-position-y: 335px;
+            background-position: 0 335px;
         }
         
         .card.diamond {
-            background-position-y: 268px;
+            background-position: 0 268px;
         }
     
     {/macro}

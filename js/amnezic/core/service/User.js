@@ -1,113 +1,106 @@
 Aria.classDefinition({
 	$classpath : 'amnezic.core.service.User',
-    $extends : 'aria.core.JsObject',
-    $dependencies: [
-        'aria.utils.Json'
-    ],
+    $extends : 'amnezic.core.service.Lite',
     
     // //////////////////////////////////////////////////
     // constructor
     
     $constructor : function ( controller ) {
-        this.$JsObject.constructor.call(this);
-        // this.$logDebug( 'constructor>' );
-        this.controller = controller;
+        this.$Lite.constructor.call( this, controller );
+        this.tb = 'user';
     },
     
 	$prototype : {
 
         // //////////////////////////////////////////////////
-        // set_all
-                
-        set_all : function( users ) {
-            this.$logDebug( 'set_all>' );
-            !users && ( users = [] );
-            var data = this.controller.getData();
-            aria.utils.Json.setValue( data, 'users', users );
-            return users;
+        // retrieve_all_by_game
+
+        retrieve_all_by_game : function( game, on_success ) {
+            this.$logDebug( 'retrieve_all_by_game> game: ' + game );
+            this.load( this.tb, 'select.all.by.game', { game: game }, { fn: this.adapt_all, scope: this }, on_success );
+        },
+        
+        // //////////////////////////////////////////////////
+        // retrieve
+        
+        retrieve : function( oid, on_success ) {
+            // this.$logDebug( 'retrieve> oid: ' + oid );
+            this.load( this.tb, 'select', { oid: oid }, { fn: this.adapt, scope: this }, on_success );
         },
 
         // //////////////////////////////////////////////////
-        // get_all
-                
-        get_all : function() {
-            this.$logDebug( 'get_all>' );
-            var data = this.controller.getData();
-            return data.users ? data.users : this.set_all( undefined );
-        },
-        
-        // //////////////////////////////////////////////////
-        // set
-                
-        set : function( user ) {
-            this.$logDebug( 'set>' );
-            var data = this.controller.getData();
-            aria.utils.Json.setValue( data, 'user', user );
-            return user;
-        },
-        
-        // //////////////////////////////////////////////////
-        // get
-                
-        get : function( index ) {
-            this.$logDebug( 'get>' );
-            var users = this.get_all();
-            if ( users.length == 0 ) {
-                return undefined;
-            }
-            if ( index < 0 ) {
-                return 0 <= users.length + index ? users[ users.length + index ] : undefined;
-            }
-            return index < users.length ? users[ index ] : undefined;
-        },
-        
-        // //////////////////////////////////////////////////
-        // create
-        
-        create : function() {
-            this.$logDebug( 'create>' );
-            var users = this.get_all(),
-                number = users.length + 1;
-            return {
-                number: number,
-                name: 'User ' + number,
-                active: true,
-                deleted: false,
-                score: 0
-            };
-        },
-        
-        // //////////////////////////////////////////////////
         // add
-        
-        add : function( user ) {
-            this.$logDebug( 'add>' );
-            var users = this.get_all();
-            users && user && aria.utils.Json.add( users, user );
+
+        add : function( game, name, on_success ) {
+            // this.$logDebug( 'add> game: ' + game + ' name: ' + name );
+            this.load( this.tb, 'insert', { game: game, name: name }, { fn: this.adapt_oid, scope: this }, on_success );
+        },
+
+        // //////////////////////////////////////////////////
+        // update_name
+
+        update_name : function( oid, name, on_success ) {
+            // this.$logDebug( 'update> name: ' + name );
+            this.load( this.tb, 'update.name', { oid: oid, name: name }, { fn: this.adapt_single, scope: this }, on_success );
+        },
+
+        // //////////////////////////////////////////////////
+        // update_card
+
+        update_card : function( oid, card, on_success ) {
+            // this.$logDebug( 'update> card: ' + card );
+            this.load( this.tb, 'update.card', { oid: oid, card: card }, { fn: this.adapt_single, scope: this }, on_success );
         },
         
         // //////////////////////////////////////////////////
         // activate
-        
-        activate : function( user ) {
-            this.$logDebug( 'activate>' );
-            user && aria.utils.Json.setValue( user, 'active', true );
+
+        activate : function( oid, on_success ) {
+            // this.$logDebug( 'activate> oid: ' + oid );
+            this.load( this.tb, 'activate', { oid: oid }, { fn: this.adapt_single, scope: this }, on_success );
         },
         
         // //////////////////////////////////////////////////
         // deactivate
-        
-        deactivate : function( user ) {
-            this.$logDebug( 'deactivate>' );
-            user && aria.utils.Json.setValue( user, 'active', false );
+
+        deactivate : function( oid, on_success ) {
+            // this.$logDebug( 'deactivate> oid: ' + oid );
+            this.load( this.tb, 'deactivate', { oid: oid }, { fn: this.adapt_single, scope: this }, on_success );
         },
         
         // //////////////////////////////////////////////////
         // remove
+
+        remove : function( oid, on_success ) {
+            // this.$logDebug( 'remove> oid: ' + oid );
+            this.load( this.tb, 'delete', { oid: oid }, { fn: this.adapt_single, scope: this }, on_success );
+        },
         
-        remove : function( user ) {
-            this.$logDebug( 'remove>' );
-            user && aria.utils.Json.setValue( user, 'deleted', true );
+        // //////////////////////////////////////////////////
+        // adapters
+
+        adapt_all : function ( json ) {
+            // this.$logDebug( 'adapt_all>' );
+            var items = this.adapt_rows( json );
+            for ( var i = 0 ; i < items.length ; i++ ) {
+                items[i] = this.normalize( items[i] );
+            }
+            return items;
+        },
+        
+        adapt : function ( json ) {
+            // this.$logDebug( 'adapt>' );
+            var item = this.adapt_row( json ),
+            item = this.normalize( item );
+            return item;
+        },
+        
+        normalize : function ( item ) {
+            // this.$logDebug( 'normalize>' );
+            if ( item ) {
+                item.active = item.active && ( item.active === 1 );
+            }
+            return item;
         }
         
 	}
