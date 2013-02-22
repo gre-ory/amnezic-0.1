@@ -65,43 +65,46 @@ Aria.classDefinition({
                 
         adapt_success : function ( json ) {
             this.$logDebug( 'adapt_nb>' );
-            return json && json.success ? { json: true } : { error: json.error };
+            json = json || {};
+            return json.success ? {} : { error: json.error || 'unknown error' };
         },
         
         adapt_nb : function ( json ) {
             this.$logDebug( 'adapt_nb>' );
-            return json && json.success ? { json: json.nb } : { error: json.error };
+            json = json || {};
+            return json.success ? { json: json.nb } : { error: json.error || 'nb not found' };
         },
         
         adapt_single : function ( json ) {
             this.$logDebug( 'adapt_nb>' );
-            return json && json.success && ( json.nb == 1 ) ? { json: true } : { error: json.error || 'did not apply on single row ( ' + json.nb + ' rows impacted )' };
+            json = json || {};
+            json.success = ( json.success && ( json.nb == 1 ) );
+            return json.success ? {} : { error: json.error || 'unknown error' };
         },
         
         adapt_multi : function ( json ) {
             this.$logDebug( 'adapt_nb>' );
-            return json && json.success && ( json.nb > 0 ) ? { json: true } : false;
+            json = json || {};
+            json.success = ( json.success && ( json.nb > 0 ) );
+            return json ? {} : { error: json.error || 'unknown error' };
         },
 
         adapt_oid : function ( json ) {
             this.$logDebug( 'adapt_nb>' );
-            return json && json.success ? json.oid : undefined;
+            json = json || {};
+            return json.success ? { json: json.oid } : { error: json.error || 'oid not found' };
         },
 
         adapt_rows : function ( json ) {
             this.$logDebug( 'adapt_rows>' );
-            if ( json && json.success ) {
-                return { json: json.rows || [] }
-            }
-            return { error: json.error || 'rows not found' };
+            json = json || {};
+            return json.success ? { json: json.rows || [] }: { error: json.error || 'rows not found' };
         },
 
         adapt_row : function ( json ) {
             this.$logDebug( 'adapt_row>' );
-            if ( json && json.success ) {
-                return { json: json.row || {} }
-            }
-            return { error: json.error || 'row not found' };
+            json = json || {};
+            return json.success ? { json: json.row || {} } : { error: json.error || 'row not found' };
         }
         
 	}

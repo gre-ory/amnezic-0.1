@@ -92,9 +92,8 @@ input[type='range']::-webkit-slider-thumb:hover {
 }
 
 .amnezic .header {
-    position: absolute;
-    top: 14px;
-    left: 81px;
+    margin-top: 14px;
+    margin-left: 81px;
     height: 24px;
 }
 
@@ -117,7 +116,17 @@ input[type='range']::-webkit-slider-thumb:hover {
 }
 
 .amnezic .body {
-    padding-top: 40px;
+    float: left;
+    width: 1024px;
+    background: #ffffff;
+    margin-left: 81px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 10px;
+    -moz-box-shadow: 0 0 3px #999999;
+    -webkit-box-shadow: 0 0 3px #999999;
+    -o-box-shadow: 0 0 3px #999999;
+    box-shadow: 0 0 3px #999999;
 }
 
 .amnezic .body .container {
@@ -128,6 +137,64 @@ input[type='range']::-webkit-slider-thumb:hover {
     /* border-radius: 10px; */
     /* background-image: url('../img/white_30.png'); */
 }
+
+section.content {
+    width: 960px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.amnezic .footer {
+    border-top: 1px solid #d5d5d5;
+    background-color: #ededed;
+    font-size: 12px;
+    padding: 20px 0;
+    color: #666;
+    clear: both;
+}
+
+.amnezic .footer .links {
+    float: left;
+    width: 140px;
+}
+
+.amnezic .footer .links h5 a {
+    margin-bottom: 10px;
+}
+
+.amnezic .footer .links h5 a {
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.amnezic .footer .links a, 
+.amnezic .footer .links a:visited {
+    font-weight: normal;
+    color: inherit;
+    text-decoration: none;
+}
+
+h5 {
+    font-size: 14px;
+    font-weight: 400;
+    color: #888;
+}
+
+a:hover {
+    color: #fff;
+}
+
+/*
+
+
+h1, h2, h3, h4, h5, h6 {
+line-height: 1em;
+margin: 10px 0;
+font-family: 'Ubuntu',sans-serif;
+font-style: normal;
+text-rendering: optimizelegibility;
+}
+*/
 
 .amnezic .selectable {
     margin: 3px;

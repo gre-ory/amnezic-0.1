@@ -91,15 +91,42 @@
     
     {macro footer()}
     
-        <div class="footer">
-            <div class="container">
-    
-                <div class="row-fluid">
-                    <div id="section" class="span12"></div>
-                </div>
-            
-            </div>
-        </div>
+        <footer class="footer">
+        	<section class="content">
+    			<section class="documentation links">
+    				<h5><a href="/documentation">Documentation</a></h5>
+    				<ul>
+    					<li><a href="javascript:void(0);">User Manual</a></li>
+    					<li><a href="javascript:void(0);">FAQ</a></li>
+    				</ul>
+    			</section>
+    			<section class="discuss links">
+    				<h5><a href="/discuss">Discuss</a></h5>
+    				<ul>
+    					<li><a href="javascript:void(0);">Blog</a></li>
+    					<li><a href="javascript:void(0);">Forum</a></li>
+    					<li><a href="javascript:void(0);">Latest News</a></li>
+    				</ul>
+    			</section>
+    			<section class="contribute links">
+    				<h5><a href="/contribute">Contribute</a></h5>
+    				<ul>
+    					<li><a href="http://github.com/gre-ory/amnezic">Source code</a></li>
+    					<li><a href="http://github.com/gre-ory/amnezic/issues">Bugs tracking</a></li>
+    					<li><a href="javascript:void(0);">Documentation</a></li>
+    				</ul>
+    			</section>
+    			<section class="contact links">
+    				<h5><a href="/about">About</a></h5>
+    				<ul>
+    					<li><a href="javascript:void(0);">Contact</a></li>
+    				</ul>
+    			</section>
+        	</section>
+        	<section class="content legal">
+        		&#169; 2013 Amnezic is licensed under Creative Commons.
+        	</section>
+        </footer>        
         
     {/macro}    
 
