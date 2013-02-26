@@ -6,7 +6,9 @@
     {macro main()}
     
         {call header()/}
+        
         {call body()/}
+        
         {call footer()/}
         
     {/macro}
@@ -78,13 +80,7 @@
     {macro body()}
     
         <div class="body">
-            <div class="container">
-    
-                <div class="row-fluid">
-                    <div id="section" class="span12"></div>
-                </div>
-            
-            </div>
+            <div id="section"></div>
         </div>
         
     {/macro}

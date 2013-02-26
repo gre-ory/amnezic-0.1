@@ -116,6 +116,12 @@ input[type='range']::-webkit-slider-thumb:hover {
 }
 
 .amnezic .body {
+    height: 80%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.amnezic .section {
     float: left;
     width: 1024px;
     background: #ffffff;
@@ -127,15 +133,6 @@ input[type='range']::-webkit-slider-thumb:hover {
     -webkit-box-shadow: 0 0 3px #999999;
     -o-box-shadow: 0 0 3px #999999;
     box-shadow: 0 0 3px #999999;
-}
-
-.amnezic .body .container {
-    padding-top: 20px;
-    padding-bottom: 20px;
-    /* min-height: 2000px; */
-    /* margin: 10px; */
-    /* border-radius: 10px; */
-    /* background-image: url('../img/white_30.png'); */
 }
 
 section.content {
